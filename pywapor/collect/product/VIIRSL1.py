@@ -296,7 +296,7 @@ def combine_unprojected_data(nc02_file, ncqa_file, lut_file, unproj_fn):
     _ = save_ds(bt, unproj_fn, encoding = "initiate", label = "Combining data.").close()
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                variables = None, post_processors = None):
+                variables = None, post_processors = None, precision = 8):
     """Download VIIRSL1 data and store it in a single netCDF file.
 
     Parameters
@@ -561,79 +561,26 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
     # Apply product specific functions.
     ds = apply_enhancers(post_processors, ds)
 
-    ds = save_ds(ds, fn, encoding = "initiate", label = "Merging files.")
+    ds = save_ds(ds, fn, encoding = "initiate", label = "Merging files.", precision = precision)
 
     return ds[req_vars_orig]
 
 if __name__ == "__main__":
 
-    folder = r"/Users/hmcoerver/Local/viirs_solomon_prob"
-    bb = [36.4219163206182230, 32.2415207774500132, 36.5695091730081572,32.3762104800108617]
-    latlim = bb[1::2]
-    lonlim = bb[0::2]
-
-    timelim = [datetime.date(2023, 3, 1), datetime.date(2023, 9, 30)]
+    folder = "/Users/hmcoerver/Local/test_dl_VIIRSL1_0"
+    latlim = [29.4, 29.7]
+    lonlim = [30.7, 31.0]
+    timelim = [datetime.date(2022, 3, 1), datetime.date(2022, 3, 2)]
     product_name = "VNP02IMG"
+    req_vars = ['bt']
 
     variables = None
     post_processors = None
 
-    req_vars = ["bt"]
+    # req_vars = ["bt"]
 
     adjust_logger(True, folder, "INFO")
 
-    ds = download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                    variables = variables, post_processors = post_processors)
+    # ds = download(folder, latlim, lonlim, timelim, product_name, req_vars,
+    #                 variables = variables, post_processors = post_processors)
 
-
-
-
-
-
-
-    # timelim = [np.datetime64 ('2023-07-03T00:00:00.000000000'), 
-    #            np.datetime64('2023-07-10T00:00:00.000000000')]
-    # latlim = [29.4, 29.6]
-    # lonlim = [30.7, 30.9]
-
-    # timelim = [datetime.datetime(2021, 3, 4), datetime.datetime(2021, 5, 5)]
-    # lonlim = [22.78125, 32.48438]
-    # latlim = [23.72777, 32.1612]
-    # # folder = workdir = r"/Users/hmcoerver/Local/viirs"
-    # product_name = "VNP02IMG"
-    # req_vars = ["bt"]
-    # variables = None
-    # post_processors = None
-    # folder = r"/Users/hmcoerver/Local/viirs_test"
-
-    # adjust_logger(True, folder, "INFO")
-
-    # i = 2
-
-    # folder = os.path.join(folder, "VIIRSL1")
-    # date = datetime.datetime(2022, 4, 30, 7, 54)
-    # nc02 = '/vsis3/prod-lads/VNP02IMG/VNP02IMG.A2022120.0754.002.2022270171852.nc'
-    # nc03 = '/vsis3/prod-lads/VNP03IMG/VNP03IMG.A2022120.0754.002.2022120162348.nc'
-    # nc_cloud = '/vsis3/prod-lads/CLDMSK_L2_VIIRS_SNPP/CLDMSK_L2_VIIRS_SNPP.A2022120.0754.001.2022120192728.nc'
-
-    # path, subdss, folder = (nc03, ["/geolocation_data/latitude"], folder)
-    # path_appendix="_lat.nc"
-
-    # creation_options = ["ARRAY:COMPRESS=DEFLATE"]
-    # dtype_is_8bit = False
-
-    # bb, nx, ny = create_grid(latlim, lonlim, dx_dy = (0.0033, 0.0033))
-    # timelim = adjust_timelim_dtype(timelim)
-
-    # params = {'limit': 250,
-    #             'bbox': [22.78125, 23.72777, 32.48655, 32.16257],
-    #             'datetime': '2021-03-04T00:00:00Z/2021-05-05T23:59:59Z',
-    #             'collections': ['VNP02IMG.v2']}
-
-    # endpoint = 'https://cmr.earthdata.nasa.gov/stac/LAADS'
-    # extra_filters = {"day_night_flag": "DAY"}
-
-    # # cachedir = 'your_cache_location_directory'
-    # cachedir = os.path.join(folder, "VIIRS_API_cache")
-
-    # # memory = Memory(cachedir, verbose=0)

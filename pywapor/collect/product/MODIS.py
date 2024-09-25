@@ -308,7 +308,7 @@ def default_post_processors(product_name, req_vars = None):
     return out
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                variables = None, post_processors = None):
+                variables = None, post_processors = None, precision = 8):
     """Download MODIS data and store it in a single netCDF file.
 
     Parameters
@@ -384,7 +384,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
                 variables, post_processors, fn_func, url_func, un_pw = un_pw, 
                 tiles = tiles, data_source_crs = data_source_crs, parallel = parallel, 
                 spatial_tiles = spatial_tiles, request_dims = request_dims,
-                timedelta = timedelta)
+                timedelta = timedelta, precision = precision)
 
     return ds[req_vars_orig]
 

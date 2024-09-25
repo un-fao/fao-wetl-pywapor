@@ -168,7 +168,7 @@ def default_post_processors(product_name, req_vars):
     return out
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                 variables = None, post_processors = None):
+                 variables = None, post_processors = None, precision = 8):
     """Download GEOS5 data and store it in a single netCDF file. Product
     docs are here https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1202.pdf
 
@@ -236,7 +236,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
 
     ds = opendap.download_xarray(url, fn, coords, variables, post_processors, 
                                     data_source_crs = data_source_crs,
-                                    timedelta = timedelta)
+                                    timedelta = timedelta, precision = precision)
 
     return ds[req_vars_orig]
 

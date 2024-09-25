@@ -145,7 +145,7 @@ def s3_processor(scene_folder, variables, bb = None, **kwargs):
 
 def download(folder, latlim, lonlim, timelim, product_name, 
                 req_vars, variables = None,  post_processors = None,
-                extra_search_kwargs = {}):
+                extra_search_kwargs = {}, precision = 8):
     """Download SENTINEL3 data and store it in a single netCDF file.
 
     Parameters
@@ -211,25 +211,17 @@ def download(folder, latlim, lonlim, timelim, product_name,
         return np.any([x in fn for x in to_dl])
 
     scenes = copernicus_odata.download(product_folder, latlim, lonlim, timelim, "SENTINEL3", product_name, node_filter = node_filter)
-    ds = copernicus_odata.process_sentinel(scenes, variables, time_func, os.path.split(fn)[-1], post_processors, s3_processor, bb = bb)
+    ds = copernicus_odata.process_sentinel(scenes, variables, time_func, os.path.split(fn)[-1], post_processors, s3_processor, bb = bb, precision = precision)
 
     return ds[req_vars_orig]
 
 if __name__ == "__main__":
 
-    bb = [
-    107.7646933699809324,
-    12.7301600204295262,
-    108.0391593389445148,
-    12.9241818414943772
-    ]
+    bb = [31.5481376647949219,13.1461019515991211, 34.7295379638671875,15.8889608383178711]
 
-    folder = r"/Users/hmcoerver/Local/s3_new"
+    folder = "/Users/hmcoerver/Local/mem_test_ds"
     adjust_logger(True, folder, "INFO")
-    timelim = ["2023-08-29", "2023-09-02"]
-    latlim = [29.4, 29.7]
-    lonlim = [30.7, 31.0]
-
+    timelim = ["2023-03-01", "2023-09-30"]
     latlim = [bb[1], bb[3]]
     lonlim = [bb[0], bb[2]]
 
@@ -238,21 +230,8 @@ if __name__ == "__main__":
     req_vars = ["lst"]
     post_processors = None
     variables = None
+
     variables = default_vars(product_name, req_vars)
     extra_search_kwargs = {}
-
-    product_folder = os.path.join(folder, "SENTINEL3")
-    node_filter = None
-    product_name = "SENTINEL3"
-    product_type = 'SL_2_LST___'
-
-    timelim = adjust_timelim_dtype(timelim)
-
-    scene_folder = "/Users/hmcoerver/Local/s3_new/S3B_SL_2_LST____20230901T024030_20230901T024330_20230901T043910_0180_083_260_2700_PS2_O_NR_004.SEN3"
-
-    # source_name = "SENTINEL3"
-    # scene_folder = "/Users/hmcoerver/Local/s3_new/SENTINEL3/S3A_SL_2_LST____20230829T075655_20230829T075955_20230829T100445_0179_102_363_2520_PS1_O_NR_004.SEN3"
-    # ds = download(folder, latlim, lonlim, timelim, product_name, 
-    #             req_vars, variables = variables,  post_processors = post_processors)
 
 

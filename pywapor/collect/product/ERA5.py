@@ -132,7 +132,7 @@ def default_post_processors(product_name, req_vars):
     return out
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars, 
-                variables = None, post_processors = None):
+                variables = None, post_processors = None, precision = 8):
     """Download ERA5 data and store it in a single netCDF file.
 
     Parameters

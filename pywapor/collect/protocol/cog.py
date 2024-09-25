@@ -7,7 +7,7 @@ from pywapor.enhancers.apply_enhancers import apply_enhancers
 from pywapor.general.logger import log
 
 def download(fp, product_name, coords, variables, post_processors, url_func, 
-                gdal_config_options = {}, waitbar = True, ndv = -9999):
+                gdal_config_options = {}, waitbar = True, ndv = -9999, precision = 8):
     """Download data from a Cloud Optimized Geotiff hosted on a remote server.
 
     Parameters
@@ -108,7 +108,7 @@ def download(fp, product_name, coords, variables, post_processors, url_func,
     ds = apply_enhancers(post_processors, ds)
 
     # Save final output.
-    out = save_ds(ds, temp_path.replace("_temp", ""), encoding = "initiate", label = f"Saving {fn}.")
+    out = save_ds(ds, temp_path.replace("_temp", ""), encoding = "initiate", label = f"Saving {fn}.", precision = precision)
 
     # Remove the temporary file.
     remove_ds(ds_)

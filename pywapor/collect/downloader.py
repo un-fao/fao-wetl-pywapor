@@ -118,7 +118,8 @@ def collect_sources(folder, sources, latlim, lonlim, timelim, landsat_order_only
                 "timelim": copy.deepcopy(timelim),
                 "product_name": product_name,
                 "req_vars": req_vars,
-                "post_processors": reversed_enhancers[(source, product_name)]
+                "post_processors": reversed_enhancers[(source, product_name)],
+                "precision": {x: sources.get(x, {}).get("minimum_decimals", 8) for x in req_vars}
             }
 
             # On first attempt for any Landsat product, only order the scenes. Then retry when everything else has finished.

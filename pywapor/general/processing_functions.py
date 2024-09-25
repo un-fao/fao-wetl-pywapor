@@ -11,6 +11,7 @@ from datetime import datetime as dt
 import warnings
 import rasterio.warp
 import pandas as pd
+from pywapor.general.variables import get_var_definitions
 from pywapor.general.performance import performance_check
 import glob
 import os
@@ -256,7 +257,16 @@ def make_example_ds(ds, folder, target_crs, bb = None, example_ds_fp = None):
     return example_ds
 
 @performance_check
-def save_ds(ds, fp, decode_coords = "all", encoding = None, chunks = "auto", precision = 8):
+def save_ds(ds, fp, 
+            decode_coords = "all", 
+            encoding = None, 
+            chunks = "auto",
+
+            precision = "auto", 
+            default_precision = 8, 
+            update_precision = True
+
+            ) -> xr.Dataset:
     """Save a `xr.Dataset` as netcdf.
 
     Parameters
@@ -273,13 +283,14 @@ def save_ds(ds, fp, decode_coords = "all", encoding = None, chunks = "auto", pre
     chunks : "auto" | dict
         Define the chunks with which to perform any pending calculations, by default "auto".
     precision : int | dict, optional
-        How many decimals to store for each variable, only used when `encoding` is `"initiate"`, by default 4.
+        How many decimals to store for each variable, only used when `encoding` is `"initiate"`, by default 8.
 
     Returns
     -------
     xr.Dataset
         The newly created dataset.
     """
+    # Check if file already exists.
     if os.path.isfile(fp):
         log.info("--> Appending data to an existing file.")
         appending = True
@@ -288,51 +299,83 @@ def save_ds(ds, fp, decode_coords = "all", encoding = None, chunks = "auto", pre
         appending = False
         temp_fp = fp.replace(".nc", "_temp.xx")
 
+    # Make folder.
     folder = os.path.split(fp)[0]
     if not os.path.isdir(folder):
         os.makedirs(folder)
 
+    # Filter unwanted coordinates.
     valid_coords = ["x", "y", "spatial_ref", "time", "time_bins", "lmbda"]
     for coord in ds.coords.values():
         if coord.name not in valid_coords:
             ds = ds.drop_vars([coord.name])
 
+    # Set dask chunks.
     if isinstance(chunks, dict):
         chunks = {dim: v for dim, v in chunks.items() if dim in ds.dims}
-
     ds = ds.chunk(chunks)
 
+    # Make sure y is decreasing.
     if "y" in ds.coords:
         if len(ds.y.dims) == 1:
             ds = ds.sortby("y", ascending = False)
         ds = ds.rio.write_transform(ds.rio.transform(recalc=True))
 
+    chunksizes = {var: tuple([v[0] for _, v in ds[var].chunksizes.items()]) for var in ds.data_vars if np.all([spat in ds[var].coords for spat in ["x", "y"]])}
+
     if encoding == "initiate":
-        if not isinstance(precision, dict):
+
+        # Determine required precision per variable.
+        if precision == "auto":
+            precision = {var: ds[var].attrs.get("req_precision", default_precision) for var in ds.data_vars}            
+        elif isinstance(precision, dict):
+            precision = {var: precision.get(var, default_precision) for var in ds.data_vars}
+        elif isinstance(precision, int):
             precision = {var: precision for var in ds.data_vars}
-        encoding = {var: {
-                        "zlib": True,
-                        "_FillValue": -9999,
-                        "chunksizes": tuple([v[0] for _, v in ds[var].chunksizes.items()]),
-                        "dtype": "int64", # determine_dtype(ds[var], -9999, precision.get(var)),
-                        "scale_factor": 10**-precision.get(var, 0), 
-                        } for var in ds.data_vars if np.all([spat in ds[var].coords for spat in ["x", "y"]])}
-        for var in ds.data_vars:
-            if "_FillValue" in ds[var].attrs.keys():
-                _ = ds[var].attrs.pop("_FillValue")
+        elif precision == "default":
+            precision = {var: default_precision for var in ds.data_vars}
+        else:
+            raise ValueError
+
+        dtypes = {var: determine_dtype(ds[var], precision[var], update_precision = update_precision) for var in ds.data_vars}
+
+        log.debug(f"{dtypes}")
+
+        # Define encoding per variable.
+        encoding = {
+                    var: {
+                            "zlib": True,
+                            "_FillValue": dtypes[var][1],
+                            "chunksizes": chunksizes[var],
+                            "dtype": dtypes[var][0],
+                            "scale_factor": 10.**-int(dtypes[var][2]), 
+                        } for var in ds.data_vars if np.all([spat in ds[var].coords for spat in ["x", "y"]])
+                    }
+
+        # Make sure spatial_ref is correctly set.
         if "spatial_ref" in ds.coords:
             for var in ds.data_vars:
                 if np.all([spat in ds[var].coords for spat in ["x", "y"]]):
                     ds[var].attrs.update({"grid_mapping": "spatial_ref"})
+
+        # Always use float64 for coordinates.
         for var in ds.coords:
             if var in ds.dims:
                 encoding[var] = {"dtype": "float64"}
 
+    # Remove _FillValue if already in attrs, can conflict with value set in encoding.
+    if isinstance(encoding, dict):
+        for var in ds.data_vars:
+            if "_FillValue" in ds[var].attrs.keys() and "_FillValue" in encoding[var].keys():
+                _ = ds[var].attrs.pop("_FillValue")
+            if "scale_factor" in ds[var].attrs.keys() and "scale_factor" in encoding[var].keys():
+                _ = ds[var].attrs.pop("scale_factor")
+            
     bb_ = os.environ.get("pyWaPOR_bb", "unknown")
     period_ = os.environ.get("pyWaPOR_period", "unknown")
     ds.attrs.update({"pyWaPOR_bb": bb_, "pyWaPOR_period": period_})
 
-    with ProgressBar(minimum = 90*10, dt = 2.0):
+    with ProgressBar(minimum = 900, dt = 2.0):
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", message="All-NaN slice encountered")
             warnings.filterwarnings("ignore", message="invalid value encountered in power")
@@ -344,7 +387,7 @@ def save_ds(ds, fp, decode_coords = "all", encoding = None, chunks = "auto", pre
     if not appending:
         os.rename(temp_fp, fp)
 
-    ds = open_ds(fp, decode_coords = decode_coords, chunks = chunks)
+    ds = open_ds(fp, decode_coords = decode_coords, chunks = {})
 
     return ds
 
@@ -416,25 +459,65 @@ def create_dummy_ds(varis, fp = None, shape = (10, 1000, 1000), chunks = (-1, 50
             ds = save_ds(ds, fp, chunks = chunks, encoding = "initiate", precision = precision, label = "Creating dummy dataset.")
     return ds
 
-def determine_dtype(da, nodata, precision = None):
-    if isinstance(precision, type(None)) and da.dtype.kind == "f":
-        dtypes = [np.float16, np.float32, np.float64]
-        precision = 0
-        info = np.finfo
+def determine_dtype(da, min_precision, update_precision = True):
+    
+    if isinstance(da, xr.DataArray):
+        if not isinstance(da.attrs.get("var_range", None), type(None)):
+            low_range = np.floor(da.attrs["var_range"][0] * 10**int(min_precision))
+            high_range = np.ceil(da.attrs["var_range"][1] * 10**int(min_precision))
+        else:
+            log.warning(f"--> No `var_range` specified for {da.name}, will compute minimum and maximum.")
+            low_range = np.floor(da.min().values * 10**int(min_precision))
+            high_range = np.ceil(da.max().values * 10**int(min_precision))
+    elif np.all([isinstance(da, list), da[0]<=da[1], len(da) == 2]):
+        low_range = np.floor(da[0] * 10**int(min_precision))
+        high_range = np.floor(da[1] * 10**int(min_precision))
     else:
-        dtypes = [np.int8, np.int16, np.int32, np.int64]
-        info = np.iinfo
-        if isinstance(precision, type(None)):
-            precision = 0
-    low = np.min([nodata, np.int0(np.floor(da.min().values * 10**precision))]) > [info(x).min for x in dtypes]
-    high = np.max([nodata, np.int0(np.ceil(da.max().values * 10**precision))]) < [info(x).max for x in dtypes]
-    check = np.all([low, high], axis = 0)
-    if True in check:
-        dtype = dtypes[np.argmax(check)]
-    else:
-        dtype = dtypes[-1]
-        log.warning(f"--> Data for `{da.name}` with range [{np.int0(np.floor(da.min().values))}, {np.int0(np.ceil(da.max().values))}] doesnt fit inside dtype {dtype} with range [{np.iinfo(dtype).min}, {np.iinfo(dtype).max}] with a {precision} decimal precision.")
-    return np.dtype(dtype).name
+        raise ValueError
+
+    # If da doesn't contain a single valid value.
+    if (np.isnan(low_range) & np.isnan(high_range)) or (low_range == high_range == 0):
+        dtype = np.int8
+        info = np.iinfo(dtype)
+        ndv = info.min
+        var_precision_ = 0
+        dtype_name = np.dtype(dtype).name
+        return dtype_name, ndv, var_precision_
+
+    dtypes = [np.int8, np.int16, np.uint16, np.int32, np.uint32, np.int64, np.uint64]
+
+    dtype_name = ndv = None
+    for dtype in dtypes:
+        info = np.iinfo(dtype)
+        if np.all([
+                    info.min < low_range <= info.max, 
+                    info.min < high_range <= info.max
+                    ], axis = 0):
+            ndv = info.min
+            dtype_name = np.dtype(dtype).name
+            break
+
+    out_of_range_msg = "Precision too high."
+    if isinstance(dtype_name, type(None)):
+        raise ValueError(out_of_range_msg)
+
+    x = x_ = (dtype_name, ndv)
+    var_precision_ = min_precision
+    
+    if update_precision:
+        while x == x_:
+            var_precision_ += 1
+            try:
+                x_ = determine_dtype(da, var_precision_, update_precision = False)[:2]
+            except ValueError as e:
+                if str(e) == out_of_range_msg:
+                    x_ = None
+                else:
+                    raise e
+
+        var_precision_ -= 1
+
+    return x[0], ndv, var_precision_
 
 def create_wkt(latlim, lonlim):
     left = lonlim[0]
@@ -472,21 +555,28 @@ def transform_bb(src_crs, dst_crs, bb):
 
 if __name__ == "__main__":
 
-    folder = r"/Users/hmcoerver/Local/dummy_ds_test"
+    ...
 
-    varis = ["my_var"]
-    shape = (10, 1000, 1000)
-    sdate = "2022-02-02"
-    edate = "2022-02-13" 
-    fp = os.path.join(folder, "dummy_test.nc")
-    precision = 2
-    min_max = [-1, 1]
+    decode_coords = "all"
+    encoding = "initiate"
+    chunks = "auto"
+    precision = "auto"
+    default_precision = 8
+    # folder = r"/Users/hmcoerver/Local/dummy_ds_test"
 
-    ds = create_dummy_ds(varis, 
-                    shape = shape, 
-                    sdate = sdate, 
-                    edate = edate, 
-                    fp = fp,
-                    precision = precision,
-                    min_max = min_max,
-                    )
+    # varis = ["my_var"]
+    # shape = (10, 1000, 1000)
+    # sdate = "2022-02-02"
+    # edate = "2022-02-13" 
+    # fp = os.path.join(folder, "dummy_test.nc")
+    # precision = 2
+    # min_max = [-1, 1]
+
+    # ds = create_dummy_ds(varis, 
+    #                 shape = shape, 
+    #                 sdate = sdate, 
+    #                 edate = edate, 
+    #                 fp = fp,
+    #                 precision = precision,
+    #                 min_max = min_max,
+    #                 )

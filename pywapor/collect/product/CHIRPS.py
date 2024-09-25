@@ -73,7 +73,7 @@ def default_post_processors(product_name, req_vars = ["p"]):
     return out
 
 def download(folder, latlim, lonlim, timelim, product_name = "P05", req_vars = ["p"],
-                variables = None, post_processors = None):
+                variables = None, post_processors = None, precision = 8):
     """Download CHIRPS data and store it in a single netCDF file.
 
     Parameters
@@ -192,7 +192,7 @@ def download(folder, latlim, lonlim, timelim, product_name = "P05", req_vars = [
 
     ds = apply_enhancers(post_processors, ds)
 
-    ds = save_ds(ds, fn, label = f"Merging files.")
+    ds = save_ds(ds, fn, precision=precision, label = f"Merging files.")
 
     remove_ds(temp_fn)
     if os.path.isfile(temp_vrt):

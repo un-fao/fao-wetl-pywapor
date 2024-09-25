@@ -148,7 +148,7 @@ def default_post_processors(product_name, req_vars = ["z"]):
     return out
 
 def download(folder, latlim, lonlim, product_name = "GLO30", req_vars = ["z"],
-                variables = None, post_processors = None, **kwargs):
+                variables = None, post_processors = None, precision = 8, **kwargs):
     """Download COPERNICUS data and store it in a single netCDF file.
 
     Parameters
@@ -224,7 +224,7 @@ def download(folder, latlim, lonlim, product_name = "GLO30", req_vars = ["z"],
     ds_ = ds_[list(post_processors.keys())]
     
     # Save final output.
-    ds = save_ds(ds_, final_fp, encoding = "initiate", label = f"Saving {product_name}.nc")
+    ds = save_ds(ds_, final_fp, encoding = "initiate", label = f"Saving {product_name}.nc", precision = precision)
 
     for nc in dss:
         remove_ds(nc)
@@ -236,14 +236,17 @@ def download(folder, latlim, lonlim, product_name = "GLO30", req_vars = ["z"],
 if __name__ == "__main__":
 
     folder = r"/Users/hmcoerver/Local/cog_test"
-    product_name = r"GLO90" # r"GLO90" r"GLO30
+    product_name = r"GLO30"
     # latlim = [28.9, 29.7]
     # lonlim = [30.2, 31.2]
     # latlim = [24.2, 30.2]
     # lonlim = [24.8, 33.7]
 
-    lonlim = [-75.25, -75.15]
-    latlim = [-13.6, -13.5]
+    # lonlim = [-75.25, -75.15]
+    # latlim = [-13.6, -13.5]
+
+    lonlim = [31.5481376647949219, 34.7295379638671875]
+    latlim = [13.1461019515991211, 15.8889608383178711]
 
     req_vars = ["z", "slope", "aspect"]
     variables = None
@@ -251,5 +254,10 @@ if __name__ == "__main__":
 
     adjust_logger(True, folder, "INFO")
 
+    encoding="initiate"
+    fp = "/Users/hmcoerver/Local/cog_test/COPERNICUS/GLO30_stitched.nc"
+
     ds = download(folder, latlim, lonlim, product_name = product_name, req_vars = req_vars,
                     variables = variables, post_processors = post_processors)
+    
+    # ds["z"].encoding

@@ -199,7 +199,7 @@ def default_post_processors(product_name, req_vars):
     return out
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                 variables = None, post_processors = None):
+                 variables = None, post_processors = None, precision = 8):
 
     folder = os.path.join(folder, "LSASAF")
 
@@ -221,7 +221,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
     # NOTE paths on windows have a max length, this extends the max length, see
     # here for more info https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry
     if os.name == "nt": 
-        cachedir = "\\\\?\\" + os.path.join(os.path.abspath(folder), "cache")
+        cachedir = "\\\\?\\" + os.path.join(folder, "cache")
     else:
         cachedir = os.path.join(folder, "cache")
 
@@ -336,7 +336,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
     ds = apply_enhancers(post_processors, ds)
 
     # Save final output.
-    out_ = save_ds(ds, fp, encoding = "initiate", label = "Saving netCDF.")
+    out_ = save_ds(ds, fp, encoding = "initiate", label = "Saving netCDF.", precision = precision)
 
     for x in dss:
         remove_ds(x)

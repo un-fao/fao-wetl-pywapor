@@ -125,7 +125,7 @@ def calc_r0(ds, *args):
     ds["r0"] = 0.429 * ds["blue"] + 0.333 * ds["red"] + 0.133 * ds["nir"] + 0.105 * ds["swir"]
     return ds
 
-def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", "r0"],
+def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", "r0"], precision = 8,
                 variables = None, post_processors = None, timedelta = np.timedelta64(60, "h")):
     """Download MODIS data and store it in a single netCDF file.
 
@@ -283,7 +283,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
         # # Apply product specific functions.
         ds = apply_enhancers(post_processors, ds)
 
-        out = save_ds(ds, out_fp, encoding = "initiate", label = f"Saving {os.path.split(out_fp)[-1]}.")
+        out = save_ds(ds, out_fp, encoding = "initiate", label = f"Saving {os.path.split(out_fp)[-1]}.", precision = precision)
         outs.append(out)
 
         for x in cleanup:

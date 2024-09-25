@@ -79,7 +79,7 @@ def make_opendap_url(base_url, order):
 def download(fp, product_name, coords, variables, post_processors, 
                 fn_func, url_func, un_pw = None, tiles = None,  
                 data_source_crs = None, parallel = False, spatial_tiles = True, 
-                request_dims = True, timedelta = None):
+                request_dims = True, timedelta = None, precision = 8):
     """Download data from a OPENDaP server.
 
     Parameters
@@ -169,7 +169,7 @@ def download(fp, product_name, coords, variables, post_processors,
         # opening the data using rasterio (in reproject_chunk), see https://github.com/rasterio/rasterio/discussions/2751
         ds[var].attrs = {}
 
-    ds = save_ds(ds, fp, encoding = "initiate", label = "Saving merged data.")
+    ds = save_ds(ds, fp, encoding = "initiate", label = "Saving merged data.", precision = precision)
 
     # Remove temporary files.
     if not isinstance(dss_, type(None)):
@@ -358,7 +358,7 @@ def soup_login(session, url, username, password,
 
     return session.post(to_url, data=payload)
 
-def download_xarray(url, fp, coords, variables, post_processors, 
+def download_xarray(url, fp, coords, variables, post_processors, precision = 8,
                     data_source_crs = None, timedelta = None, parallel = True):
     """Download a OPENDaP dataset using xarray directly.
 
@@ -436,7 +436,7 @@ def download_xarray(url, fp, coords, variables, post_processors,
         ds["time"] = ds["time"] + timedelta
 
     # Save final output
-    out_ = save_ds(ds, fp, encoding = "initiate", label = "Saving netCDF.")
+    out_ = save_ds(ds, fp, encoding = "initiate", label = "Saving netCDF.", precision = precision)
 
     for x in out:
         remove_ds(x)

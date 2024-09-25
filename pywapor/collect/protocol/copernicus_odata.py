@@ -189,7 +189,7 @@ def download(folder, latlim, lonlim, timelim, product_name, product_type, node_f
 
     return list(dled_scenes)
 
-def process_sentinel(scenes, variables, time_func, final_fn, post_processors, processor, bb = None):
+def process_sentinel(scenes, variables, time_func, final_fn, post_processors, processor, bb = None, precision = 8):
     """Process downloaded Sentinel scenes into netCDFs.
 
     Parameters
@@ -220,7 +220,7 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
         Invalid value for `source_name`.
     """
 
-    chunks = {"time": 1, "x": 1000, "y": 1000}
+    chunks = {"time": 1, "x": 250, "y": 250}
 
     example_ds = None
     dss1 = dict()
@@ -228,6 +228,10 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
     log.info(f"--> Processing {len(scenes)} scenes.").add()
 
     target_crs = rasterio.crs.CRS.from_epsg(4326)
+
+    scenes = sorted(scenes, key = lambda x: x.split("_")[-1])
+
+    fhs = list()
 
     for i, scene_folder in enumerate(scenes):
         
@@ -237,12 +241,8 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
         
         fp = os.path.join(folder, os.path.splitext(fn)[0] + ".nc")
         if os.path.isfile(fp):
-            ds = open_ds(fp)
-            dtime = ds.time.values[0]
-            if dtime in dss1.keys():
-                dss1[dtime].append(ds)
-            else:
-                dss1[dtime] = [ds]
+            log.info(f"--> ({i+1}/{len(scenes)}) Already processed {fn} to netCDF.")
+            fhs.append(fp)
             continue
 
         if ext == ".zip":
@@ -271,25 +271,43 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
 
         # NOTE: see rioxarray issue here: https://github.com/corteva/rioxarray/issues/570
         _ = [ds[var].attrs.pop("_FillValue") for var in ds.data_vars if "_FillValue" in ds[var].attrs.keys()]
-        
+
         ds = ds.assign_coords({"x": example_ds.x, "y": example_ds.y})
 
         dtime = time_func(fn)
-        ds = ds.expand_dims({"time": 1})
         ds = ds.assign_coords({"time":[dtime]})
         ds.attrs = {}
 
-        # Save to netcdf
-        ds = save_ds(ds, fp, chunks = chunks, encoding = "initiate", label = f"({i+1}/{len(scenes)}) Processing {fn} to netCDF.")
+        valid_ranges = {
+            'red': ([0, 1], 3),
+            'nir': ([0, 1], 3),
+            'qa': ([-127, 127], 0),
+            'blue': ([0, 1], 3),
+            'green': ([0, 1], 3),
+            'swir1': ([0, 1], 3),
+            'swir2': ([0, 1], 3),
+            'red_edge_740': ([0, 1], 3),
+        }
 
-        if dtime in dss1.keys():
-            dss1[dtime].append(ds)
-        else:
-            dss1[dtime] = [ds]
+        for var in set(ds.data_vars).intersection(set(valid_ranges.keys())):
+            ds[var].attrs["var_range"] = valid_ranges[var][0]
+            ds[var].attrs["req_precision"] = valid_ranges[var][1]
+
+        # Save to netcdf
+        ds = save_ds(ds, fp, 
+                     chunks = chunks, 
+                     encoding="initiate", 
+                     precision="auto", 
+                     update_precision=False,
+                     label = f"({i+1}/{len(scenes)}) Processing {fn} to netCDF.")
+
+        ds.close()
+
+        fhs.append(fp)
 
         for x in to_remove:
             remove_ds(x)
-            
+
         rmve = {"NO": False, "YES": True}.get(os.environ.get("PYWAPOR_REMOVE_TEMP_FILES", "YES"), True)
         if remove_folder and rmve:
             try:
@@ -298,12 +316,33 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
                 log.info(f"--> Unable to delete folder `{scene_folder}`.")
 
     log.sub()
-    
-    # Merge spatially.
-    dss = [xr.concat(dss0, "stacked").median("stacked") for dss0 in dss1.values()]
 
-    # Merge temporally.
-    ds = xr.concat(dss, "time")
+    chunk_size = 1000
+
+    x1 = xr.open_mfdataset(
+        fhs, 
+        concat_dim = "time",
+        combine = "nested",
+        chunks = {"time":1, "x": chunk_size, "y": chunk_size},
+        decode_coords = "all",
+        mask_and_scale = False,
+    )
+
+    x2 = x1.groupby("time").max(
+                                method = "blockwise", 
+                                engine = "flox", 
+                                dtype = np.int16, 
+                                fill_value = -32768,
+                                )
+    
+    ds = save_ds(
+                x2,
+                os.path.join(folder, final_fn).replace(".nc", "_temp.nc"),
+                chunks = x2.chunks,
+                encoding="initiate",
+                update_precision=False,
+                label = f"Savind intermediate merged file.",
+                )
 
     # Define output path.
     fp = os.path.join(folder, final_fn)
@@ -326,7 +365,7 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
         warnings.filterwarnings("ignore", message="All-NaN slice encountered")
         warnings.filterwarnings("ignore", message="invalid value encountered in true_divide")
         warnings.filterwarnings("ignore", message="divide by zero encountered in true_divide")
-        ds = save_ds(ds, fp, chunks = chunks, encoding = "initiate", label = f"Merging files.")
+        ds = save_ds(ds, fp, chunks = chunks, encoding = "initiate", label = f"Merging files.", precision = precision)
 
     # Remove intermediate files.
     for dss0 in dss1.values():
@@ -336,39 +375,45 @@ def process_sentinel(scenes, variables, time_func, final_fn, post_processors, pr
     return ds
 
 if __name__ == "__main__":
+    ...
+
+    
+
+
+
 
     # product_name = "SENTINEL-2"
     # product_type = "S2MSI2A"
 
-    product_name = "SENTINEL-3"
-    product_type = "SL_2_LST___"
+    # product_name = "SENTINEL-3"
+    # product_type = "SL_2_LST___"
 
-    timelim = [datetime.date(2023, 3, 1), datetime.date(2023, 3, 3)]
-    latlim = [29.4, 29.7]
-    lonlim = [30.7, 31.0]
-    folder = r"/Users/hmcoerver/Local/new_sentinel_test"
+    # timelim = [datetime.date(2023, 3, 1), datetime.date(2023, 3, 3)]
+    # latlim = [29.4, 29.7]
+    # lonlim = [30.7, 31.0]
+    # folder = r"/Users/hmcoerver/Local/new_sentinel_test"
 
-    adjust_logger(True, folder, "INFO")
+    # adjust_logger(True, folder, "INFO")
+
+    # # variables = {
+    # #     "_B01_60m.jp2": [(), "coastal_aerosol", []],
+    # #     "_B02_60m.jp2": [(), "blue", []],
+    # #     "_B03_60m.jp2": [(), "green", []],
+    # #     "_B04_60m.jp2": [(), "red", []],
+    # # }
 
     # variables = {
-    #     "_B01_60m.jp2": [(), "coastal_aerosol", []],
-    #     "_B02_60m.jp2": [(), "blue", []],
-    #     "_B03_60m.jp2": [(), "green", []],
-    #     "_B04_60m.jp2": [(), "red", []],
+    #     "LST_in.nc": [(), "lst", []],
+    #     "geodetic_in.nc": [(), "coords", []],
     # }
 
-    variables = {
-        "LST_in.nc": [(), "lst", []],
-        "geodetic_in.nc": [(), "coords", []],
-    }
-
-    def node_filter(node_info):
-        fn = os.path.split(node_info)[-1]
-        to_dl = list(variables.keys()) + ["MTD_MSIL2A.xml"]
-        return np.any([x in fn for x in to_dl])
+    # def node_filter(node_info):
+    #     fn = os.path.split(node_info)[-1]
+    #     to_dl = list(variables.keys()) + ["MTD_MSIL2A.xml"]
+    #     return np.any([x in fn for x in to_dl])
     
-    # dled_scenes = download(folder, latlim, lonlim, timelim, product_name, product_type, node_filter = node_filter)
+    # # dled_scenes = download(folder, latlim, lonlim, timelim, product_name, product_type, node_filter = node_filter)
 
-    s3_scene_name = 'S3A_SL_2_LST____20230303T194903_20230303T195203_20230305T053809_0179_096_128_0360_PS1_O_NT_004.SEN3'
+    # s3_scene_name = 'S3A_SL_2_LST____20230303T194903_20230303T195203_20230305T053809_0179_096_128_0360_PS1_O_NT_004.SEN3'
 
-    s2_scene_name = 'S2B_MSIL2A_20230302T083759_N0509_R064_T36RTT_20230302T132852.SAFE'
+    # s2_scene_name = 'S2B_MSIL2A_20230302T083759_N0509_R064_T36RTT_20230302T132852.SAFE'

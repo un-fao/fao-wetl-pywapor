@@ -103,7 +103,7 @@ def split_settings(settings, max_size = 100):
         settings = list(itertools.chain.from_iterable([split_setting(setting, max_size = max_size) for setting in settings]))
     return settings
 
-def download(folder, product_name, latlim, lonlim, timelim, variables, post_processors):
+def download(folder, product_name, latlim, lonlim, timelim, variables, post_processors, precision = 8):
     """Download data from CDS.
 
     Parameters
@@ -266,7 +266,7 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
     ds = apply_enhancers(post_processors, ds)
 
     # Save the netcdf.
-    ds = save_ds(ds, fn_final, label = "Merging files.")
+    ds = save_ds(ds, fn_final, label = "Merging files.", precision = precision)
 
     # Remove unpacked zips.
     for subfolder in subfolders:

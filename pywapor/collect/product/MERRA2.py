@@ -160,7 +160,7 @@ def url_func(product_name, tile):
     return url
 
 def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                variables = None, post_processors = None):
+                variables = None, post_processors = None, precision = 8):
     """Download MERRA2 data and store it in a single netCDF file. See
     https://gmao.gsfc.nasa.gov/pubs/docs/Bosilovich785.pdf for docs.
 
@@ -230,7 +230,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
                 variables, post_processors, fn_func, url_func, un_pw = un_pw, 
                 tiles = tiles, data_source_crs = data_source_crs, parallel = parallel, 
                 spatial_tiles = spatial_tiles, request_dims = request_dims,
-                timedelta = timedelta)
+                timedelta = timedelta, precision = precision)
 
     return ds[req_vars_orig]
 

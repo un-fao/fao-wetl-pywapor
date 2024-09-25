@@ -666,7 +666,7 @@ def _process_scene(scene, product_folder, product_name, variables, example_ds = 
 
     return ds, example_ds
 
-def process_scenes(fp, scene_paths, product_folder, product_name, variables, post_processors):
+def process_scenes(fp, scene_paths, product_folder, product_name, variables, post_processors, precision = 8):
     
     dss = list()
 
@@ -699,7 +699,7 @@ def process_scenes(fp, scene_paths, product_folder, product_name, variables, pos
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="invalid value encountered in true_divide")
         warnings.filterwarnings("ignore", message="divide by zero encountered in true_divide")
-        ds = save_ds(ds, fp, chunks = "auto", encoding = "initiate", label = f"Merging files.")
+        ds = save_ds(ds, fp, chunks = "auto", encoding = "initiate", label = f"Merging files.", precision = precision)
 
     # Remove intermediate files.
     for x in dss:
@@ -710,7 +710,7 @@ def process_scenes(fp, scene_paths, product_folder, product_name, variables, pos
 def download(folder, latlim, lonlim, timelim, product_name, 
                 req_vars, variables = None, post_processors = None, 
                 extra_search_kwargs = {'eo:cloud_cover': {'gte': 0, 'lt': 30}},
-                max_attempts = 24, wait_time = 300):
+                max_attempts = 24, wait_time = 300, precision = 8):
     """Order, Download and preprocess Landsat scenes.
 
     Parameters
@@ -796,7 +796,7 @@ def download(folder, latlim, lonlim, timelim, product_name,
     # Process scenes.
     scene_paths = [glob.glob(os.path.join(product_folder, "**", f"*{x}.nc"), recursive = True)[0] for x in available_scenes]
     # log.info(f"scene_paths = {scene_paths}")
-    ds = process_scenes(fn, scene_paths, product_folder, product_name, variables, post_processors)
+    ds = process_scenes(fn, scene_paths, product_folder, product_name, variables, post_processors, precision = precision)
 
     return ds[req_vars_orig]
 

@@ -100,7 +100,7 @@ def url_func(product_name):
     return r"http://due.esrin.esa.int/files/GLOBCOVER_L4_200901_200912_V2.3.color.tif"
 
 def download(folder, latlim, lonlim, product_name, req_vars = ["lulc"],
-                variables = None, post_processors = None, **kwargs):
+                variables = None, post_processors = None, precision = 8, **kwargs):
     """Download GLOBCOVER data and store it in a single netCDF file.
 
     Parameters
@@ -158,7 +158,7 @@ def download(folder, latlim, lonlim, product_name, req_vars = ["lulc"],
         post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
 
     ds = cog.download(fn, product_name, coords, variables, 
-                        post_processors, url_func, ndv = 0)
+                        post_processors, url_func, ndv = 0, precision = precision)
 
     return ds[req_vars_orig]
 
