@@ -5,6 +5,8 @@
 
 # Compiled Java class files
 *.class
+manual_tests/
+archive/
 
 *.ipynb_checkpoints
 *__pycache__
