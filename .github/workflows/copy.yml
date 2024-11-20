@@ -1,0 +1,55 @@
+name: Copy to GCS
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - .github/**
+
+jobs:
+  set-environment:
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      env: ${{ steps.set_env.outputs.env }}
+    steps:
+      - name: Set environment
+        id: set_env
+        run: | 
+          if [ "${{ github.ref_name }}" == "main" ]; then
+            echo "env=production" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.ref_name }}" == "dev" ]; then
+            echo "env=review" >> "$GITHUB_OUTPUT"
+          fi
+
+  copy-files:
+    runs-on: ubuntu-22.04
+    needs: set-environment
+    environment: ${{ needs.set-environment.outputs.env }}
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_ID_PROVIDER }}
+          service_account: ${{ vars.SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Copy
+        run: gsutil cp -r docs/_build/html/** gs://${{ vars.BUCKET_NAME }}/aquastat/py-wapor
+
+      - name: Create Issue
+        if: failure()
+        uses: ./.github/utility/create_issue

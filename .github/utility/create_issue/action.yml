@@ -1,0 +1,23 @@
+name: 'Open Issue'
+description: 'Open Issue with information'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Issue
+      uses: dacbd/create-issue-action@main
+      with:
+        token: ${{ github.token }}
+        title: |
+          [${{ github.workflow }}] failure detected
+        assignees: ${{ github.actor }}
+        body: |
+          ## Failure Report:
+          
+          > [!IMPORTANT]
+          > Details on failed run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  
+          - Author: @${{ github.triggering_actor }}
+          - Branch: `${{ github.ref }}`
+          - Commit: ${{ github.sha }}
+          - Workflow Path: `${{ github.workflow_ref }}`
