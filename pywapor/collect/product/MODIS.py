@@ -103,8 +103,7 @@ def expand_time_dim(ds, *args):
     xr.Dataset
         Expanded dataset.
     """
-
-    groups = ds.groupby(ds.lst_hour, squeeze = True)
+    groups = ds.groupby(ds.lst_hour)
 
     def _expand_hour_dim(x):
         hour = np.timedelta64(int(np.nanmedian(x.lst_hour.values) * 3600 * 1e9), "ns")
@@ -405,6 +404,8 @@ if __name__ == "__main__":
     lonlim = [30.2, 31.2]
     timelim = [datetime.date(2020, 7, 1), datetime.date(2020, 7, 11)]
 
+    variables = None
+    post_processors = None
 
     for product_name, req_vars in products:
         ds = download(folder, latlim, lonlim, timelim, product_name, req_vars)

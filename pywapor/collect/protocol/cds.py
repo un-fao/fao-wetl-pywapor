@@ -221,6 +221,9 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
         time_offset = {"sis-agrometeorological-indicators": 12,
                 "reanalysis-era5-single-levels": 0}[product_name]
 
+        if "valid_time" in ds.coords and not "time" in ds.coords:
+            ds = ds.rename({"valid_time": "time"})
+
         for var in ds.data_vars:
             # Fix time of relative humidity in agERA5.
             if bool(re.search(r'_[01]\dh', var)):
