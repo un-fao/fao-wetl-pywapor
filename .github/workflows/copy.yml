@@ -48,7 +48,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Copy
-        run: gsutil cp -r docs/_build/html/** gs://${{ vars.BUCKET_NAME }}/github-test/aquastat/py-wapor
+        run: gsutil cp -r docs/_build/html/** gs://${{ vars.BUCKET_NAME }}/aquastat/py-wapor
 
       - name: Create Issue
         if: failure()
