@@ -1,11 +1,13 @@
 import pywapor
 import os
 import re
+import requests
 import numpy as np
 import glob
 import warnings
 import json
 import importlib
+from osgeo import gdal
 from functools import partial
 from pywapor.general.logger import log, adjust_logger
 from pywapor.collect.downloader import collect_sources
@@ -213,7 +215,7 @@ class Configuration():
     
     @classmethod
     def from_summary(cls, summary):
-        log.info(f"--> Creating configuration from summary.").add()
+        log.info("--> Creating configuration from summary.").add()
 
         valids = set(cls.variable_categories.keys()).union({"_EXAMPLE_", "_WHITTAKER_", "_ENHANCE_"})
         invalid_keys = set(summary.keys()).difference(valids)
@@ -485,7 +487,45 @@ class Project():
 
         log.info("> PROJECT").add()
         log.info(self.__repr__())
+        self.check_pywapor_version()
+        self.check_gdal_drivers()
         log.sub().info("< PROJECT")
+
+    def check_gdal_drivers(self):
+        required_drivers = [
+            "GTiff",
+            "JP2OpenJPEG",
+            "NETCDF",
+            "HDF5",
+        ]
+        log.info(f"--> GDAL ({gdal.__version__}):").add()
+        drivers_check = True
+        for driver in required_drivers:
+            if isinstance(gdal.GetDriverByName(driver), type(None)):
+                log.warning(f"> Driver `{driver}` not found.")
+                drivers_check = False
+        
+        if drivers_check:
+            log.info("> All required GDAL drivers found.")
+        log.sub()
+
+    def check_pywapor_version(self):
+        current_version = pywapor.__version__
+        package = 'pywapor'
+        log.info(f"--> pyWaPOR ({current_version}):").add()
+        try:
+            response = requests.get(f'https://pypi.org/pypi/{package}/json')
+            response.raise_for_status()
+        except Exception as _:
+            log.warning("> Unable to check for pyWaPOR updates.")
+        else:
+            latest_version = response.json()['info']['version']
+            if latest_version == current_version:
+                log.info("> Up to date.")
+            else:
+                log.warning(f"> Latest version is '{latest_version}'.")
+                log.warning("> Please update pywapor.")
+        log.sub()
 
     def __repr__(self):
         project_str = f"""--> Project Folder:
@@ -501,9 +541,7 @@ class Project():
                  └─────────┘
                  {self.latlim[0]:8.4f}\n
     --> Configuration:
-        > {self.configuration}
-    --> pyWaPOR Version:
-        > {pywapor.__version__}"""
+        > {self.configuration}"""
         return project_str
 
     def load_configuration(self, name = None, summary = None, json = None):
@@ -546,29 +584,29 @@ class Project():
             project_folders, periods, bbs, temp_files = Project.parse_log_file(log_file)
 
             if len(set(project_folders)) > 1:
-                log.info(f"--> Project folder has previously been moved.")
+                log.info("--> Project folder has previously been moved.")
             else:
                 ... # all good.
 
             if len(set(bbs)) > 1:
-                log.warning(f"--> You've previously defined different bounding-boxes inside this project folder, this can result in unexpected behaviour.")
+                log.warning("--> You've previously defined different bounding-boxes inside this project folder, this can result in unexpected behaviour.")
                 check = False
             elif len(set(bbs)) == 1:
                 bb_consistent = np.all([np.isclose(x, y) for x,y in zip(bbs[0], bb)])
                 if not bb_consistent:
-                    log.warning(f"--> You've changed the bounding-box of your project without changing the project folder, this can result in unexpected behaviour.")
+                    log.warning("--> You've changed the bounding-box of your project without changing the project folder, this can result in unexpected behaviour.")
                     check = False
             else:
                 ... # all good.
 
             period_ = tuple([np.datetime64(x) for x in self.period])
             if len(set(periods)) > 1:
-                log.warning(f"--> You've previously defined different periods inside this project folder, this can result in unexpected behaviour.")
+                log.warning("--> You've previously defined different periods inside this project folder, this can result in unexpected behaviour.")
                 check = False
             elif len(set(periods)) == 1:
                 period_consistent = period_ == periods[0]
                 if not period_consistent:
-                    log.warning(f"--> You've changed the period of your project without changing the project folder, this can result in unexpected behaviour.")
+                    log.warning("--> You've changed the period of your project without changing the project folder, this can result in unexpected behaviour.")
                     check = False
             else:
                 ... # all good.
@@ -577,13 +615,13 @@ class Project():
                 self.clean_project_folder()
 
         elif dir_list:
-            log.warning(f"--> Consider specifying an empty project folder.")
+            log.warning("--> Consider specifying an empty project folder.")
             check = False
         else:
             ... # all good.
 
         if check:
-            log.info(f"--> All good.")
+            log.info("--> All good.")
 
         log.sub()
 
