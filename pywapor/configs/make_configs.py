@@ -1,5 +1,6 @@
 from pywapor.main import Configuration
 import os
+import copy
 from pywapor.general.logger import log, adjust_logger
 
 all_configs = {
@@ -149,6 +150,7 @@ if __name__ == "__main__":
     adjust_logger(True, folder, "INFO")
 
     for name, summar in all_configs.items():
+        X = copy.deepcopy(summar)
 
         log.info(name)
         fh = os.path.join(folder, f"{name}.json")
@@ -158,6 +160,7 @@ if __name__ == "__main__":
 
         config_ref = Configuration.from_json(fh)
 
+        log.info(f"{X == config.summary == config_ref.summary}")
         log.info(f"{config_ref.summary == config.summary}")
         log.info(f"{config_ref.full == config.full}")
         log.info(f"{config_ref.se_root == config.se_root}")

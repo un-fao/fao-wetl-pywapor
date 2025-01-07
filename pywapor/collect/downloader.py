@@ -83,7 +83,7 @@ def collect_sources(folder, sources, latlim, lonlim, timelim, landsat_order_only
                         fp = max(fhs, key=os.path.getmtime)
                         log.info(f"--> Multiple files found for `{search_path}`, selecting most recent file.")
                     else:
-                        log.warning(f"--> No files found (yet) at `{search_path}`.")
+                        log.info(f"--> No files found (yet) at `{search_path}`.")
                         attempts[(source, product_name)] += max_attempts * 10
                         continue
                     
