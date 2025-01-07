@@ -70,13 +70,17 @@ def calc_slope_or_aspect(ds, var, write_init = True, max_cache_size = 4e9):
     def _callback_func(info, *args):
         waitbar.update(info * 100 - waitbar.n)
 
-    options = gdal.DEMProcessingOptions(
-        slopeFormat = "degree",
-        scale = scale_factor,
-        computeEdges = True,
-        zeroForFlat = True,
-        callback = _callback_func,
-    )
+    options_ = {
+        "slopeFormat": "degree",
+        "scale": scale_factor,
+        "computeEdges": True,
+        "zeroForFlat": True,
+        "callback": _callback_func,
+    }
+
+    _ = options_.pop({"slope": "zeroForFlat", "aspect": "scale"}[var])
+
+    options = gdal.DEMProcessingOptions(**options_)
 
     f_size = lambda nbytes: "{0:.2f}{1}".format(*format_bytes(nbytes))
 

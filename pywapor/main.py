@@ -78,7 +78,7 @@ class Configuration():
     
     @staticmethod
     def pname_func(x):
-        return "from_file" if "FILE:" in x else ".".join(x.split(".")[1:])
+        return "none" if "FILE:" in x else ".".join(x.split(".")[1:])
 
     def __init__(self, full = None, summary = None, se_root = None, 
                  et_look = None):
@@ -403,32 +403,37 @@ class Configuration():
         
         summary = dict()
         for var, config in self.full.items():
-            sources = set([f'{x["source"]}.{x["product_name"]}' for x in config["products"]])
+            sources = set()
+            for x in config["products"]:
+                if "FILE:" in x["source"]:
+                    sources.add(x["source"])
+                else:
+                    sources.add(f'{x["source"]}.{x["product_name"]}')
             cat = self.category_variables.get(var, "unknown")
             if cat == "other":
                 log.warning(f"--> Unknown variable `{var}` found.")
             if cat in list(summary.keys()):
-                summary[cat].union(sources)
+                summary[cat] = summary[cat].union(sources)
             else:
                 summary[cat] = sources
 
         whittaker = dict()
-        sharpen = set()
+        enhance = dict()
+        example = None
         for k,v in self.full.items():
-            example_ = [f"{prod['source']}.{prod['product_name']}" for prod in v["products"] if prod["is_example"]]
-            if len(example_) > 0:
-                example = example_[0]
-            else:
-                example = None
+            if isinstance(example, type(None)):
+                example_ = [f"{prod['source']}.{prod['product_name']}" for prod in v["products"] if prod["is_example"]]
+                if len(example_) > 0:
+                    example = example_[0]
             if isinstance(v["temporal_interp"], dict):
                 if v["temporal_interp"].get("method", "") == "whittaker":
                     for prod in v["products"]:
                         whittaker[f"{prod['source']}.{prod['product_name']}"] = v["temporal_interp"]
-            if any(["sharpen" in x for x in v["variable_enhancers"]]):
-                sharpen.add(k)
+            if len(v["variable_enhancers"]) > 0:
+                enhance[k] = v["variable_enhancers"]
 
         summary["_WHITTAKER_"] = whittaker
-        summary["_ENHANCE_"] = sharpen
+        summary["_ENHANCE_"] = enhance
         summary["_EXAMPLE_"] = example
 
         self.summary = summary

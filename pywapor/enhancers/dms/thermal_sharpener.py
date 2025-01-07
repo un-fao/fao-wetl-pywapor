@@ -78,16 +78,18 @@ def highres_inputs(workdir, temporal_hr_input_data, static_hr_input_data, filter
     ds = None
 
     ds = xr.open_dataset(re.findall(r"NETCDF:(.*):.*", temporal_hr_input_data[0])[0])
-    times = [x.strftime("%Y%m%d_%H%M%S") for x in pd.to_datetime(ds.time.values)]
+    ds = ds.sortby("time")
     if not isinstance(filter_times, type(None)):
-        times = [x for x in times if x in filter_times]
+        times = ds["time"].sel(time = ds["time"].isin(filter_times))
+    else:
+        times = ds["time"]
     ds = ds.close()
 
     with open(output_vrt, 'r') as f:
         data = f.read()
 
     fps = list()
-    for time_index, dt in enumerate(times):
+    for time_index, dt in enumerate(times.values):
         tree = ET.fromstring(data)
         for x in tree.findall("VRTRasterBand"):
             source_node = x.findall("ComplexSource")[0]
@@ -96,7 +98,8 @@ def highres_inputs(workdir, temporal_hr_input_data, static_hr_input_data, filter
                 band_node = source_node.findall("SourceBand")[0]
                 band_node.text = str(time_index + 1)
 
-        fp_out = output_vrt.replace("_template.vrt", f"_{dt}.vrt")
+        dt_str = pd.to_datetime(dt).strftime("%Y%m%d_%H%M%S_%f")
+        fp_out = output_vrt.replace("_template.vrt", f"_{dt_str}.vrt")
         with open(fp_out, 'wb') as output:
             output.write(ET.tostring(tree))
         fps.append(fp_out)
@@ -106,7 +109,7 @@ def highres_inputs(workdir, temporal_hr_input_data, static_hr_input_data, filter
     except PermissionError:
         log.info(f"--> Unable to delete temporary file `{output_vrt}`.")
 
-    return fps
+    return fps, times
 
 def lowres_inputs(workdir, temporal_lr_input_data):
     """Create VRT files with all lowres inputs per datetime.
@@ -128,7 +131,9 @@ def lowres_inputs(workdir, temporal_lr_input_data):
         os.makedirs(workdir)
 
     ds = xr.open_dataset(re.findall(r"NETCDF:(.*):.*", temporal_lr_input_data)[0], chunks = "auto")
-    times = [x.strftime("%Y%m%d_%H%M%S") for x in pd.to_datetime(ds.time.values)]
+    ds = ds.sortby("time")
+    time_da = ds["time"]
+    times = [x.strftime("%Y%m%d_%H%M%S_%f") for x in pd.to_datetime(time_da.values)]
     ds = ds.close()
 
     fps = list()
@@ -145,9 +150,9 @@ def lowres_inputs(workdir, temporal_lr_input_data):
         ds = None
         fps.append(output_vrt)
 
-    return fps
+    return fps, time_da
 
-def preprocess(ds):
+def preprocess(ds, dt):
     """Adds a time dimension to `ds`. Used internally by `sharpen` when calling `xr.open_mfdataset` to create
     a stacking dimension.
 
@@ -161,7 +166,6 @@ def preprocess(ds):
     xr.Dataset
         Dataset with added time dimension.
     """
-    dt = datetime.datetime.strptime(os.path.split(ds.encoding["source"])[-1], "highres_output_%Y%m%d_%H%M%S.nc")
     ds["Band1"] = ds["Band1"].expand_dims({"time": 1}).assign_coords({"time": [dt]})
     return ds
 
@@ -253,14 +257,10 @@ def sharpen(dss, var, folder, *args, make_plots = False, req_vars = ['nmdi', 'bs
         temporal_hr_input_data = [f"NETCDF:{y.encoding['source']}:{x}" for x, y in dss.items() if "time" in y.dims and x in req_vars]
         static_hr_input_data = [f"NETCDF:{y.encoding['source']}:{x}" for x, y in dss.items() if "time" not in y.dims and x in req_vars]
 
-        lowResFiles = sorted(lowres_inputs(workdir, temporal_lr_input_data))
-        lowResDates = [os.path.split(x)[-1].split("_")[-2:] for x in lowResFiles]
-        filter_times = [os.path.split(x)[-1].replace(".vrt", "").replace("lowres_input_", "") for x in lowResFiles]
+        lowResFiles, lowResTimes = lowres_inputs(workdir, temporal_lr_input_data)
+        highResFiles, highResTimes = highres_inputs(workdir, temporal_hr_input_data, static_hr_input_data, filter_times = lowResTimes)
 
-        highResFiles = sorted(highres_inputs(workdir, temporal_hr_input_data, static_hr_input_data, filter_times = filter_times))
-        highResDates = [os.path.split(x)[-1].split("_")[-2:] for x in highResFiles]
-        
-        assert np.all([x == y for x,y in zip(highResDates, lowResDates)])
+        assert np.all([x == y for x,y in zip(lowResTimes, highResTimes)])
 
         missing_vars = [x for x in req_vars if x not in dss.keys()]
         if len(missing_vars) > 0:
@@ -297,7 +297,7 @@ def sharpen(dss, var, folder, *args, make_plots = False, req_vars = ['nmdi', 'bs
 
         log.sub()
 
-        dss_ = [preprocess(open_ds(x)) for x in out_fns]
+        dss_ = [preprocess(open_ds(x), dt) for x, dt in zip(out_fns, highResTimes.values)]
         ds_ = xr.concat(dss_, dim = "time").sortby("time")
         ds_ = ds_.rename_dims({"lat": "y", "lon": "x"})
         ds_ = ds_.transpose("time", "y", "x")
@@ -404,31 +404,24 @@ def get_cos_solar_zangle(dss, var, folder):
 
 if __name__ == "__main__":
 
-    folder = "/Users/hmcoerver/Local/pywapor_se"
+    folder = r"/Users/hmcoerver/Local/Test_Rahma_error"
 
     adjust_logger(True, folder, "INFO")
+
+    dss = {
+        'lst':      open_ds(r"/Users/hmcoerver/Local/Test_Rahma_error/_instantaneous/lst_i.nc"),
+        'ndvi':     open_ds(r"/Users/hmcoerver/Local/Test_Rahma_error/_instantaneous/ndvi_i.nc"),
+        'bsi':      open_ds(r"/Users/hmcoerver/Local/Test_Rahma_error/_instantaneous/bsi_i.nc"),
+        'mndwi':    open_ds(r"/Users/hmcoerver/Local/Test_Rahma_error/_instantaneous/mndwi_i.nc"),
+        'green':    open_ds(r"/Users/hmcoerver/Local/Test_Rahma_error/_instantaneous/green_i.nc"),
+        }
+    
+    var = "lst"
+    args = None
+
+    req_vars = ['ndvi', 'bsi', 'mndwi', 'green']
     make_plots = False
 
-    # vars_for_sharpening = ['ndvi', 'bsi', 'mndwi', 'green', 'z']
-
-    # var = "bt"
-    # ds = open_ds(r"/Users/hmcoerver/Local/pywapor_se/VIIRSL1/VNP02IMG.nc")
-
-    # dss = {
-    #     'bt': ds,
-    #     'z': open_ds('/Users/hmcoerver/Local/pywapor_se/z_i.nc'),
-    #     'ndvi':             open_ds('/Users/hmcoerver/Local/pywapor_se/ndvi_i.nc'),
-    #     'bsi':              open_ds('/Users/hmcoerver/Local/pywapor_se/bsi_i.nc'),
-    #     'mndwi':            open_ds('/Users/hmcoerver/Local/pywapor_se/mndwi_i.nc'),
-    #     'green':            open_ds('/Users/hmcoerver/Local/pywapor_se/green_i.nc'),
-    #     }
-
-    # highres_fn = "/Users/hmcoerver/Local/pywapor_se/DMS/highres_input_20220108_061800.vrt"
-    # lowres_fn = "/Users/hmcoerver/Local/pywapor_se/DMS/lowres_input_20220108_061800.vrt"
-    import matplotlib.pyplot as plt
-
-    highres_fn = "/Users/hmcoerver/Local/pywapor_se/DMS/highres_input_20220108_080000.vrt"
-    lowres_fn = "/Users/hmcoerver/Local/pywapor_se/DMS/lowres_input_20220108_080000.vrt"
-
-
-    # out = sharpen(dss, var, folder)
+    # sharpen(dss, var, folder, *args, make_plots = False, 
+    #         req_vars = ['ndvi', 'bsi', 'mndwi', 'green', 'z'])
+    
