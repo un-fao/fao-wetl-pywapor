@@ -12,9 +12,9 @@ import copy
 import re
 from importlib.metadata import version
 from pywapor.enhancers.apply_enhancers import apply_enhancers
-from pywapor.general.logger import log, adjust_logger
+from pywapor.general.logger import log
 import shutil
-from pywapor.general.processing_functions import save_ds
+from pywapor.general.processing_functions import save_ds, remove_ds
 
 def create_time_settings(timelim):
     """Reformats the time limits so that they can be ingested by CDS.
@@ -150,11 +150,13 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
     # Load api key.
     cdsapi_version = int(version("cdsapi").replace(".", ""))
     if cdsapi_version < 70:
-        log.warning(f"--> CDS is moving to a new system, please update the `cdsapi` package to a version `> 0.7.0.`")
+        log.warning("--> CDS is moving to a new system, please update the `cdsapi` package to a version `> 0.7.0.`")
         url, key = pywapor.collect.accounts.get("ECMWF")
     else:
-        log.info(f"--> Using the new CDS beta.")
+        log.info("--> Using the new CDS beta.")
         url, key = pywapor.collect.accounts.get("CDS")
+        if url == "https://cds-beta.climate.copernicus.eu/api":
+            url = "https://cds.climate.copernicus.eu/api"
 
     _ = log.info("--> Directing CDS logging to file `CDS_log.txt`.")
 
@@ -190,6 +192,7 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
 
     dss = list()
     subfolders = list()
+    to_remove = list()
 
     # Loop over requests
     for setting in settings:
@@ -201,6 +204,7 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
         # Make the request
         if not os.path.isfile(fp):
             _ = c.retrieve(product_name, setting, fp)
+            to_remove.append(fp)
 
         # Unpack if necessary
         if ext in ["zip", "tar.gz"]:
@@ -221,7 +225,7 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
         time_offset = {"sis-agrometeorological-indicators": 12,
                 "reanalysis-era5-single-levels": 0}[product_name]
 
-        if "valid_time" in ds.coords and not "time" in ds.coords:
+        if "valid_time" in ds.coords and "time" not in ds.coords:
             ds = ds.rename({"valid_time": "time"})
 
         for var in ds.data_vars:
@@ -271,13 +275,18 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
     # Save the netcdf.
     ds = save_ds(ds, fn_final, label = "Merging files.")
 
+    for x in to_remove:
+        remove_ds(x)
+
     # Remove unpacked zips.
-    for subfolder in subfolders:
-        if os.path.isdir(subfolder):
-            try:
-                shutil.rmtree(subfolder)
-            except PermissionError:
-                ... # Windows...
+    rmve = {"NO": False, "YES": True}.get(os.environ.get("PYWAPOR_REMOVE_TEMP_FILES", "YES"), True)
+    if rmve:
+        for subfolder in subfolders:
+            if os.path.isdir(subfolder):
+                try:
+                    shutil.rmtree(subfolder)
+                except PermissionError:
+                    ... # Windows...
     
     return ds
 

@@ -1,26 +1,37 @@
 """
 https://docs.terrascope.be/#/Developers/WebServices/TerraCatalogue/ProductDownload
 """
-import datetime
-import requests
-import os
+
 import copy
+import datetime
+import os
+import time
+from functools import partial
+
 import numpy as np
+import requests
 import xarray as xr
+from joblib import Memory
+from osgeo import gdal
+from requests.exceptions import ConnectionError
+
+import pywapor.collect.accounts as accounts
 import pywapor.collect.protocol.cog as cog
 import pywapor.general.bitmasks as bm
-import pywapor.collect.accounts as accounts
-from functools import partial
-from osgeo import gdal
-from joblib import Memory
-import time
-from requests.exceptions import ConnectionError
 from pywapor.enhancers.apply_enhancers import apply_enhancers
-from pywapor.general.logger import log, adjust_logger
-from pywapor.general.processing_functions import save_ds, open_ds, remove_ds, adjust_timelim_dtype, process_ds, is_corrupt_or_empty
+from pywapor.general.logger import adjust_logger, log
+from pywapor.general.processing_functions import (
+    adjust_timelim_dtype,
+    is_corrupt_or_empty,
+    open_ds,
+    process_ds,
+    remove_ds,
+    save_ds,
+)
 
-def default_post_processors(product_name, req_vars = ["ndvi", "r0"]):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+
+def default_post_processors(product_name, req_vars=["ndvi", "r0"]):
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -40,24 +51,45 @@ def default_post_processors(product_name, req_vars = ["ndvi", "r0"]):
     post_processors = {
         "urn:eop:VITO:PROBAV_S5_TOC_100M_COG_V2": {
             "r0": [
-                    calc_r0, 
-                    partial(mask_bitwise_qa, 
-                    flags = ["bad BLUE", "bad RED", "bad NIR", "bad SWIR", 
-                            "sea", "undefined", "cloud", "ice/snow", "shadow"]),
+                calc_r0,
+                partial(
+                    mask_bitwise_qa,
+                    flags=[
+                        "bad BLUE",
+                        "bad RED",
+                        "bad NIR",
+                        "bad SWIR",
+                        "sea",
+                        "undefined",
+                        "cloud",
+                        "ice/snow",
+                        "shadow",
+                    ],
+                ),
             ],
             "ndvi": [
-                    partial(mask_bitwise_qa, 
-                    flags = ["bad RED", "bad NIR", "sea", "undefined", 
-                            "cloud", "ice/snow", "shadow"]),
+                partial(
+                    mask_bitwise_qa,
+                    flags=[
+                        "bad RED",
+                        "bad NIR",
+                        "sea",
+                        "undefined",
+                        "cloud",
+                        "ice/snow",
+                        "shadow",
+                    ],
+                ),
             ],
         }
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
 
-def default_vars(product_name, req_vars = ["ndvi", "r0"]):
+
+def default_vars(product_name, req_vars=["ndvi", "r0"]):
     """Given a `product_name` and a list of requested variables, returns a dictionary
     with metadata on which exact layers need to be requested from the server, how they should
     be renamed, and how their dimensions are defined.
@@ -74,30 +106,35 @@ def default_vars(product_name, req_vars = ["ndvi", "r0"]):
     dict
         Metadata on which exact layers need to be requested from the server.
     """
-    
+
     variables = {
         "urn:eop:VITO:PROBAV_S5_TOC_100M_COG_V2": {
-            "NIR":      [("lon", "lat"), "nir"],
-            "RED":      [("lon", "lat"), "red"],
-            "BLUE":     [("lon", "lat"), "blue"],
-            "SWIR":     [("lon", "lat"), "swir"],
-            "SM":       [("lon", "lat"), "qa"],
+            "NIR": [("lon", "lat"), "nir"],
+            "RED": [("lon", "lat"), "red"],
+            "BLUE": [("lon", "lat"), "blue"],
+            "SWIR": [("lon", "lat"), "swir"],
+            "SM": [("lon", "lat"), "qa"],
             "GEOMETRY": [("lon", "lat"), "geometry"],
-            "NDVI":     [("lon", "lat"), "ndvi"],
-            "TIME":     [("lon", "lat"), "time"],
+            "NDVI": [("lon", "lat"), "ndvi"],
+            "TIME": [("lon", "lat"), "time"],
         },
     }
 
     req_dl_vars = {
         "urn:eop:VITO:PROBAV_S5_TOC_100M_COG_V2": {
             "ndvi": ["NDVI", "SM"],
-            "r0":   ["BLUE", "NIR", "RED", "SWIR", "SM"],
+            "r0": ["BLUE", "NIR", "RED", "SWIR", "SM"],
         }
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
-    
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
+
     return out
+
 
 def mask_bitwise_qa(ds, var, flags):
     """Mask PROBAV data using a qa variable.
@@ -121,12 +158,37 @@ def mask_bitwise_qa(ds, var, flags):
     ds[var] = ds[var].where(~mask, np.nan)
     return ds
 
+
 def calc_r0(ds, *args):
-    ds["r0"] = 0.429 * ds["blue"] + 0.333 * ds["red"] + 0.133 * ds["nir"] + 0.105 * ds["swir"]
+    ds["r0"] = (
+        0.429 * ds["blue"] + 0.333 * ds["red"] + 0.133 * ds["nir"] + 0.105 * ds["swir"]
+    )
     return ds
 
-def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", "r0"],
-                variables = None, post_processors = None, timedelta = np.timedelta64(60, "h")):
+
+def most_recent(product_name, latlim, lonlim):
+    bb = [lonlim[0], latlim[0], lonlim[1], latlim[1]]
+    params = dict()
+    params["limit"] = 250
+    params["bbox"] = bb
+    params["collections"] = [product_name]
+    products = search_stac(params, None)
+    return datetime.datetime.strptime(
+        products[-1]["properties"]["datetime"], "%Y-%m-%dT%H:%M:%SZ"
+    )
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    timelim,
+    product_name,
+    req_vars=["ndvi", "r0"],
+    variables=None,
+    post_processors=None,
+    timedelta=np.timedelta64(60, "h"),
+):
     """Download MODIS data and store it in a single netCDF file.
 
     Parameters
@@ -158,7 +220,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
     if not os.path.isdir(folder):
         os.makedirs(folder)
 
-    fn = os.path.join(folder, f"{product_name.replace(':','_')}.nc")
+    fn = os.path.join(folder, f"{product_name.replace(':', '_')}.nc")
     req_vars_orig = copy.deepcopy(req_vars)
     if os.path.isfile(fn):
         existing_ds = open_ds(fn)
@@ -168,7 +230,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
             existing_ds = existing_ds.close()
         else:
             return existing_ds[req_vars_orig]
-        
+
     spatial_buffer = True
     if spatial_buffer:
         dx = dy = 0.0033
@@ -184,9 +246,13 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
-    bb = [lonlim[0],latlim[0],lonlim[1],latlim[1]]
+    bb = [lonlim[0], latlim[0], lonlim[1], latlim[1]]
 
     coords = {"x": ["lon", lonlim], "y": ["lat", latlim]}
 
@@ -194,14 +260,14 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
     ed = datetime.datetime.strftime(timelim[1], "%Y-%m-%dT23:59:59Z")
     search_dates = f"{sd}/{ed}"
     params = dict()
-    params['limit'] = 250
-    params['bbox'] = bb
-    params['datetime'] = search_dates
-    params['collections'] = [product_name]
+    params["limit"] = 250
+    params["bbox"] = bb
+    params["datetime"] = search_dates
+    params["collections"] = [product_name]
 
     # NOTE paths on windows have a max length, this extends the max length, see
     # here for more info https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry
-    if os.name == "nt": 
+    if os.name == "nt":
         cachedir = "\\\\?\\" + os.path.join(os.path.abspath(folder), "cache")
     else:
         cachedir = os.path.join(folder, "cache")
@@ -225,10 +291,11 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
     outs = list()
 
     for i, product in enumerate(products):
-
         out_fp = os.path.join(folder, f"{product['properties']['title']}.nc")
 
-        log.info(f"--> ({i+1}/{len(products)}) Processing `{product['properties']['title']}`.").add()
+        log.info(
+            f"--> ({i + 1}/{len(products)}) Processing `{product['properties']['title']}`."
+        ).add()
 
         if os.path.isfile(out_fp):
             corrupt = is_corrupt_or_empty(out_fp)
@@ -239,14 +306,25 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
                 outs.append(out)
         else:
             all_cog_urls = [v.get("href") for k, v in product["assets"].items()]
-            cog_urls = [(key, all_cog_urls[np.argmax([key in x for x in all_cog_urls])]) for key in variables.keys()]
-            dl_urls = [(x[0], x[1].replace("https://services", f"/vsicurl/https://{un}:{pw}@services")) for x in cog_urls]
+            cog_urls = [
+                (key, all_cog_urls[np.argmax([key in x for x in all_cog_urls])])
+                for key in variables.keys()
+            ]
+            dl_urls = [
+                (
+                    x[0],
+                    x[1].replace(
+                        "https://services", f"/vsicurl/https://{un}:{pw}@services"
+                    ),
+                )
+                for x in cog_urls
+            ]
 
             dss = list()
             cleanup = list()
             for j, (var, url) in enumerate(dl_urls):
                 var_file = out_fp.replace(".nc", f"_{var}_temp.nc")
-                log.info(f"--> ({j+1}/{len(dl_urls)}) Downloading `{var}`.")
+                log.info(f"--> ({j + 1}/{len(dl_urls)}) Downloading `{var}`.").add()
 
                 if os.path.isfile(var_file):
                     corrupt = is_corrupt_or_empty(var_file)
@@ -261,7 +339,7 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
                     try:
                         for k, v in gdal_config_options.items():
                             gdal.SetConfigOption(k, v)
-                        var_file = cog.cog_dl([url], var_file, warp_kwargs = warp_kwargs)
+                        var_file = cog.cog_dl([url], var_file, warp_kwargs=warp_kwargs)
                     except Exception as e:
                         raise e
                     finally:
@@ -272,25 +350,39 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
                     ds = ds_.rename({"Band1": var})
                     dss.append(ds)
                     if var != dl_urls[-1][0]:
-                        # NOTE VERY IMPORTANT, otherwise easily hitting "429" errors, 
+                        # NOTE VERY IMPORTANT, otherwise easily hitting "429" errors,
                         # resulting in very strange behaviour.
                         time.sleep(10)
+                log.sub()
 
         ds = xr.merge(dss)
         ds = process_ds(ds, coords, variables)
-        ds = ds.expand_dims({"time": 1}).assign_coords({"time": [datetime.datetime.strptime(product["properties"]["datetime"], "%Y-%m-%dT%H:%M:%SZ")]})
+        ds = ds.expand_dims({"time": 1}).assign_coords(
+            {
+                "time": [
+                    datetime.datetime.strptime(
+                        product["properties"]["datetime"], "%Y-%m-%dT%H:%M:%SZ"
+                    )
+                ]
+            }
+        )
 
         # # Apply product specific functions.
         ds = apply_enhancers(post_processors, ds)
 
-        out = save_ds(ds, out_fp, encoding = "initiate", label = f"Saving {os.path.split(out_fp)[-1]}.")
+        out = save_ds(
+            ds,
+            out_fp,
+            encoding="initiate",
+            label=f"Saving {os.path.split(out_fp)[-1]}.",
+        )
         outs.append(out)
 
         for x in cleanup:
             remove_ds(x)
 
         log.sub()
-    
+
     log.sub()
 
     ds = xr.merge(outs)
@@ -301,18 +393,18 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars = ["ndvi", 
     ds = ds[req_vars]
     ds = ds.rio.write_crs("epsg:4326")
 
-    ds = save_ds(ds, fn, label = f"Merging files.")
+    ds = save_ds(ds, fn, label="Merging files.")
 
     for nc in outs:
         remove_ds(nc)
 
     return ds[req_vars_orig]
 
-def search_stac(params, cachedir):
 
+def search_stac(params, cachedir):
     memory = Memory(cachedir, verbose=0)
 
-    search = 'https://services.terrascope.be/stac/search'
+    search = "https://services.terrascope.be/stac/search"
 
     @memory.cache()
     def _post_query(params):
@@ -321,10 +413,10 @@ def search_stac(params, cachedir):
         while "next" in [x.get("rel", None) for x in links]:
             params_ = [x.get("body") for x in links if x.get("rel") == "next"][0]
             try:
-                query = requests.post(search, json = params_)
+                query = requests.post(search, json=params_)
             except ConnectionError as e:
                 log.info(f"--> The TERRA server is not responding (check `{search}`).")
-                raise(e)
+                raise (e)
             query.raise_for_status()
             out = query.json()
             all_scenes += out["features"]
@@ -334,9 +426,9 @@ def search_stac(params, cachedir):
     all_scenes = _post_query(params)
 
     return all_scenes
-    
-if __name__ == "__main__":
 
+
+if __name__ == "__main__":
     variables = None
     post_processors = None
 
@@ -345,9 +437,7 @@ if __name__ == "__main__":
     lonlim = [30.7, 31.0]
     timelim = [datetime.date(2020, 7, 2), datetime.date(2020, 7, 9)]
     product_name = "urn:eop:VITO:PROBAV_S5_TOC_100M_COG_V2"
-    req_vars = ['r0']
+    req_vars = ["r0"]
     timedelta = np.timedelta64(60, "h")
 
     adjust_logger(True, folder, "INFO")
-
-

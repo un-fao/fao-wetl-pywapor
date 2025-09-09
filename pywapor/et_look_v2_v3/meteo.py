@@ -135,7 +135,7 @@ def disaggregate_air_temperature(t_air_coarse, z, z_coarse, lapse=-0.006):
 
     .. math ::
 
-        T_{a}=T_{a,c}+(z-z_{c}) \cdot L_{T}-T_{K,0}
+        T_{a}=T_{a,c}+(z-z_{c}) \\cdot L_{T}-T_{K,0}
 
     where the following constant is used
 
@@ -296,7 +296,7 @@ def vapour_pressure_from_specific_humidity(qv, p_air):
 
     .. math ::
 
-        e_{a}=\frac{q_{v} \cdot P}{\varepsilon}
+        e_{a}=\frac{q_{v} \\cdot P}{\varepsilon}
 
     where the following constant is used
 
@@ -331,7 +331,7 @@ def specific_humidity_from_vapour_pressure(vp, p_air):
 
     .. math ::
 
-        e_{a}=\frac{q_{v} \cdot P}{\varepsilon}
+        e_{a}=\frac{q_{v} \\cdot P}{\varepsilon}
 
     where the following constant is used
 
@@ -386,7 +386,7 @@ def vapour_pressure_from_specific_humidity_daily(qv_24, p_air_24):
 def vapour_pressure_from_dewpoint(t_dew):
     r"""
     .. math ::
-        e_{a}=6.108\exp\left[\frac{17.27T_{d}}{T_{d}+237.3}\right]
+        e_{a}=6.108\exp\\left[\frac{17.27T_{d}}{T_{d}+237.3}\right]
 
     Parameters
     ----------
@@ -415,7 +415,7 @@ def vapour_pressure_from_dewpoint(t_dew):
 def vapour_pressure_from_dewpoint_daily(t_dew_24):
     r"""
     .. math ::
-        e_{a}=6.108\exp\left[\frac{17.27T_{d,24}}{T_{d,24}+237.3}\right]
+        e_{a}=6.108\exp\\left[\frac{17.27T_{d,24}}{T_{d,24}+237.3}\right]
 
     Parameters
     ----------
@@ -444,7 +444,7 @@ def vapour_pressure_from_dewpoint_daily(t_dew_24):
 def vapour_pressure_from_dewpoint_inst(t_dew_i):
     r"""
     .. math ::
-        e_{a,i}=6.108\exp\left[\frac{17.27T_{d,i}}{T_{d,i}+237.3}\right]
+        e_{a,i}=6.108\exp\\left[\frac{17.27T_{d,i}}{T_{d,i}+237.3}\right]
 
     Parameters
     ----------
@@ -524,7 +524,7 @@ def saturated_vapour_pressure_average(svp_24_max, svp_24_min):
 
     .. math ::
 
-        e_{s}=\frac{e^{0}\left(T_{max}\right)+e^{0}\left(T_{min}\right)}{2}
+        e_{s}=\frac{e^{0}\\left(T_{max}\right)+e^{0}\\left(T_{min}\right)}{2}
 
     Parameters
     ----------
@@ -580,7 +580,7 @@ def saturated_vapour_pressure(t_air):
 
     .. math ::
 
-        e_{s}=6.108 \cdot \exp\left[\frac{17.27 \cdot T_{a}}{T_{a}+237.3}\right]
+        e_{s}=6.108 \\cdot \exp\\left[\frac{17.27 \\cdot T_{a}}{T_{a}+237.3}\right]
 
     Parameters
     ----------
@@ -654,7 +654,7 @@ def vapour_pressure(svp, rh):
 
     .. math ::
 
-        e_{a}=\frac{\phi}{100} \cdot e_{s}
+        e_{a}=\frac{\phi}{100} \\cdot e_{s}
 
     Parameters
     ----------
@@ -686,14 +686,14 @@ def vapour_pressure(svp, rh):
 
 def slope_saturated_vapour_pressure(t_air):
     r"""
-    Computes the rate of change of vapour pressure :math:`\Delta` in [mbar K-1]
+    Computes the rate of change of vapour pressure :math:`\\Delta` in [mbar K-1]
     for a given air temperature :math:`T_a`. It is a function of the air
     temperature :math:`T_a` and the saturated vapour pressure :math:`e_s`
     [mbar] which in itself is a function of :math:`T_a`.
 
     .. math ::
 
-        \Delta=\frac{4098 \cdot e_{s}}{\left(237.3+T_{a}\right)^{2}}
+        \\Delta=\frac{4098 \\cdot e_{s}}{\\left(237.3+T_{a}\right)^{2}}
 
     for :math:`e_s` see :func:`saturated_vapour_pressure`
 
@@ -708,7 +708,7 @@ def slope_saturated_vapour_pressure(t_air):
     -------
     ssvp : float
        slope of saturated vapour pressure curve
-       :math:`\Delta`
+       :math:`\\Delta`
        [mbar K-1]
 
     Examples
@@ -736,7 +736,7 @@ def slope_saturated_vapour_pressure_daily(t_air_24):
     -------
     ssvp_24 : float
        daily slope of saturated vapour pressure curve
-       :math:`\Delta_{24}`
+       :math:`\\Delta_{24}`
        [mbar K-1]
 
 
@@ -767,11 +767,11 @@ def slope_saturated_vapour_pressure_inst(t_air_i):
 
 def vapour_pressure_deficit(svp, vp):
     r"""
-    Computes the vapour pressure deficit :math:`\Delta_e` in [mbar].
+    Computes the vapour pressure deficit :math:`\\Delta_e` in [mbar].
 
     .. math ::
 
-        \Delta_e=e_s-e_a
+        \\Delta_e=e_s-e_a
 
     Parameters
     ----------
@@ -788,7 +788,7 @@ def vapour_pressure_deficit(svp, vp):
     -------
     vpd : float
        vapour pressure deficit
-       :math:`\Delta_e`
+       :math:`\\Delta_e`
        [mbar]
 
     Examples
@@ -827,7 +827,7 @@ def vapour_pressure_deficit_daily(svp_24, vp_24):
     -------
     vpd_24 : float
        daily vapour pressure deficit
-       :math:`\Delta_{e,24}`
+       :math:`\\Delta_{e,24}`
        [mbar]
     """
     return vapour_pressure_deficit(svp_24, vp_24)
@@ -841,8 +841,8 @@ def air_pressure(z, p_air_0=1013.25):
 
     .. math ::
 
-        P=P_{0} \cdot \left(\frac{T_{ref,0,K}-\alpha_{1} \cdot \left(z-z_{0}\right)}
-        {T_{ref,0,K}}\right)^{\frac{g}{-\alpha_{1}\cdot R }}
+        P=P_{0} \\cdot \\left(\frac{T_{ref,0,K}-\alpha_{1} \\cdot \\left(z-z_{0}\right)}
+        {T_{ref,0,K}}\right)^{\frac{g}{-\alpha_{1}\\cdot R }}
 
     where the following constants are used
 
@@ -912,7 +912,7 @@ def dry_air_density(p_air, vp, t_air_k):
 
     .. math ::
 
-        \rho_{d}=\frac{P-e_{a}}{\Re \cdot T_{a,K}}
+        \rho_{d}=\frac{P-e_{a}}{\Re \\cdot T_{a,K}}
 
     where the following constants are used
 
@@ -1014,7 +1014,7 @@ def moist_air_density(vp, t_air_k):
 
     .. math ::
 
-        \rho_{s}=\frac{e_{a}}{R_{v} \cdot T_{a,K}}
+        \rho_{s}=\frac{e_{a}}{R_{v} \\cdot T_{a,K}}
 
     where:
 
@@ -1193,19 +1193,19 @@ def air_density_inst(ad_dry_i, ad_moist_i):
 
 def latent_heat(t_air):
     r"""
-    Computes latent heat of evaporation :math:`\lambda` [J kg-1], describing
+    Computes latent heat of evaporation :math:`\\lambda` [J kg-1], describing
     the amount of energy needed to evaporate one kg of water at constant
     pressure and temperature. At higher temperatures less energy will be
     required than at lower temperatures.
 
     .. math ::
 
-        \lambda=\lambda_0 + \Delta_\lambda \cdot T_{a}
+        \\lambda=\\lambda_0 + \\Delta_\\lambda \\cdot T_{a}
 
     where the following constants are used
 
-    * :math:`\lambda_0` = latent heat of evaporation at 0 C = 2501000 [J kg-1]
-    * :math:`\Delta_\lambda` = rate of change of latent heat with respect to temperature = -2361 [J Kg-1 C-1]
+    * :math:`\\lambda_0` = latent heat of evaporation at 0 C = 2501000 [J kg-1]
+    * :math:`\\Delta_\\lambda` = rate of change of latent heat with respect to temperature = -2361 [J Kg-1 C-1]
 
     Parameters
     ----------
@@ -1218,7 +1218,7 @@ def latent_heat(t_air):
     -------
     lh : float
         latent heat of evaporation, 
-        :math:`\lambda`
+        :math:`\\lambda`
         [J/kg]
 
     Examples
@@ -1245,7 +1245,7 @@ def latent_heat_daily(t_air_24):
     -------
     lh_24 : float
         daily latent heat of evaporation, 
-        :math:`\lambda_{24}`
+        :math:`\\lambda_{24}`
         [J/kg]
 
     """
@@ -1254,12 +1254,12 @@ def latent_heat_daily(t_air_24):
 
 def psychrometric_constant(p_air, lh):
     r"""
-    Computes the psychrometric constant :math:`\gamma` [mbar K-1] which
+    Computes the psychrometric constant :math:`\\gamma` [mbar K-1] which
     relates the partial pressure of water in air to the air temperature.
 
     .. math ::
 
-        \gamma=\frac{P \cdot c_{p}}{\varepsilon \cdot \lambda}
+        \\gamma=\frac{P \\cdot c_{p}}{\varepsilon \\cdot \\lambda}
 
     where the following constants are used
 
@@ -1275,14 +1275,14 @@ def psychrometric_constant(p_air, lh):
         [mbar]
     lh : float
         latent heat of evaporation, 
-        :math:`\lambda`
+        :math:`\\lambda`
         [J/kg]
 
     Returns
     -------
     psy : float
         psychrometric constant, 
-        :math:`\gamma`
+        :math:`\\gamma`
         [mbar K-1]
 
     Examples
@@ -1308,14 +1308,14 @@ def psychrometric_constant_daily(p_air_24, lh_24):
         [mbar]
     lh_24 : float
         daily latent heat of evaporation, 
-        :math:`\lambda_{24}`
+        :math:`\\lambda_{24}`
         [J/kg]
 
     Returns
     -------
     psy_24 : float
         daily psychrometric constant, 
-        :math:`\gamma_{24}`
+        :math:`\\gamma_{24}`
         [mbar K-1]
 
     """
@@ -1329,8 +1329,8 @@ def wind_speed_blending_height(u, z_obs=2, z_b=100):
 
     .. math ::
 
-        u_{b}=\frac{u_{obs} \cdot \ln\left(\frac{z_{b}}{z_{0,m}}\right)}
-        {\ln\left(\frac{z_{obs}}{z_{0,m}}\right)}
+        u_{b}=\frac{u_{obs} \\cdot \\ln\\left(\frac{z_{b}}{z_{0,m}}\right)}
+        {\\ln\\left(\frac{z_{obs}}{z_{0,m}}\right)}
 
     Parameters
     ----------

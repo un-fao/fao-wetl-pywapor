@@ -6,6 +6,24 @@ import numpy as np
 import xarray as xr
 from pywapor.general.logger import log
 
+def lapse_rate_to_all(ds, *args):
+    """Applies lapse rate correction to variables whose name contains `"t_air"`.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset on whose variables containing `"t_air"` a lapse rate correction will be applied.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset on whose variables containing `"t_air"` a lapse rate correction has been applied.
+    """
+    present_vars = [x for x in ds.variables if "t_air" in x]
+    for var in present_vars:
+        ds = lapse_rate(ds, var)
+    return ds
+
 def template(ds, var, out_var = None):
     """Example enhancer function.
 

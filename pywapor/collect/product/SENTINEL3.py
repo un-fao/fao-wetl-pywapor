@@ -1,14 +1,21 @@
-import os
-import glob
 import copy
-import xarray as xr
-import numpy as np
-import pywapor.collect.protocol.copernicus_odata as copernicus_odata
+import glob
+import os
 from datetime import datetime as dt
+
+import numpy as np
+import xarray as xr
+
+import pywapor.collect.protocol.copernicus_odata as copernicus_odata
 from pywapor.general.bitmasks import SENTINEL3_qa_translator, get_mask
 from pywapor.general.curvilinear import create_grid, curvi_to_recto
-from pywapor.general.logger import log, adjust_logger
-from pywapor.general.processing_functions import open_ds, remove_ds, adjust_timelim_dtype
+from pywapor.general.logger import adjust_logger
+from pywapor.general.processing_functions import (
+    adjust_timelim_dtype,
+    open_ds,
+    remove_ds,
+)
+
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
@@ -29,24 +36,27 @@ def default_vars(product_name, req_vars):
     """
     variables = {
         "SL_2_LST___": {
-                    "LST_in.nc": [(), "lst", []],
-                    "geodetic_in.nc": [(), "coords", []],
-                    "flags_in.nc": [(), "qa", []],
+            "LST_in.nc": [(), "lst", []],
+            "geodetic_in.nc": [(), "coords", []],
+            "flags_in.nc": [(), "qa", []],
         }
     }
 
     req_dl_vars = {
-        "SL_2_LST___": {
-            "lst": ["LST_in.nc", "geodetic_in.nc", "flags_in.nc"]
-        },
+        "SL_2_LST___": {"lst": ["LST_in.nc", "geodetic_in.nc", "flags_in.nc"]},
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
 
     return out
 
+
 def default_post_processors(product_name, req_vars):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -63,14 +73,13 @@ def default_post_processors(product_name, req_vars):
         Functions per variable that should be applied to the variable.
     """
     post_processors = {
-        "SL_2_LST___": {
-            "lst": []
-            },
+        "SL_2_LST___": {"lst": []},
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
+
 
 def time_func(fn):
     """Return a np.datetime64 given a filename.
@@ -87,12 +96,15 @@ def time_func(fn):
     """
     start_dtime = np.datetime64(dt.strptime(fn.split("_")[7], "%Y%m%dT%H%M%S"), "ns")
     end_dtime = np.datetime64(dt.strptime(fn.split("_")[8], "%Y%m%dT%H%M%S"), "ns")
-    dtime = start_dtime + (end_dtime - start_dtime)/2
+    dtime = start_dtime + (end_dtime - start_dtime) / 2
     return dtime
 
-def s3_processor(scene_folder, variables, bb = None, **kwargs):
 
-    ncs = [glob.glob(os.path.join(scene_folder, "**", "*" + k), recursive = True)[0] for k in variables.keys()]
+def s3_processor(scene_folder, variables, bb=None, **kwargs):
+    ncs = [
+        glob.glob(os.path.join(scene_folder, "**", "*" + k), recursive=True)[0]
+        for k in variables.keys()
+    ]
 
     ds_ = xr.open_mfdataset(ncs)
 
@@ -112,19 +124,22 @@ def s3_processor(scene_folder, variables, bb = None, **kwargs):
     ds["y"].attrs = {}
 
     combined_fn = os.path.join(scene_folder, "combined.nc")
-    _ = ds.to_netcdf(combined_fn, 
-                encoding = {
-                            "lst": {"_FillValue": -9999}, 
-                            "x": {"_FillValue": -9999, "scale_factor": 1}, 
-                            "y": {"_FillValue": -9999, "scale_factor": 1}})
+    _ = ds.to_netcdf(
+        combined_fn,
+        encoding={
+            "lst": {"_FillValue": -9999},
+            "x": {"_FillValue": -9999, "scale_factor": 1},
+            "y": {"_FillValue": -9999, "scale_factor": 1},
+        },
+    )
 
-    bb_, nx, ny = create_grid(bb[1::2], bb[0::2], dx_dy = (0.01, 0.01))
+    bb_, nx, ny = create_grid(bb[1::2], bb[0::2], dx_dy=(0.01, 0.01))
     warp_kwargs = {"outputBounds": bb_, "width": nx, "height": ny}
     lats = f'NETCDF:"{combined_fn}":y'
     lons = f'NETCDF:"{combined_fn}":x'
     data = {"lst": f'NETCDF:"{combined_fn}":lst'}
     out_fn = os.path.join(scene_folder, "warped.nc")
-    _ = curvi_to_recto(lats, lons, data, out_fn, warp_kwargs = warp_kwargs)
+    _ = curvi_to_recto(lats, lons, data, out_fn, warp_kwargs=warp_kwargs)
 
     ds_.close()
     ds.close()
@@ -138,14 +153,27 @@ def s3_processor(scene_folder, variables, bb = None, **kwargs):
         ds[var].attrs = {}
     ds = ds.rio.write_grid_mapping("spatial_ref")
     ds = ds.rio.write_crs("epsg:4326")
-    ds = ds.sortby("y", ascending = False)
+    ds = ds.sortby("y", ascending=False)
     ds = ds.rio.write_transform(ds.rio.transform(recalc=True))
 
     return ds, [ds_] + ncs
 
-def download(folder, latlim, lonlim, timelim, product_name, 
-                req_vars, variables = None,  post_processors = None,
-                extra_search_kwargs = {}):
+
+def most_recent(product_name, latlim, lonlim):
+    return copernicus_odata.most_recent(product_name, latlim, lonlim, "SENTINEL-3")
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    timelim,
+    product_name,
+    req_vars,
+    variables=None,
+    post_processors=None,
+    extra_search_kwargs={},
+):
     """Download SENTINEL3 data and store it in a single netCDF file.
 
     Parameters
@@ -200,7 +228,11 @@ def download(folder, latlim, lonlim, timelim, product_name,
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
     timelim = adjust_timelim_dtype(timelim)
     bb = [lonlim[0], latlim[0], lonlim[1], latlim[1]]
@@ -210,18 +242,34 @@ def download(folder, latlim, lonlim, timelim, product_name,
         to_dl = list(variables.keys()) + ["MTD_MSIL2A.xml"]
         return np.any([x in fn for x in to_dl])
 
-    scenes = copernicus_odata.download(product_folder, latlim, lonlim, timelim, "SENTINEL3", product_name, node_filter = node_filter)
-    ds = copernicus_odata.process_sentinel(scenes, variables, time_func, os.path.split(fn)[-1], post_processors, s3_processor, bb = bb)
+    scenes = copernicus_odata.download(
+        product_folder,
+        latlim,
+        lonlim,
+        timelim,
+        "SENTINEL3",
+        product_name,
+        node_filter=node_filter,
+    )
+    ds = copernicus_odata.process_sentinel(
+        scenes,
+        variables,
+        time_func,
+        os.path.split(fn)[-1],
+        post_processors,
+        s3_processor,
+        bb=bb,
+    )
 
     return ds[req_vars_orig]
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     bb = [
-    107.7646933699809324,
-    12.7301600204295262,
-    108.0391593389445148,
-    12.9241818414943772
+        107.7646933699809324,
+        12.7301600204295262,
+        108.0391593389445148,
+        12.9241818414943772,
     ]
 
     folder = r"/Users/hmcoerver/Local/s3_new"
@@ -233,7 +281,7 @@ if __name__ == "__main__":
     latlim = [bb[1], bb[3]]
     lonlim = [bb[0], bb[2]]
 
-    product_name = 'SL_2_LST___'
+    product_name = "SL_2_LST___"
 
     req_vars = ["lst"]
     post_processors = None
@@ -244,7 +292,7 @@ if __name__ == "__main__":
     product_folder = os.path.join(folder, "SENTINEL3")
     node_filter = None
     product_name = "SENTINEL3"
-    product_type = 'SL_2_LST___'
+    product_type = "SL_2_LST___"
 
     timelim = adjust_timelim_dtype(timelim)
 
@@ -252,7 +300,5 @@ if __name__ == "__main__":
 
     # source_name = "SENTINEL3"
     # scene_folder = "/Users/hmcoerver/Local/s3_new/SENTINEL3/S3A_SL_2_LST____20230829T075655_20230829T075955_20230829T100445_0179_102_363_2520_PS1_O_NR_004.SEN3"
-    # ds = download(folder, latlim, lonlim, timelim, product_name, 
+    # ds = download(folder, latlim, lonlim, timelim, product_name,
     #             req_vars, variables = variables,  post_processors = post_processors)
-
-

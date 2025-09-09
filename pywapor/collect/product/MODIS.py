@@ -1,21 +1,24 @@
-import datetime
-import os
-import json
-import pywapor
-import numpy as np
-from functools import partial
-import pywapor.collect.accounts as accounts
-from shapely.geometry.polygon import Polygon
-from pywapor.general.logger import log
-from shapely.geometry import shape
-from pywapor.collect.protocol.projections import get_crss
-import pywapor.collect.protocol.opendap as opendap
-import xarray as xr
-from pywapor.general.processing_functions import open_ds, remove_ds, save_ds
-from pywapor.general import bitmasks
-import pandas as pd
-import warnings
 import copy
+import json
+import os
+import tempfile
+import urllib.parse
+import warnings
+from functools import partial
+
+import numpy as np
+import pandas as pd
+import xarray as xr
+from shapely.geometry import shape
+from shapely.geometry.polygon import Polygon
+
+import pywapor
+import pywapor.collect.accounts as accounts
+from pywapor.collect.protocol import crawler, opendap
+from pywapor.collect.protocol.projections import get_crss
+from pywapor.general import bitmasks
+from pywapor.general.processing_functions import adjust_timelim_dtype, open_ds
+
 
 def fn_func(product_name, tile):
     """Returns a client-side filename at which to store data.
@@ -35,6 +38,7 @@ def fn_func(product_name, tile):
     fn = f"{product_name}_h{tile[0]:02d}v{tile[1]:02d}.nc"
     return fn
 
+
 def url_func(product_name, tile):
     """Returns a url at which to collect MODIS data.
 
@@ -53,9 +57,10 @@ def url_func(product_name, tile):
     url = f"https://opendap.cr.usgs.gov/opendap/hyrax/{product_name}/h{tile[0]:02d}v{tile[1]:02d}.ncml.nc4?"
     return url
 
+
 def tiles_intersect(latlim, lonlim):
     """Creates a list of server-side filenames for tiles that intersect with `latlim` and
-    `lonlim` for the selected product. 
+    `lonlim` for the selected product.
 
     Parameters
     ----------
@@ -69,7 +74,9 @@ def tiles_intersect(latlim, lonlim):
     list
         Server-side filenames for tiles.
     """
-    with open(os.path.join(pywapor.collect.__path__[0], "product/MODIS_tiles.geojson")) as f:
+    with open(
+        os.path.join(pywapor.collect.__path__[0], "product/MODIS_tiles.geojson")
+    ) as f:
         features = json.load(f)["features"]
     aoi = Polygon.from_bounds(lonlim[0], latlim[0], lonlim[1], latlim[1])
     tiles = list()
@@ -83,10 +90,12 @@ def tiles_intersect(latlim, lonlim):
             tiles.append((htile, vtile))
     return tiles
 
+
 def shortwave_r0(ds, *args):
     ds["r0"] = 0.3 * ds["white_r0"] + 0.7 * ds["black_r0"]
     ds = ds.drop_vars(["white_r0", "black_r0"])
     return ds
+
 
 def expand_time_dim(ds, *args):
     """MODIS lst data comes with a variable specifying the acquisition decimal time per pixel, This function
@@ -115,24 +124,33 @@ def expand_time_dim(ds, *args):
 
         ds_expand = groups.map(_expand_hour_dim)
 
-        ds_expand = ds_expand.stack({"datetime": ("hour","time")})
+        ds_expand = ds_expand.stack({"datetime": ("hour", "time")})
 
-        new_coords = [time + hour for time, hour in zip(ds_expand.time.values, ds_expand.hour.values)]
-        
-        try: # new versions of xarray require to drop all dimensions of a multi-index
+        new_coords = [
+            time + hour
+            for time, hour in zip(ds_expand.time.values, ds_expand.hour.values)
+        ]
+
+        try:  # new versions of xarray require to drop all dimensions of a multi-index
             ds_expand = ds_expand.drop_vars(["datetime", "hour", "time"])
-        except ValueError: # old versions throw an error when trying to drop sub-dimensions of a multiindex.
+        except ValueError:  # old versions throw an error when trying to drop sub-dimensions of a multiindex.
             ds_expand = ds_expand.drop_vars(["datetime"])
-        
-        ds_expand = ds_expand.assign_coords({"datetime": new_coords}).rename({"datetime": "time"}).sortby("time")
+
+        ds_expand = (
+            ds_expand.assign_coords({"datetime": new_coords})
+            .rename({"datetime": "time"})
+            .sortby("time")
+        )
         ds_expand = ds_expand.drop_vars(["lst_hour"])
         ds_expand = ds_expand.transpose("time", "y", "x")
         ds_expand = ds_expand.dropna("time", how="all")
 
     return ds_expand
 
-def mask_bitwise_qa(ds, var, masker = "lst_qa", 
-                product_name = "MOD11A1.061", flags = ["good_qa"]):
+
+def mask_bitwise_qa(
+    ds, var, masker="lst_qa", product_name="MOD11A1.061", flags=["good_qa"]
+):
     """Mask MODIS data using a qa variable.
 
     Parameters
@@ -165,7 +183,8 @@ def mask_bitwise_qa(ds, var, masker = "lst_qa",
 
     return ds
 
-def mask_qa(ds, var, masker = ("ndvi_qa", 1.0)):
+
+def mask_qa(ds, var, masker=("ndvi_qa", 1.0)):
     """Mask MODIS data using a qa variable.
 
     Parameters
@@ -175,7 +194,7 @@ def mask_qa(ds, var, masker = ("ndvi_qa", 1.0)):
     var : str
         Variable name in `ds` to be masked.
     masker : tuple, optional
-        Variable in `ds` to use for masking, second value defines which value in mask to 
+        Variable in `ds` to use for masking, second value defines which value in mask to
         use as valid data, by default ("ndvi_qa", 1.0).
 
     Returns
@@ -190,6 +209,7 @@ def mask_qa(ds, var, masker = ("ndvi_qa", 1.0)):
     ds[var] = new_data
 
     return ds
+
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
@@ -210,61 +230,93 @@ def default_vars(product_name, req_vars):
     """
 
     variables = {
-
         "MOD13Q1.061": {
-                    "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
-                    "_250m_16_days_pixel_reliability": [("time", "YDim", "XDim"), "ndvi_qa"],
-                    "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection": [(), "spatial_ref"],
-                        },
+            "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
+            "_250m_16_days_pixel_reliability": [("time", "YDim", "XDim"), "ndvi_qa"],
+            "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection": [(), "spatial_ref"],
+            "time": [("time"), "time"],
+        },
         "MYD13Q1.061": {
-                    "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
-                    "_250m_16_days_pixel_reliability": [("time", "YDim", "XDim"), "ndvi_qa"],
-                    "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection": [(), "spatial_ref"],
-                        },
+            "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
+            "_250m_16_days_pixel_reliability": [("time", "YDim", "XDim"), "ndvi_qa"],
+            "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection": [(), "spatial_ref"],
+        },
         "MOD11A1.061": {
-                    "LST_Day_1km": [("time", "YDim", "XDim"), "lst"],
-                    "Day_view_time": [("time", "YDim", "XDim"), "lst_hour"],
-                    "QC_Day": [("time", "YDim", "XDim"), "lst_qa"],
-                    "MODIS_Grid_Daily_1km_LST_eos_cf_projection": [(), "spatial_ref"],
-                        },
+            "LST_Day_1km": [("time", "YDim", "XDim"), "lst"],
+            "Day_view_time": [("time", "YDim", "XDim"), "lst_hour"],
+            "QC_Day": [("time", "YDim", "XDim"), "lst_qa"],
+            "MODIS_Grid_Daily_1km_LST_eos_cf_projection": [(), "spatial_ref"],
+        },
         "MYD11A1.061": {
-                    "LST_Day_1km": [("time", "YDim", "XDim"), "lst"],
-                    "Day_view_time": [("time", "YDim", "XDim"), "lst_hour"],
-                    "QC_Day": [("time", "YDim", "XDim"), "lst_qa"],
-                    "MODIS_Grid_Daily_1km_LST_eos_cf_projection": [(), "spatial_ref"],
-                        },
+            "LST_Day_1km": [("time", "YDim", "XDim"), "lst"],
+            "Day_view_time": [("time", "YDim", "XDim"), "lst_hour"],
+            "QC_Day": [("time", "YDim", "XDim"), "lst_qa"],
+            "MODIS_Grid_Daily_1km_LST_eos_cf_projection": [(), "spatial_ref"],
+        },
         "MCD43A3.061": {
-                    "Albedo_WSA_shortwave": [("time", "YDim", "XDim"), "white_r0"],
-                    "Albedo_BSA_shortwave": [("time", "YDim", "XDim"), "black_r0"],
-                    "BRDF_Albedo_Band_Mandatory_Quality_shortwave": [("time", "YDim", "XDim"), "r0_qa"],
-                    "MOD_Grid_BRDF_eos_cf_projection": [(), "spatial_ref"]
-        }
+            "Albedo_WSA_shortwave": [("time", "YDim", "XDim"), "white_r0"],
+            "Albedo_BSA_shortwave": [("time", "YDim", "XDim"), "black_r0"],
+            "BRDF_Albedo_Band_Mandatory_Quality_shortwave": [
+                ("time", "YDim", "XDim"),
+                "r0_qa",
+            ],
+            "MOD_Grid_BRDF_eos_cf_projection": [(), "spatial_ref"],
+        },
     }
 
     req_dl_vars = {
         "MOD13Q1.061": {
-            "ndvi": ["_250m_16_days_NDVI", "_250m_16_days_pixel_reliability", "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection"],
+            "ndvi": [
+                "_250m_16_days_NDVI",
+                "_250m_16_days_pixel_reliability",
+                "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection",
+            ],
+            "time": ["time"],
         },
         "MYD13Q1.061": {
-            "ndvi": ["_250m_16_days_NDVI", "_250m_16_days_pixel_reliability", "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection"],
+            "ndvi": [
+                "_250m_16_days_NDVI",
+                "_250m_16_days_pixel_reliability",
+                "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection",
+            ],
         },
         "MOD11A1.061": {
-            "lst": ["LST_Day_1km", "Day_view_time", "QC_Day", "MODIS_Grid_Daily_1km_LST_eos_cf_projection"],
+            "lst": [
+                "LST_Day_1km",
+                "Day_view_time",
+                "QC_Day",
+                "MODIS_Grid_Daily_1km_LST_eos_cf_projection",
+            ],
         },
         "MYD11A1.061": {
-            "lst": ["LST_Day_1km", "Day_view_time", "QC_Day", "MODIS_Grid_Daily_1km_LST_eos_cf_projection"],
+            "lst": [
+                "LST_Day_1km",
+                "Day_view_time",
+                "QC_Day",
+                "MODIS_Grid_Daily_1km_LST_eos_cf_projection",
+            ],
         },
         "MCD43A3.061": {
-            "r0": ["Albedo_WSA_shortwave", "Albedo_BSA_shortwave", "BRDF_Albedo_Band_Mandatory_Quality_shortwave", "MOD_Grid_BRDF_eos_cf_projection"],
+            "r0": [
+                "Albedo_WSA_shortwave",
+                "Albedo_BSA_shortwave",
+                "BRDF_Albedo_Band_Mandatory_Quality_shortwave",
+                "MOD_Grid_BRDF_eos_cf_projection",
+            ],
         },
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
-    
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
+
     return out
 
-def default_post_processors(product_name, req_vars = None):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+
+def default_post_processors(product_name, req_vars=None):
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -283,31 +335,53 @@ def default_post_processors(product_name, req_vars = None):
 
     post_processors = {
         "MOD13Q1.061": {
-            "ndvi": [mask_qa]
-            },
-        "MYD13Q1.061": {
-            "ndvi": [mask_qa]
-            },
-        "MOD11A1.061": {
-            "lst": [mask_bitwise_qa, expand_time_dim]
-            },
-        "MYD11A1.061": {
-            "lst": [mask_bitwise_qa, expand_time_dim]
-            },
+            "ndvi": [mask_qa],
+            "time": [],
+        },
+        "MYD13Q1.061": {"ndvi": [mask_qa]},
+        "MOD11A1.061": {"lst": [mask_bitwise_qa, expand_time_dim]},
+        "MYD11A1.061": {"lst": [mask_bitwise_qa, expand_time_dim]},
         "MCD43A3.061": {
             "r0": [
-                    shortwave_r0, 
-                    partial(mask_qa, masker = ("r0_qa", 1.)),
-                    ]
-            },
+                shortwave_r0,
+                partial(mask_qa, masker=("r0_qa", 1.0)),
+            ]
+        },
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
 
-def download(folder, latlim, lonlim, timelim, product_name, req_vars,
-                variables = None, post_processors = None):
+
+def most_recent(product_name, latlim, lonlim):
+    tiles = tiles_intersect(latlim, lonlim)
+
+    base_url = url_func(product_name, tiles[0])
+
+    un_pw = accounts.get("NASA")
+    selection = {"time": []}
+
+    session = opendap.start_session(base_url, selection, un_pw)
+
+    fp = tempfile.NamedTemporaryFile(suffix=".nc").name
+    url_coords = base_url + urllib.parse.quote(",".join(selection.keys()))
+    fp = crawler.download_url(url_coords, fp, session, waitbar=False)
+    x = xr.open_dataset(fp, decode_coords="all")
+
+    return pd.to_datetime(x["time"][-1].values).to_pydatetime()
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    timelim,
+    product_name,
+    req_vars,
+    variables=None,
+    post_processors=None,
+):
     """Download MODIS data and store it in a single netCDF file.
 
     Parameters
@@ -348,11 +422,18 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
         else:
             return existing_ds[req_vars_orig]
 
-    spatial_buffer = {"MYD13Q1.061": False, "MYD11A1.061": True, "MOD11A1.061": True, "MCD43A3.061": True, "MOD13Q1.061": False}[product_name]
+    spatial_buffer = {
+        "MYD13Q1.061": False,
+        "MYD11A1.061": True,
+        "MOD11A1.061": True,
+        "MCD43A3.061": True,
+        "MOD13Q1.061": False,
+    }[product_name]
     if spatial_buffer:
         latlim = [latlim[0] - 0.01, latlim[1] + 0.01]
         lonlim = [lonlim[0] - 0.01, lonlim[1] + 0.01]
 
+    timelim = adjust_timelim_dtype(timelim)
     if product_name == "MOD13Q1.061" or product_name == "MYD13Q1.061":
         timedelta = np.timedelta64(8, "D")
         timelim[0] = timelim[0] - pd.Timedelta(timedelta)
@@ -363,8 +444,8 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
         timedelta = None
 
     tiles = tiles_intersect(latlim, lonlim)
-    coords = {"x": ["XDim", lonlim], "y": ["YDim", latlim], "t": ["time",timelim]}
-    
+    coords = {"x": ["XDim", lonlim], "y": ["YDim", latlim], "t": ["time", timelim]}
+
     if isinstance(variables, type(None)):
         variables = default_vars(product_name, req_vars)
 
@@ -372,41 +453,56 @@ def download(folder, latlim, lonlim, timelim, product_name, req_vars,
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
     data_source_crs = get_crss("MODIS")
     parallel = False
     spatial_tiles = True
     un_pw = accounts.get("NASA")
     request_dims = True
-    ds = opendap.download(fn, product_name, coords, 
-                variables, post_processors, fn_func, url_func, un_pw = un_pw, 
-                tiles = tiles, data_source_crs = data_source_crs, parallel = parallel, 
-                spatial_tiles = spatial_tiles, request_dims = request_dims,
-                timedelta = timedelta)
+    ds = opendap.download(
+        fn,
+        product_name,
+        coords,
+        variables,
+        post_processors,
+        fn_func,
+        url_func,
+        un_pw=un_pw,
+        tiles=tiles,
+        data_source_crs=data_source_crs,
+        parallel=parallel,
+        spatial_tiles=spatial_tiles,
+        request_dims=request_dims,
+        timedelta=timedelta,
+    )
 
     return ds[req_vars_orig]
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     products = [
         # ('MCD43A3.061', ["r0"]),
-        ('MOD11A1.061', ["lst"]),
+        ("MOD11A1.061", ["lst"]),
         # ('MYD11A1.061', ["lst"]),
         # ('MOD13Q1.061', ["ndvi"]),
         # ('MYD13Q1.061', ["ndvi"]),
     ]
 
-    folder = r"/Users/hmcoerver/Downloads/pywapor_test"
+    # folder = r"/Users/hmcoerver/Downloads/pywapor_test"
     # latlim = [26.9, 33.7]
     # lonlim = [25.2, 37.2]
     latlim = [28.9, 29.7]
     lonlim = [30.2, 31.2]
-    timelim = [datetime.date(2020, 7, 1), datetime.date(2020, 7, 11)]
+    # timelim = [datetime.date(2020, 7, 1), datetime.date(2020, 7, 11)]
 
-    variables = None
-    post_processors = None
+    # variables = None
+    # post_processors = None
 
-    for product_name, req_vars in products:
-        ds = download(folder, latlim, lonlim, timelim, product_name, req_vars)
-        print(ds.rio.crs, ds.rio.grid_mapping)
+    # for product_name, req_vars in products:
+    #     ds = download(folder, latlim, lonlim, timelim, product_name, req_vars)
+    #     print(ds.rio.crs, ds.rio.grid_mapping)

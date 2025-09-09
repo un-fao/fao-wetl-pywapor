@@ -9,7 +9,7 @@ def interception_wm2(int_mm, lh_24):
 
     .. math ::
 
-        I = \frac{\lambda \cdot I^*}{86400}
+        I = \frac{\lambda \\cdot I^*}{86400}
 
     Parameters
     ----------
@@ -50,7 +50,7 @@ def soil_fraction(lai):
 
     .. math ::
 
-        s_f = \exp^{-0.6 \cdot I_{lai}}
+        s_f = \exp^{-0.6 \\cdot I_{lai}}
 
     Parameters
     ----------
@@ -83,8 +83,8 @@ def longwave_radiation_fao_etref(t_air_k_24, vp_24, trans_24):
 
     .. math ::
 
-        L^{*}=\sigma\left(T_{a,K}\right)^{4} \cdot
-        \left(vp_{off}-vp_{slope}\sqrt{0.1e_{a}} \cdot 
+        L^{*}=\sigma\left(T_{a,K}\right)^{4} \\cdot
+        \left(vp_{off}-vp_{slope}\sqrt{0.1e_{a}} \\cdot 
         \right)\left(lw_{slope}\frac{\tau}{0.75}+lw_{off}\right)
 
     where the following constant is used
@@ -275,7 +275,7 @@ def net_radiation_soil(rn_24, sf_soil):
 
     .. math ::
 
-        Q^{*}_{soil} = s_f \cdot Q^{*}
+        Q^{*}_{soil} = s_f \\cdot Q^{*}
 
     Parameters
     ----------
@@ -349,8 +349,8 @@ def volumetric_heat_capacity(se_top=1.0, porosity=0.4):
 
     .. math ::
 
-        \rho c_{p}=10^{6} \cdot \left[\left(1-\phi\right)^{2}+
-        2.5 \cdot \phi+4.2 \cdot \phi \cdot S_{e,top}\right]
+        \rho c_{p}=10^{6} \\cdot \left[\left(1-\phi\right)^{2}+
+        2.5 \\cdot \phi+4.2 \\cdot \phi \\cdot S_{e,top}\right]
 
     Parameters
     ----------
@@ -385,7 +385,7 @@ def soil_thermal_conductivity(se_top):
 
     .. math ::
 
-        k=0.15+18.5 \cdot S_{e,top}
+        k=0.15+18.5 \\cdot S_{e,top}
 
     Parameters
     ----------
@@ -456,7 +456,7 @@ def bare_soil_heat_flux(doy, dd, stc, t_amp_year, lat):
 
     .. math ::
 
-        G_{0}=\frac{\sqrt{2} \cdot A_{t,year} \cdot k \cdot \sin\left(\frac{2\pi \cdot J}{P}-
+        G_{0}=\frac{\sqrt{2} \\cdot A_{t,year} \\cdot k \\cdot \sin\left(\frac{2\pi \\cdot J}{P}-
               \frac{\pi}{4}\right)}{z_{d}}
 
     where the following constant is used
@@ -522,7 +522,7 @@ def soil_heat_flux(g0_bs, sf_soil, land_mask, rn_24_soil, trans_24, ra_24, l_net
 
     .. math ::
 
-        G=s_f \cdot G_{0}
+        G=s_f \\cdot G_{0}
 
     Parameters
     ----------

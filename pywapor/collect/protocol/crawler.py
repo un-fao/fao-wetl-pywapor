@@ -2,7 +2,6 @@ import os
 import urllib
 from bs4 import BeautifulSoup
 import warnings
-import urllib
 import urllib.request
 from joblib import Parallel, delayed
 from functools import partial
@@ -12,9 +11,8 @@ import tqdm
 from requests.exceptions import HTTPError
 import time
 import socket
-import glob
 import requests
-from pywapor.general.logger import log, adjust_logger
+from pywapor.general.logger import log
 from cachetools import cached, TTLCache
 import ssl
 
@@ -51,7 +49,7 @@ def find_paths(url, regex, node_type = "a", tag = "href", filter = None, session
         f = file_object.content
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="It looks like you're parsing an XML document using an HTML parser.")
-        soup = BeautifulSoup(f, "lxml")
+        soup = BeautifulSoup(f, features="xml")
     file_tags = soup.find_all(node_type, {tag: re.compile(regex)})
     if not isinstance(filter, type(None)):
         file_tags = np.unique([filter(tag) for tag in file_tags], axis = 0).tolist()
@@ -121,19 +119,19 @@ def _download_urls(urls, folder, session, fps = None, parallel = 0, headers = No
     return files
 
 def unzip(zipped):
-    new, l = [], []
+    new, list_ = [], []
     for x in zipped:
         new.append(x[0])
-        l.append(x[1])
-    return new, l
+        list_.append(x[1])
+    return new, list_
 
 def update_urls(urls, dled_files, relevant_fps, checker_function = None):
         
     if isinstance(urls, zip):
-        urls, l = unzip(urls)
+        urls, list_ = unzip(urls)
         fps_given = True
     else:
-        l = [os.path.split(x)[-1] for x in urls]
+        list_ = [os.path.split(x)[-1] for x in urls]
         fps_given = False
 
     for fp in dled_files:
@@ -150,17 +148,17 @@ def update_urls(urls, dled_files, relevant_fps, checker_function = None):
             x = fp
         else:
             x = os.path.split(fp)[-1]
-        url_idx = l.index(x) if x in l else None
+        url_idx = list_.index(x) if x in list_ else None
 
         if os.path.isfile(fp):
             if not isinstance(url_idx, type(None)):
                 _ = urls.pop(url_idx)
-                _ = l.pop(url_idx)
+                _ = list_.pop(url_idx)
             if is_relevant:
                 relevant_fps.append(fp)
 
     if fps_given:
-        urls = zip(urls, l)
+        urls = zip(urls, list_)
 
     return urls, relevant_fps
 
@@ -304,8 +302,8 @@ def download_url(url, fp, session = None, waitbar = True, headers = None,
         try:
             fp = _download_url(url, fp, session = session, waitbar = waitbar, headers = headers)
             succes = True
-        except socket.timeout as e:
-            log.info(f"--> Server connection timed out.")
+        except socket.timeout:
+            log.info("--> Server connection timed out.")
         except HTTPError as e:
             error_body = getattr(getattr(e, "response", ""), "text", "")
             log.info(f"--> Server error {e} [{error_body}].")

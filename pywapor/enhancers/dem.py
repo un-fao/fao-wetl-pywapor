@@ -8,6 +8,11 @@ from pywapor.general.performance import format_bytes
 from pywapor.general.processing_functions import save_ds, remove_ds
 gdal.UseExceptions()
 
+def calc_slope_and_aspect(ds, *args, **kwargs):
+    ds = calc_slope_or_aspect(ds, "slope", **kwargs)
+    ds = calc_slope_or_aspect(ds, "aspect", **kwargs)
+    return ds
+
 def calc_slope_or_aspect(ds, var, write_init = True, max_cache_size = 4e9):
 
     log.add()
@@ -15,7 +20,7 @@ def calc_slope_or_aspect(ds, var, write_init = True, max_cache_size = 4e9):
     # Get filepath from xr.Dataset.
     fp = ds.encoding.get("source", None)
 
-    if not var in ["slope", "aspect"]:
+    if var not in ["slope", "aspect"]:
         raise ValueError("Please set `var` to either `'slope'` or `'aspect'`.")
 
     # Write data to file if necessary.
@@ -82,7 +87,8 @@ def calc_slope_or_aspect(ds, var, write_init = True, max_cache_size = 4e9):
 
     options = gdal.DEMProcessingOptions(**options_)
 
-    f_size = lambda nbytes: "{0:.2f}{1}".format(*format_bytes(nbytes))
+    def f_size(nbytes):
+        return "{0:.2f}{1}".format(*format_bytes(nbytes))
 
     current_cache_size = gdal.GetCacheMax()
     if "NETCDF:" in fp:

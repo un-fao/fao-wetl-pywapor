@@ -1,4 +1,5 @@
 import os
+import requests
 import tqdm
 from pywapor.general.processing_functions import save_ds, open_ds, process_ds, remove_ds
 from osgeo import gdal
@@ -149,3 +150,20 @@ def cog_dl(urls, out_fn, overview = "NONE", warp_kwargs = {}, vrt_options = {"se
         remove_ds(vrt_fn)
 
     return out_fn
+
+def ping_urls(urls):
+
+    faulty_urls = list()
+    for url in urls:
+        resp = requests.get(
+            url.replace("/vsicurl/", ""), 
+            stream=True
+            )
+        if not resp.ok:
+            faulty_urls.append(url)
+
+    if len(faulty_urls) > 0:
+        print_urls = "\n".join(faulty_urls)
+        log.warning(f"The following URLs are invalid: {print_urls}")
+
+    return faulty_urls

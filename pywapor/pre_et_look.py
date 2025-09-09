@@ -13,7 +13,7 @@ import xarray as xr
 from functools import partial
 import pywapor.general.pre_defaults as defaults
 from pywapor.general.variables import fill_attrs
-from pywapor.enhancers.temperature import lapse_rate as _lapse_rate
+from pywapor.enhancers.temperature import lapse_rate_to_all
 
 def rename_vars(ds, *args):
     """Rename some variables in a dataset.
@@ -32,24 +32,6 @@ def rename_vars(ds, *args):
             "u2m", "v2m", "qv", "p_air", "p_air_0", "wv", "t_dew"]
     present_vars = [x for x in varis if x in ds.variables]
     ds = ds.rename({k: k + "_24" for k in present_vars})
-    return ds
-
-def lapse_rate(ds, *args):
-    """Applies lapse rate correction to variables whose name contains `"t_air"`.
-
-    Parameters
-    ----------
-    ds : xr.Dataset
-        Dataset on whose variables containing `"t_air"` a lapse rate correction will be applied.
-
-    Returns
-    -------
-    xr.Dataset
-        Dataset on whose variables containing `"t_air"` a lapse rate correction has been applied.
-    """
-    present_vars = [x for x in ds.variables if "t_air" in x]
-    for var in present_vars:
-        ds = _lapse_rate(ds, var)
     return ds
 
 def calc_doys(ds, *args, bins = None):
@@ -105,7 +87,7 @@ def add_constants_new(ds, *args): # TODO make sure this only adds constants for 
             ds[var] = value
     return ds
 
-def main(folder, latlim, lonlim, timelim, sources = "level_2_v3", bin_length = 1, enhancers = [lapse_rate]):
+def main(folder, latlim, lonlim, timelim, sources = "level_2_v3", bin_length = 1, enhancers = [lapse_rate_to_all]):
     """Prepare input data for `et_look`.
 
     Parameters
@@ -121,7 +103,7 @@ def main(folder, latlim, lonlim, timelim, sources = "level_2_v3", bin_length = 1
     sources : "level_1" | "level_2" | "level_2_v3" | dict, optional
         Configuration for each variable and source, by default `"level_1"`.
     bin_length : int | "DEKAD", optional
-        Composite length, by_default `"DEKAD"`.
+        Composite length, by_default 1.
     enhancers : list, optional
         Functions to apply to the xr.Dataset before creating the final
         output, by default `[lapse_rate]`.
@@ -173,7 +155,7 @@ if __name__ == "__main__":
 #     diagnostics = None
 #     example_source = None
 #     bin_length = "DEKAD"
-    enhancers = [lapse_rate]
+    enhancers = [lapse_rate_to_all]
 
 #     import pywapor
 

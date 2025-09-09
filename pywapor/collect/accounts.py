@@ -25,7 +25,7 @@ PASSWORD_INSTRUCTIONS = {
   * Accept conditions when running `setup("ECMWF")` for the first time.""",
 
 "CDS": """> Used for `ERA5`.
-> Create an account at https://cds-beta.climate.copernicus.eu.
+> Create an account at https://cds.climate.copernicus.eu.
   * On your profile page, scroll to the "Personal Access Token" section.
   * Accept conditions when running `setup("CDS")` for the first time.""",
 
@@ -60,7 +60,7 @@ def ask_pw(account):
         api_key_2 = input(f"{account} CDS API key: ")
         pwd = f"{api_key_1}:{api_key_2}"
     elif account == "CDS":
-        account_name = 'https://cds-beta.climate.copernicus.eu/api'
+        account_name = 'https://cds.climate.copernicus.eu/api'
         pat = input(f"{account} Personal Access Token: ")
         pwd = f"{pat}"
     else:
@@ -291,7 +291,7 @@ def nasa_account(user_pw):
 
     try:
         x = requests.get(test_url, allow_redirects = False)
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         # TODO fix this...
         log.add().warning("> Test not working right now, assuming your account is valid.")
         log.warning("> If you want to enter a new password, run `pywapor.collect.accounts.setup('NASA')`.").sub()
@@ -380,7 +380,7 @@ def earthexplorer_account(user_pw):
 
     try:
         response = espa_api('user', uauth = (username, pw))
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         # TODO fix this...
         log.add().warning("> Test not working right now, assuming your account is valid.")
         log.warning("> If you want to enter a new password, run `pywapor.collect.accounts.setup('EARTHEXPLORER')`.").sub()

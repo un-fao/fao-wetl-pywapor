@@ -107,7 +107,7 @@ def main(dss, sources, folder, general_enhancers, example_t_vars = ["lst"]):
                 orig_time_size = ds["time"].size
 
                 if temporal_interp == "whittaker":
-                    if (not ds.time.equals(example_time)) and (not var in example_t_vars):
+                    if (not ds.time.equals(example_time)) and (var not in example_t_vars):
                         new_x = example_time.values
                     else:
                         new_x = None
@@ -158,7 +158,7 @@ def main(dss, sources, folder, general_enhancers, example_t_vars = ["lst"]):
     elif len(example_source) == 0:
         example_ds = None
     else:
-        log.warning(f"--> Multiple example datasets found, selecting lowest resolution.")
+        log.warning("--> Multiple example datasets found, selecting lowest resolution.")
         example_ds = None
 
     # Open unopened netcdf files.
