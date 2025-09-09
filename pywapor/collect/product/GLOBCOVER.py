@@ -1,11 +1,11 @@
-import os
-from pywapor.collect.protocol import cog
-from pywapor.general.processing_functions import open_ds, remove_ds, save_ds
-import xarray as xr
-from functools import partial
-from pywapor.enhancers import lulc
-import numpy as np
 import copy
+import os
+from functools import partial
+
+from pywapor.collect.protocol import cog
+from pywapor.enhancers import lulc
+from pywapor.general.processing_functions import open_ds
+
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
@@ -25,31 +25,37 @@ def default_vars(product_name, req_vars):
         Metadata on which exact layers need to be requested from the server.
     """
     variables = {
-        '2009_V2.3_Global': {
-                "Band1": [("lat", "lon"), "lulc"],
-                "crs": [(), "spatial_ref"],
-                    },
+        "2009_V2.3_Global": {
+            "Band1": [("lat", "lon"), "lulc"],
+            "crs": [(), "spatial_ref"],
+        },
     }
 
     req_dl_vars = {
         "2009_V2.3_Global": {
             "lulc": ["Band1", "crs"],
             "rs_min": ["Band1", "crs"],
-            "z_obst_max": ["Band1", "crs"], 
+            "z_obst_max": ["Band1", "crs"],
             "land_mask": ["Band1", "crs"],
             "lue_max": ["Band1", "crs"],
         },
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
-    
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
+
     return out
+
 
 def remove_var(ds, var):
     return ds.drop_vars([var])
 
+
 def default_post_processors(product_name, req_vars):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -67,22 +73,47 @@ def default_post_processors(product_name, req_vars):
     """
 
     post_processors = {
-        '2009_V2.3_Global': {
+        "2009_V2.3_Global": {
             "lulc": [],
-            "rs_min": [partial(lulc.lulc_to_x, in_var = "lulc", out_var = "rs_min", 
-                        convertor = lulc.globcover_to_rs_min())],
-            "z_obst_max": [partial(lulc.lulc_to_x, in_var = "lulc", out_var = "z_obst_max", 
-                        convertor = lulc.globcover_to_z_obst_max())],
-            "land_mask": [partial(lulc.lulc_to_x, in_var = "lulc", out_var = "land_mask", 
-                        convertor = lulc.globcover_to_land_mask())],
-            "lue_max": [partial(lulc.lulc_to_x, in_var = "lulc", out_var = "lue_max", 
-                        convertor = lulc.globcover_to_lue_max())],
-            },
+            "rs_min": [
+                partial(
+                    lulc.lulc_to_x,
+                    in_var="lulc",
+                    out_var="rs_min",
+                    convertor=lulc.globcover_to_rs_min(),
+                )
+            ],
+            "z_obst_max": [
+                partial(
+                    lulc.lulc_to_x,
+                    in_var="lulc",
+                    out_var="z_obst_max",
+                    convertor=lulc.globcover_to_z_obst_max(),
+                )
+            ],
+            "land_mask": [
+                partial(
+                    lulc.lulc_to_x,
+                    in_var="lulc",
+                    out_var="land_mask",
+                    convertor=lulc.globcover_to_land_mask(),
+                )
+            ],
+            "lue_max": [
+                partial(
+                    lulc.lulc_to_x,
+                    in_var="lulc",
+                    out_var="lue_max",
+                    convertor=lulc.globcover_to_lue_max(),
+                )
+            ],
+        },
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
+
 
 def url_func(product_name):
     """Returns a url at which to collect GLOBCOVER data.
@@ -99,8 +130,21 @@ def url_func(product_name):
     """
     return r"http://due.esrin.esa.int/files/GLOBCOVER_L4_200901_200912_V2.3.color.tif"
 
-def download(folder, latlim, lonlim, product_name, req_vars = ["lulc"],
-                variables = None, post_processors = None, **kwargs):
+
+def most_recent(product_name, *args):
+    return None
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    product_name,
+    req_vars=["lulc"],
+    variables=None,
+    post_processors=None,
+    **kwargs,
+):
     """Download GLOBCOVER data and store it in a single netCDF file.
 
     Parameters
@@ -155,16 +199,21 @@ def download(folder, latlim, lonlim, product_name, req_vars = ["lulc"],
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
-    ds = cog.download(fn, product_name, coords, variables, 
-                        post_processors, url_func, ndv = 0)
+    ds = cog.download(
+        fn, product_name, coords, variables, post_processors, url_func, ndv=0
+    )
 
     return ds[req_vars_orig]
 
-if __name__ == "__main__":
 
-    product_name = '2009_V2.3_Global'
+if __name__ == "__main__":
+    product_name = "2009_V2.3_Global"
 
     folder = r"/Users/hmcoerver/Local/globcov_test"
     latlim = [28.9, 29.7]
@@ -173,5 +222,12 @@ if __name__ == "__main__":
     post_processors = None
     req_vars = ["lulc", "rs_min", "land_mask"]
 
-    ds = download(folder, latlim, lonlim, product_name, req_vars = req_vars,
-                    variables = variables, post_processors = post_processors)
+    ds = download(
+        folder,
+        latlim,
+        lonlim,
+        product_name,
+        req_vars=req_vars,
+        variables=variables,
+        post_processors=post_processors,
+    )

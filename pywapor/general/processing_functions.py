@@ -3,7 +3,6 @@ from dask.diagnostics import ProgressBar
 import numpy as np
 from pywapor.general.logger import log
 import xarray as xr
-import numpy as np
 import shutil
 import glob
 from osgeo import gdal
@@ -12,8 +11,6 @@ import warnings
 import rasterio.warp
 import pandas as pd
 from pywapor.general.performance import performance_check
-import glob
-import os
 import re
 
 def func_from_string(string):
@@ -119,7 +116,7 @@ def remove_ds(ds):
         try:
             ds = xr.open_dataset(fp, chunks = "auto")
             ds = ds.close()
-        except OSError:
+        except (OSError, ValueError):
             ... # file is corrupt/incomplete
 
         try:
@@ -252,7 +249,7 @@ def make_example_ds(ds, folder, target_crs, bb = None, example_ds_fp = None):
                 warnings.filterwarnings("ignore", category = UserWarning)
                 ds = ds.rio.clip_box(*bb)
         ds = ds.drop_vars(list(ds.data_vars))
-        example_ds = save_ds(ds, example_ds_fp, encoding = "initiate", label = f"Creating example dataset.") # NOTE saving because otherwise rio.reproject bugs.
+        example_ds = save_ds(ds, example_ds_fp, encoding = "initiate", label = "Creating example dataset.") # NOTE saving because otherwise rio.reproject bugs.
     return example_ds
 
 @performance_check

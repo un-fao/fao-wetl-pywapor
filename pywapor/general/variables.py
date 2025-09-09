@@ -678,7 +678,7 @@ def get_var_definitions():
         },
         "slope": {
             "long_name": "Slope",
-            "units": "radians",
+            "units": "degrees",
             "definition": ""
         },
         "ssvp_24": {

@@ -61,15 +61,15 @@ def main(input_data, et_look_version = "v2", export_vars = "default", chunks = {
 
     if ds["rs_min"].dtype == object:
         ds["rs_min"] = 100
-        log.info(f"--> Setting `rs_min` to `100`.")
+        log.info("--> Setting `rs_min` to `100`.")
 
     if ds["land_mask"].dtype == object:
         ds["land_mask"] = 1
-        log.info(f"--> Setting `land_mask` to `1`.")
+        log.info("--> Setting `land_mask` to `1`.")
 
     if ds["z_obst_max"].dtype == object:
         ds["z_obst_max"] = 3
-        log.info(f"--> Setting `z_obst_max` to `3`.")
+        log.info("--> Setting `z_obst_max` to `3`.")
 
     ds["decl"] = ETLook.solar_radiation.declination(ds["doy"])
     ds["iesd"] = ETLook.solar_radiation.inverse_earth_sun_distance(ds["doy"])
@@ -139,7 +139,7 @@ def main(input_data, et_look_version = "v2", export_vars = "default", chunks = {
     # **initial canopy aerodynamic resistance***********************************************************
     if ds["z_oro"].dtype == object: # TODO this function is wrong...
         ds["z_oro"] = 0.001
-        log.info(f"--> Setting `z_oro` to `0.001`.")
+        log.info("--> Setting `z_oro` to `0.001`.")
         # ds["z_oro"] = ETLook.roughness.orographic_roughness(ds["z"], ds["x"], ds["y"])
     
     ds["z_obst"] = ETLook.roughness.obstacle_height(ds["ndvi"], ds["z_obst_max"], ndvi_obs_min = ds["ndvi_obs_min"], ndvi_obs_max = ds["ndvi_obs_max"], obs_fr = ds["obs_fr"])
@@ -224,7 +224,7 @@ def main(input_data, et_look_version = "v2", export_vars = "default", chunks = {
 
     ds["co2_fert"] = ETLook.biomass.co2_fertilisation(ds["tau_co2_o2"], ds["k_m"], ds["k_0"], ds["co2_act"], o2=ds["o2"], co2_ref=ds["co2_ref"])
     ds["npp_max"] = ETLook.biomass.net_primary_production_max(ds["t_dep"], ds["co2_fert"], ds["a_d"], ds["apar"], gcgdm=ds["gcgdm"])
-    ds["npp"] = ETLook.biomass.net_primary_production(ds["npp_max"], ds["f_par"], ds["stress_moist"], phot_eff=ds["phot_eff"])
+    ds["npp"] = ETLook.biomass.net_primary_production(ds["npp_max"], ds["f_par"], ds["stress_moist"], phot_eff=ds["phot_eff"]) # TODO include phot_eff from table (based on LULC)
 
     ds = ds.drop_vars([x for x in ds.variables if ds[x].dtype == object])
 
@@ -249,7 +249,7 @@ def main(input_data, et_look_version = "v2", export_vars = "default", chunks = {
         keep_vars = copy.copy(export_vars)
         ds = ds[keep_vars]
     else:
-        raise ValueError(f"Please provide a valid `export_vars` ('all', 'default' or a list).")
+        raise ValueError("Please provide a valid `export_vars` ('all', 'default' or a list).")
 
     if len(ds.data_vars) == 0:
         log.info("--> No data to export, try adjusting `export_vars` or make sure to provide required inputs.")

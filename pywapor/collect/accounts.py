@@ -60,7 +60,7 @@ def ask_pw(account):
         api_key_2 = input(f"{account} CDS API key: ")
         pwd = f"{api_key_1}:{api_key_2}"
     elif account == "CDS":
-        account_name = 'https://cds-beta.climate.copernicus.eu/api'
+        account_name = 'https://cds.climate.copernicus.eu/api'
         pat = input(f"{account} Personal Access Token: ")
         pwd = f"{pat}"
     else:

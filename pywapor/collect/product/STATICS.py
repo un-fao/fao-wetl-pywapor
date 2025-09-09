@@ -1,9 +1,9 @@
-import os
-from pywapor.collect.protocol import cog
-from pywapor.general.processing_functions import open_ds, remove_ds, save_ds
-import xarray as xr
-import numpy as np
 import copy
+import os
+
+from pywapor.collect.protocol import cog
+from pywapor.general.processing_functions import open_ds
+
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
@@ -23,28 +23,28 @@ def default_vars(product_name, req_vars):
         Metadata on which exact layers need to be requested from the server.
     """
     variables = {
-        'WaPOR2': {
-                "Band1": [("lat", "lon"), "z_oro"],
-                "Band2": [("lat", "lon"), "vpd_slope"],
-                "Band3": [("lat", "lon"), "t_amp"],
-                "Band4": [("lat", "lon"), "rn_offset"],
-                "Band5": [("lat", "lon"), "r0_full"],
-                "Band6": [("lat", "lon"), "r0_bare"],
-                "Band7": [("lat", "lon"), "rs_min"],
-                "Band8": [("lat", "lon"), "rn_slope"],
-                "Band9": [("lat", "lon"), "t_opt"],
-                "Band10": [("lat", "lon"), "lw_slope"],
-                "Band11": [("lat", "lon"), "land_mask"],
-                "Band12": [("lat", "lon"), "lw_offset"],
-                "Band13": [("lat", "lon"), "z_obst_max"],
-                "crs": [(), "spatial_ref"],
-                    },
+        "WaPOR2": {
+            "Band1": [("lat", "lon"), "z_oro"],
+            "Band2": [("lat", "lon"), "vpd_slope"],
+            "Band3": [("lat", "lon"), "t_amp"],
+            "Band4": [("lat", "lon"), "rn_offset"],
+            "Band5": [("lat", "lon"), "r0_full"],
+            "Band6": [("lat", "lon"), "r0_bare"],
+            "Band7": [("lat", "lon"), "rs_min"],
+            "Band8": [("lat", "lon"), "rn_slope"],
+            "Band9": [("lat", "lon"), "t_opt"],
+            "Band10": [("lat", "lon"), "lw_slope"],
+            "Band11": [("lat", "lon"), "land_mask"],
+            "Band12": [("lat", "lon"), "lw_offset"],
+            "Band13": [("lat", "lon"), "z_obst_max"],
+            "crs": [(), "spatial_ref"],
+        },
         # 'WaPOR3': {
         #         "Band2": [("lat", "lon"), "lw_offset"],
         #         "Band1": [("lat", "lon"), "lw_slope"],
         #         "crs": [(), "spatial_ref"],
         # },
-        'WaPOR3': {
+        "WaPOR3": {
             "Band1": [("lat", "lon"), "lw_offset"],
             "Band2": [("lat", "lon"), "lw_slope"],
             "Band3": [("lat", "lon"), "rn_offset"],
@@ -53,7 +53,7 @@ def default_vars(product_name, req_vars):
             "Band6": [("lat", "lon"), "t_opt"],
             "Band7": [("lat", "lon"), "vpd_slope"],
             "crs": [(), "spatial_ref"],
-        }
+        },
     }
 
     req_dl_vars = {
@@ -77,26 +77,32 @@ def default_vars(product_name, req_vars):
         #     "lw_slope": ["Band1", "crs"],
         # },
         "WaPOR3": {
-            "lw_offset": ["Band1", "crs"], 
-            "lw_slope": ["Band2", "crs"], 
-            "rn_offset": ["Band3", "crs"], 
-            "rn_slope": ["Band4", "crs"], 
-            "t_amp": ["Band5", "crs"], 
-            "t_opt": ["Band6", "crs"], 
-            "vpd_slope": ["Band7", "crs"], 
-        }
+            "lw_offset": ["Band1", "crs"],
+            "lw_slope": ["Band2", "crs"],
+            "rn_offset": ["Band3", "crs"],
+            "rn_slope": ["Band4", "crs"],
+            "t_amp": ["Band5", "crs"],
+            "t_opt": ["Band6", "crs"],
+            "vpd_slope": ["Band7", "crs"],
+        },
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
-    
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
+
     return out
 
-def scale_factor(ds, var, scale = 0.01):
+
+def scale_factor(ds, var, scale=0.01):
     ds[var] = ds[var] * scale
     return ds
 
+
 def default_post_processors(product_name, req_vars):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -113,39 +119,40 @@ def default_post_processors(product_name, req_vars):
         Functions per variable that should be applied to the variable.
     """
     post_processors = {
-        'WaPOR2': {
-                    "land_mask": [],
-                    "lw_offset": [],
-                    "lw_slope": [],
-                    "r0_bare": [],
-                    "r0_full": [],
-                    "rn_offset": [],
-                    "rn_slope": [],
-                    "rs_min": [],
-                    "t_amp": [],
-                    "t_opt": [],
-                    "vpd_slope": [],
-                    "z_obst_max": [],
-                    "z_oro": [],
-                    },
+        "WaPOR2": {
+            "land_mask": [],
+            "lw_offset": [],
+            "lw_slope": [],
+            "r0_bare": [],
+            "r0_full": [],
+            "rn_offset": [],
+            "rn_slope": [],
+            "rs_min": [],
+            "t_amp": [],
+            "t_opt": [],
+            "vpd_slope": [],
+            "z_obst_max": [],
+            "z_oro": [],
+        },
         # 'WaPOR3': {
         #             "lw_offset": [],
         #             "lw_slope": [],
         #             },
         "WaPOR3": {
-            "lw_offset": [], 
-            "lw_slope": [], 
-            "rn_offset": [], 
-            "rn_slope": [], 
-            "t_amp": [], 
-            "t_opt": [], 
-            "vpd_slope": [], 
-        }
+            "lw_offset": [],
+            "lw_slope": [],
+            "rn_offset": [],
+            "rn_slope": [],
+            "t_amp": [],
+            "t_opt": [],
+            "vpd_slope": [],
+        },
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
+
 
 def url_func(product_name):
     """Returns a url at which to collect MERRA2 data.
@@ -163,8 +170,21 @@ def url_func(product_name):
     url = f"https://storage.googleapis.com/fao-cog-data/{product_name}.tif"
     return url
 
-def download(folder, latlim, lonlim, product_name, req_vars,
-                variables = None, post_processors = None, **kwargs):
+
+def most_recent(product_name, *args):
+    return None
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    product_name,
+    req_vars,
+    variables=None,
+    post_processors=None,
+    **kwargs,
+):
     """Download MODIS data and store it in a single netCDF file.
 
     Parameters
@@ -192,7 +212,7 @@ def download(folder, latlim, lonlim, product_name, req_vars,
         Downloaded data.
     """
     folder = os.path.join(folder, "STATICS")
-    
+
     fn = os.path.join(folder, f"{product_name}.nc")
     req_vars_orig = copy.deepcopy(req_vars)
     if os.path.isfile(fn):
@@ -206,7 +226,7 @@ def download(folder, latlim, lonlim, product_name, req_vars,
 
     spatial_buffer = True
     if spatial_buffer:
-        dx = dy = 2/6
+        dx = dy = 2 / 6
         latlim = [latlim[0] - dy, latlim[1] + dy]
         lonlim = [lonlim[0] - dx, lonlim[1] + dx]
 
@@ -219,31 +239,34 @@ def download(folder, latlim, lonlim, product_name, req_vars,
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
-    ds = cog.download(fn, product_name, coords, variables, 
-                        post_processors, url_func)
+    ds = cog.download(fn, product_name, coords, variables, post_processors, url_func)
 
     return ds[req_vars_orig]
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     req_vars = [
-                # 'land_mask',
-                'lw_offset',
-                'lw_slope',
-                # 'r0_bare',
-                # 'r0_full',
-                'rn_offset',
-                'rn_slope',
-                # 'rs_min',
-                # 't_amp',
-                't_amp',
-                't_opt',
-                'vpd_slope',
-                # 'z_obst_max',
-                # 'z_oro'
-                ]
+        # 'land_mask',
+        "lw_offset",
+        "lw_slope",
+        # 'r0_bare',
+        # 'r0_full',
+        "rn_offset",
+        "rn_slope",
+        # 'rs_min',
+        # 't_amp',
+        "t_amp",
+        "t_opt",
+        "vpd_slope",
+        # 'z_obst_max',
+        # 'z_oro'
+    ]
 
     product_name = "WaPOR3"
 
@@ -256,5 +279,12 @@ if __name__ == "__main__":
     variables = None
     post_processors = None
 
-    ds = download(folder, latlim, lonlim, product_name, req_vars,
-                variables = None, post_processors = None)
+    ds = download(
+        folder,
+        latlim,
+        lonlim,
+        product_name,
+        req_vars,
+        variables=None,
+        post_processors=None,
+    )

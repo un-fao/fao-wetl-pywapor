@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'pywapor',
-    version = '3.5.14',
+    version = '3.6.0',
     url = 'https://www.fao.org/aquastat/py-wapor/',
     author = "FAO",
     author_email = "bert.coerver@fao.org",
@@ -11,9 +11,9 @@ setup(
     include_package_data=True,
     python_requires='>=3.10',
     install_requires = [
+        # 'libgdal-netcdf',
+        # 'libgdal-jp2openjpeg',
         'netcdf4',
-        'libgdal-netcdf',
-        'libgdal-jp2openjpeg',
         'gdal>=3,<4.0',
         'xarray',
         'numpy<2',

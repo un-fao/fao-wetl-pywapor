@@ -97,7 +97,7 @@ def declination(doy):
 
     .. math ::
 
-        \delta=0.409 \cdot \sin\left(\frac{2\pi \cdot J}{365}-1.39\right)
+        \\delta=0.409 \cdot \sin\left(\frac{2\pi \cdot J}{365}-1.39\right)
 
     Parameters
     ----------
@@ -110,7 +110,7 @@ def declination(doy):
     -------
     decl : float
         declination, 
-        :math:`\delta`
+        :math:`\\delta`
         [rad]
 
     Examples
@@ -264,13 +264,13 @@ def sunset_hour_angle(lat, decl):
 
     .. math ::
 
-        w_{s}=\arccos(-\tan(\lambda)\cdot \tan(\delta))
+        w_{s}=\arccos(-\tan(\lambda)\cdot \tan(\\delta))
 
     Parameters
     ----------
     decl : float
         solar declination, 
-        :math:`\delta`
+        :math:`\\delta`
         [rad]
     lat : float
         latitude, 
@@ -387,7 +387,7 @@ def daily_solar_radiation_toa(sc, decl, iesd, lat, slope, aspect):
         [AU]
     decl : float
         solar declination, 
-        :math:`\delta`
+        :math:`\\delta`
         [rad]
     sc : float
         seasonal correction, 
@@ -398,9 +398,9 @@ def daily_solar_radiation_toa(sc, decl, iesd, lat, slope, aspect):
         :math:`\lambda`
         [rad]
     slope : float
-        slope, 
+        slope (0 is flat, 90 is vertical), 
         :math:`\Delta`
-        [rad]
+        [deg]
     aspect : float
         aspect (0 is north; 180 is south), 
         :math:`\alpha`
@@ -425,6 +425,7 @@ def daily_solar_radiation_toa(sc, decl, iesd, lat, slope, aspect):
     265.74072308978026
     """
     aspect_rad = np.deg2rad(aspect)
+    slope_rad = np.deg2rad(slope)
 
     # hour angle for the whole day in half-hourly intervals (0:15-23:45)
     t_start = 0.25
@@ -435,7 +436,7 @@ def daily_solar_radiation_toa(sc, decl, iesd, lat, slope, aspect):
 
     if isinstance(sc, xr.DataArray):
         ha = xr.concat(hours, dim = times).rename({"concat_dim": "times"}).rename("hour_angle").chunk({"times":-1})
-        csza = cosine_solar_zenith_angle(ha, decl, lat, slope, aspect_rad)
+        csza = cosine_solar_zenith_angle(ha, decl, lat, slope_rad, aspect_rad)
         ra_24_toa = inst_solar_radiation_toa(csza, iesd).mean(dim = "times")
     else:
         ra_24_toa = 0
@@ -452,11 +453,11 @@ def cosine_solar_zenith_angle(ha, decl, lat, slope=0, aspect_rad=0):
 
     .. math ::
 
-        \phi = & \sin\left(\delta\right) \cdot \sin\left(\lambda\right) \cdot  \cos\left(\Delta\right) - \\
-        & \sin\left(\delta\right) \cdot \cos\left(\lambda\right) \cdot \sin\left(\Delta\right) + \\
-        & \cos\left(\delta\right) \cdot \cos\left(\lambda\right) \cdot \cos\left(\Delta\right) \cdot \cos\left(\omega\right)+\\
-        & \cos\left(\delta\right) \cdot \sin\left(\lambda\right) \cdot \sin\left(\Delta\right) \cdot \sin\left(\alpha\right) \cdot \cos\left(\omega\right)+\\
-        & \cos\left(\delta\right) \cdot \sin\left(\Delta\right) \cdot  \sin\left(\alpha\right) \cdot \sin\left(\omega\right)
+        \phi = & \sin\left(\\delta\right) \cdot \sin\left(\lambda\right) \cdot  \cos\left(\Delta\right) - \\
+        & \sin\left(\\delta\right) \cdot \cos\left(\lambda\right) \cdot \sin\left(\Delta\right) + \\
+        & \cos\left(\\delta\right) \cdot \cos\left(\lambda\right) \cdot \cos\left(\Delta\right) \cdot \cos\left(\omega\right)+\\
+        & \cos\left(\\delta\right) \cdot \sin\left(\lambda\right) \cdot \sin\left(\Delta\right) \cdot \sin\left(\alpha\right) \cdot \cos\left(\omega\right)+\\
+        & \cos\left(\\delta\right) \cdot \sin\left(\Delta\right) \cdot  \sin\left(\alpha\right) \cdot \sin\left(\omega\right)
 
     Parameters
     ----------
@@ -466,7 +467,7 @@ def cosine_solar_zenith_angle(ha, decl, lat, slope=0, aspect_rad=0):
         [rad]
     decl : float
         declination, 
-        :math:`\delta`
+        :math:`\\delta`
         [rad]
     lat : float
         latitude, 
@@ -525,7 +526,7 @@ def transmissivity(ra_24_flat, ra_24_toa_flat):
     ----------
     ra_24_flat : float
         daily solar radiation for a flat surface, 
-        :math:`S^{\downarrow}`
+        :math:`S^{\\downarrow}`
         [Wm-2]
     ra_24_toa_flat : float
         daily solar radiation at the top of atmosphere for a flat surface, 
@@ -549,14 +550,14 @@ def daily_solar_radiation_toa_flat(decl, iesd, lat, ws):
 
     .. math ::
 
-        S_{toa,f}=\frac{S_{sun}}{\pi} \cdot d_{inv,r} \cdot (w_{s} \cdot \sin(\lambda) \cdot \sin(\delta) +
-                  \cos(\lambda)\cdot\cos(\delta)\cdot\sin(w_{s}))
+        S_{toa,f}=\frac{S_{sun}}{\pi} \cdot d_{inv,r} \cdot (w_{s} \cdot \sin(\lambda) \cdot \sin(\\delta) +
+                  \cos(\lambda)\cdot\cos(\\delta)\cdot\sin(w_{s}))
 
     Parameters
     ----------
     decl : float
         solar declination, 
-        :math:`\delta`
+        :math:`\\delta`
         [rad]
     iesd : float
         inverse earth sun distance, 
@@ -591,7 +592,7 @@ def daily_solar_radiation_flat(ra_24_toa_flat, trans_24):
 
     .. math ::
 
-        S^{\downarrow} = \tau \cdot S_{toa}
+        S^{\\downarrow} = \tau \cdot S_{toa}
 
     Parameters
     ----------
@@ -608,7 +609,7 @@ def daily_solar_radiation_flat(ra_24_toa_flat, trans_24):
     -------
     ra_24_flat : float
         daily solar radiation for a flat surface, 
-        :math:`S^{\downarrow}`
+        :math:`S^{\\downarrow}`
         [Wm-2]
 
     """
@@ -661,7 +662,7 @@ def daily_total_solar_radiation(ra_24_toa, ra_24_toa_flat, diffusion_index, tran
 
     .. math ::
 
-        S^{\downarrow} = I_{diff} \cdot \tau \cdot S_{toa,f} +(1-I_{diff}) \cdot \tau \cdot S_{toa}
+        S^{\\downarrow} = I_{diff} \cdot \tau \cdot S_{toa,f} +(1-I_{diff}) \cdot \tau \cdot S_{toa}
 
     Parameters
     ----------
@@ -686,7 +687,7 @@ def daily_total_solar_radiation(ra_24_toa, ra_24_toa_flat, diffusion_index, tran
     -------
     ra_24 : float
         daily solar radiation, 
-        :math:`S^{\downarrow}`
+        :math:`S^{\\downarrow}`
         [Wm-2]
 
     """

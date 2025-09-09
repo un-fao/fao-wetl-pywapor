@@ -6,7 +6,7 @@
 import numpy as np
 import xarray as xr
 
-def fpar(ndvi, fpar_slope=1.257, fpar_offset=-0.161):
+def fpar(ndvi, fpar_slope=1.257, fpar_offset=-0.161): # TODO: UPDATE WITH METHODOLOGY
     r"""
     Computes the fraction of absorbed PAR.
     PAR is photosynthetically active radiation, which is the solar radiation

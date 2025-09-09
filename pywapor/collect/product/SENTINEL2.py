@@ -1,18 +1,18 @@
+import copy
 import glob
 import os
-import copy
 import warnings
-import xarray as xr
-import numpy as np
-import pywapor.collect.protocol.copernicus_odata as copernicus_odata
-import numpy as np
 from datetime import datetime as dt
-from pywapor.general.logger import log
 from functools import partial
-from pywapor.enhancers.gap_fill import gap_fill
-from pywapor.general.processing_functions import open_ds, adjust_timelim_dtype
-from pywapor.general.logger import adjust_logger
+
+import numpy as np
+import xarray as xr
 from lxml import etree
+
+import pywapor.collect.protocol.copernicus_odata as copernicus_odata
+from pywapor.enhancers.gap_fill import gap_fill
+from pywapor.general.logger import adjust_logger, log
+from pywapor.general.processing_functions import adjust_timelim_dtype, open_ds
 
 
 def apply_qa(ds, var):
@@ -39,10 +39,13 @@ def apply_qa(ds, var):
         keep = np.invert(ds["qa"].isin(pixel_qa_flags))
         ds[var] = ds[var].where(keep)
     else:
-        log.warning(f"--> Couldn't apply qa, since `qa` doesn't exist in this dataset ({list(ds.data_vars)}).")
+        log.warning(
+            f"--> Couldn't apply qa, since `qa` doesn't exist in this dataset ({list(ds.data_vars)})."
+        )
     return ds
 
-def mask_invalid(ds, var, valid_range = (1, 65534)):
+
+def mask_invalid(ds, var, valid_range=(1, 65534)):
     """Mask invalid data.
 
     Parameters
@@ -63,6 +66,7 @@ def mask_invalid(ds, var, valid_range = (1, 65534)):
     ds[var] = ds[var].where((ds[var] >= valid_range[0]) & (ds[var] <= valid_range[1]))
     return ds
 
+
 def scale_data(ds, var):
     """Apply a scale and offset factor to `ds`.
 
@@ -78,14 +82,15 @@ def scale_data(ds, var):
     xr.Dataset
         Output data.
     """
-    
-    scale = 1./ds.scale_factor # BOA_QUANTIFICATION_VALUE
-    offset = ds.offset_factor # BOA_ADD_OFFSET
+
+    scale = 1.0 / ds.scale_factor  # BOA_QUANTIFICATION_VALUE
+    offset = ds.offset_factor  # BOA_ADD_OFFSET
     ds[var] = (ds[var] + offset) * scale
     ds[var] = ds[var].where((ds[var] <= 1.00) & (ds[var] >= 0.00))
     return ds
 
-def calc_normalized_difference(ds, var, bands = ["nir", "red"]):
+
+def calc_normalized_difference(ds, var, bands=["nir", "red"]):
     """Calculate the normalized difference of two bands.
 
     Parameters
@@ -108,8 +113,11 @@ def calc_normalized_difference(ds, var, bands = ["nir", "red"]):
             da = (ds[bands[0]] - ds[bands[1]]) / (ds[bands[0]] + ds[bands[1]])
         ds[var] = da.clip(-1, 1)
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in bands if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in bands if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def calc_psri(ds, var):
     """Calculate the PSRI as ("red" - "blue)/"red_edge_740".
@@ -133,8 +141,11 @@ def calc_psri(ds, var):
             da = (ds["red"] - ds["blue"]) / ds["red_edge_740"]
         ds[var] = da.clip(-1, 1)
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def calc_nmdi(ds, var):
     """Calculate the NMDI.
@@ -154,11 +165,14 @@ def calc_nmdi(ds, var):
     reqs = ["swir1", "swir2", "nir"]
     if np.all([x in ds.data_vars for x in reqs]):
         ds["nominator"] = ds["swir1"] - ds["swir2"]
-        ds = calc_normalized_difference(ds, var, bands = ["nominator", "nir"])
+        ds = calc_normalized_difference(ds, var, bands=["nominator", "nir"])
         ds = ds.drop_vars(["nominator"])
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def calc_bsi(ds, var):
     """Calculate the BSI.
@@ -179,11 +193,14 @@ def calc_bsi(ds, var):
     if np.all([x in ds.data_vars for x in reqs]):
         ds["nominator"] = ds["nir"] + ds["blue"]
         ds["denominator"] = ds["swir1"] + ds["red"]
-        ds = calc_normalized_difference(ds, var, bands = ["nominator", "denominator"])
+        ds = calc_normalized_difference(ds, var, bands=["nominator", "denominator"])
         ds = ds.drop_vars(["nominator", "denominator"])
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def calc_vari_red_egde(ds, var):
     """Calculate the VARI_RED_EDGE.
@@ -209,8 +226,11 @@ def calc_vari_red_egde(ds, var):
             da = n1 / n2
         ds[var] = da.clip(-1, 1)
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def calc_r0(ds, var):
     """Calculate the Albedo.
@@ -229,24 +249,33 @@ def calc_r0(ds, var):
     """
 
     weights = {
-        "blue":     0.171,
-        "green":    0.060,
-        "red":      0.334,
-        "nir":      0.371,
-        "offset":   0.018,
+        "blue": 0.171,
+        "green": 0.060,
+        "red": 0.334,
+        "nir": 0.371,
+        "offset": 0.018,
     }
-    
+
     reqs = ["blue", "green", "red", "nir"]
     if np.all([x in ds.data_vars for x in reqs]):
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", message="All-NaN slice encountered")
             ds["offset"] = xr.ones_like(ds["blue"])
-            weights_da = xr.DataArray(data = list(weights.values()), 
-                                    coords = {"band": list(weights.keys())})
-            ds["r0"] = ds[reqs + ["offset"]].to_array("band").weighted(weights_da).sum("band", skipna = False)
+            weights_da = xr.DataArray(
+                data=list(weights.values()), coords={"band": list(weights.keys())}
+            )
+            ds["r0"] = (
+                ds[reqs + ["offset"]]
+                .to_array("band")
+                .weighted(weights_da)
+                .sum("band", skipna=False)
+            )
     else:
-        log.warning(f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing.")
+        log.warning(
+            f"--> Couldn't calculate `{var}`, `{'` and `'.join([x for x in reqs if x not in ds.data_vars])}` is missing."
+        )
     return ds
+
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
@@ -268,103 +297,153 @@ def default_vars(product_name, req_vars):
 
     variables = {
         "S2MSI2A_R10m": {
-                    "_B02_10m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
-                    "_B03_10m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
-                    "_B04_10m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
-                    "_B08_10m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
-                    "_SCL_20m.jp2": [(), "qa", []],
-                },
+            "_B02_10m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
+            "_B03_10m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
+            "_B04_10m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
+            "_B08_10m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
+            "_SCL_20m.jp2": [(), "qa", []],
+        },
         "S2MSI2A_R20m": {
-                    "_B01_20m.jp2": [(), "coastal_aerosol", [mask_invalid, apply_qa, scale_data]],
-                    "_B02_20m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
-                    "_B03_20m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
-                    "_B04_20m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
-                    "_B05_20m.jp2": [(), "red_edge_703", [mask_invalid, apply_qa, scale_data]],
-                    "_B06_20m.jp2": [(), "red_edge_740", [mask_invalid, apply_qa, scale_data]],
-                    "_B07_20m.jp2": [(), "red_edge_782", [mask_invalid, apply_qa, scale_data]],
-                    "_B8A_20m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
-                    "_B11_20m.jp2": [(), "swir1", [mask_invalid, apply_qa, scale_data]],
-                    "_B12_20m.jp2": [(), "swir2", [mask_invalid, apply_qa, scale_data]],
-                    "_SCL_20m.jp2": [(), "qa", []],
-                },
+            "_B01_20m.jp2": [
+                (),
+                "coastal_aerosol",
+                [mask_invalid, apply_qa, scale_data],
+            ],
+            "_B02_20m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
+            "_B03_20m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
+            "_B04_20m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
+            "_B05_20m.jp2": [(), "red_edge_703", [mask_invalid, apply_qa, scale_data]],
+            "_B06_20m.jp2": [(), "red_edge_740", [mask_invalid, apply_qa, scale_data]],
+            "_B07_20m.jp2": [(), "red_edge_782", [mask_invalid, apply_qa, scale_data]],
+            "_B8A_20m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
+            "_B11_20m.jp2": [(), "swir1", [mask_invalid, apply_qa, scale_data]],
+            "_B12_20m.jp2": [(), "swir2", [mask_invalid, apply_qa, scale_data]],
+            "_SCL_20m.jp2": [(), "qa", []],
+        },
         "S2MSI2A_R60m": {
-                    "_B01_60m.jp2": [(), "coastal_aerosol", [mask_invalid, apply_qa, scale_data]],
-                    "_B02_60m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
-                    "_B03_60m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
-                    "_B04_60m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
-                    "_B05_60m.jp2": [(), "red_edge_703", [mask_invalid, apply_qa, scale_data]],
-                    "_B06_60m.jp2": [(), "red_edge_740", [mask_invalid, apply_qa, scale_data]],
-                    "_B07_60m.jp2": [(), "red_edge_782", [mask_invalid, apply_qa, scale_data]],
-                    "_B8A_60m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
-                    "_B09_60m.jp2": [(), "narrow_nir", [mask_invalid, apply_qa, scale_data]],
-                    "_B11_60m.jp2": [(), "swir1", [mask_invalid, apply_qa, scale_data]],
-                    "_B12_60m.jp2": [(), "swir2", [mask_invalid, apply_qa, scale_data]],
-                    "_SCL_60m.jp2": [(), "qa", []],
-                },
+            "_B01_60m.jp2": [
+                (),
+                "coastal_aerosol",
+                [mask_invalid, apply_qa, scale_data],
+            ],
+            "_B02_60m.jp2": [(), "blue", [mask_invalid, apply_qa, scale_data]],
+            "_B03_60m.jp2": [(), "green", [mask_invalid, apply_qa, scale_data]],
+            "_B04_60m.jp2": [(), "red", [mask_invalid, apply_qa, scale_data]],
+            "_B05_60m.jp2": [(), "red_edge_703", [mask_invalid, apply_qa, scale_data]],
+            "_B06_60m.jp2": [(), "red_edge_740", [mask_invalid, apply_qa, scale_data]],
+            "_B07_60m.jp2": [(), "red_edge_782", [mask_invalid, apply_qa, scale_data]],
+            "_B8A_60m.jp2": [(), "nir", [mask_invalid, apply_qa, scale_data]],
+            "_B09_60m.jp2": [(), "narrow_nir", [mask_invalid, apply_qa, scale_data]],
+            "_B11_60m.jp2": [(), "swir1", [mask_invalid, apply_qa, scale_data]],
+            "_B12_60m.jp2": [(), "swir2", [mask_invalid, apply_qa, scale_data]],
+            "_SCL_60m.jp2": [(), "qa", []],
+        },
     }
 
     req_dl_vars = {
-
         "S2MSI2A_R10m": {
-            "blue":             ["_B02_10m.jp2", "_SCL_20m.jp2"],
-            "green":            ["_B03_10m.jp2", "_SCL_20m.jp2"],
-            "red":              ["_B04_10m.jp2", "_SCL_20m.jp2"],
-            "nir":              ["_B08_10m.jp2", "_SCL_20m.jp2"],
-            "qa":               ["_SCL_20m.jp2"],
-            "ndvi":             ["_B04_10m.jp2", "_B08_10m.jp2", "_SCL_20m.jp2"],
-            "r0":               ["_B02_10m.jp2", "_B03_10m.jp2", "_B04_10m.jp2", "_B08_10m.jp2", "_SCL_20m.jp2"],
+            "blue": ["_B02_10m.jp2", "_SCL_20m.jp2"],
+            "green": ["_B03_10m.jp2", "_SCL_20m.jp2"],
+            "red": ["_B04_10m.jp2", "_SCL_20m.jp2"],
+            "nir": ["_B08_10m.jp2", "_SCL_20m.jp2"],
+            "qa": ["_SCL_20m.jp2"],
+            "ndvi": ["_B04_10m.jp2", "_B08_10m.jp2", "_SCL_20m.jp2"],
+            "r0": [
+                "_B02_10m.jp2",
+                "_B03_10m.jp2",
+                "_B04_10m.jp2",
+                "_B08_10m.jp2",
+                "_SCL_20m.jp2",
+            ],
         },
-
         "S2MSI2A_R20m": {
-            "coastal_aerosol":  ["_B01_20m.jp2", "_SCL_20m.jp2"],
-            "blue":             ["_B02_20m.jp2", "_SCL_20m.jp2"],
-            "green":            ["_B03_20m.jp2", "_SCL_20m.jp2"],
-            "red":              ["_B04_20m.jp2", "_SCL_20m.jp2"],
-            "red_edge_703":     ["_B05_20m.jp2", "_SCL_20m.jp2"],
-            "red_edge_740":     ["_B06_20m.jp2", "_SCL_20m.jp2"],
-            "red_edge_782":     ["_B07_20m.jp2", "_SCL_20m.jp2"],
-            "nir":              ["_B8A_20m.jp2", "_SCL_20m.jp2"],
-            "swir1":            ["_B11_20m.jp2", "_SCL_20m.jp2"],
-            "swir2":            ["_B12_20m.jp2", "_SCL_20m.jp2"],
-            "qa":               ["_SCL_20m.jp2"],
-            "ndvi":             ["_B04_20m.jp2", "_B8A_20m.jp2", "_SCL_20m.jp2"],
-            "mndwi":            ["_B03_20m.jp2", "_B11_20m.jp2", "_SCL_20m.jp2"],
-            "vari_red_edge":    ["_B06_20m.jp2", "_B02_20m.jp2", "_B04_20m.jp2", "_SCL_20m.jp2"],
-            "nmdi":             ["_B11_20m.jp2", "_B12_20m.jp2", "_B8A_20m.jp2", "_SCL_20m.jp2"],
-            "psri":             ["_B02_20m.jp2", "_B04_20m.jp2", "_B06_20m.jp2", "_SCL_20m.jp2"],
-            "bsi":              ["_B8A_20m.jp2", "_B11_20m.jp2", "_B04_20m.jp2", "_B02_20m.jp2", "_SCL_20m.jp2"],
-            "r0":               ["_B02_20m.jp2", "_B03_20m.jp2", "_B04_20m.jp2", "_B8A_20m.jp2", "_SCL_20m.jp2"],
+            "coastal_aerosol": ["_B01_20m.jp2", "_SCL_20m.jp2"],
+            "blue": ["_B02_20m.jp2", "_SCL_20m.jp2"],
+            "green": ["_B03_20m.jp2", "_SCL_20m.jp2"],
+            "red": ["_B04_20m.jp2", "_SCL_20m.jp2"],
+            "red_edge_703": ["_B05_20m.jp2", "_SCL_20m.jp2"],
+            "red_edge_740": ["_B06_20m.jp2", "_SCL_20m.jp2"],
+            "red_edge_782": ["_B07_20m.jp2", "_SCL_20m.jp2"],
+            "nir": ["_B8A_20m.jp2", "_SCL_20m.jp2"],
+            "swir1": ["_B11_20m.jp2", "_SCL_20m.jp2"],
+            "swir2": ["_B12_20m.jp2", "_SCL_20m.jp2"],
+            "qa": ["_SCL_20m.jp2"],
+            "ndvi": ["_B04_20m.jp2", "_B8A_20m.jp2", "_SCL_20m.jp2"],
+            "mndwi": ["_B03_20m.jp2", "_B11_20m.jp2", "_SCL_20m.jp2"],
+            "vari_red_edge": [
+                "_B06_20m.jp2",
+                "_B02_20m.jp2",
+                "_B04_20m.jp2",
+                "_SCL_20m.jp2",
+            ],
+            "nmdi": ["_B11_20m.jp2", "_B12_20m.jp2", "_B8A_20m.jp2", "_SCL_20m.jp2"],
+            "psri": ["_B02_20m.jp2", "_B04_20m.jp2", "_B06_20m.jp2", "_SCL_20m.jp2"],
+            "bsi": [
+                "_B8A_20m.jp2",
+                "_B11_20m.jp2",
+                "_B04_20m.jp2",
+                "_B02_20m.jp2",
+                "_SCL_20m.jp2",
+            ],
+            "r0": [
+                "_B02_20m.jp2",
+                "_B03_20m.jp2",
+                "_B04_20m.jp2",
+                "_B8A_20m.jp2",
+                "_SCL_20m.jp2",
+            ],
         },
-
         "S2MSI2A_R60m": {
-            "coastal_aerosol":  ["_B01_60m.jp2", "_SCL_60m.jp2"],
-            "blue":             ["_B02_60m.jp2", "_SCL_60m.jp2"],
-            "green":            ["_B03_60m.jp2", "_SCL_60m.jp2"],
-            "red":              ["_B04_60m.jp2", "_SCL_60m.jp2"],
-            "red_edge_703":     ["_B05_60m.jp2", "_SCL_60m.jp2"],
-            "red_edge_740":     ["_B06_60m.jp2", "_SCL_60m.jp2"],
-            "red_edge_782":     ["_B07_60m.jp2", "_SCL_60m.jp2"],
-            "nir":              ["_B8A_60m.jp2", "_SCL_60m.jp2"],
-            "narrow_nir":       ["_B09_60m.jp2", "_SCL_60m.jp2"],
-            "swir1":            ["_B11_60m.jp2", "_SCL_60m.jp2"],
-            "swir2":            ["_B12_60m.jp2", "_SCL_60m.jp2"],
-            "qa":               ["_SCL_60m.jp2"],
-            "ndvi":             ["_B04_60m.jp2", "_B8A_60m.jp2", "_SCL_60m.jp2"],
-            "mndwi":            ["_B03_60m.jp2", "_B11_60m.jp2", "_SCL_60m.jp2"],
-            "vari_red_edge":    ["_B06_60m.jp2", "_B02_60m.jp2", "_B04_60m.jp2", "_SCL_60m.jp2"],
-            "nmdi":             ["_B11_60m.jp2", "_B12_60m.jp2", "_B8A_60m.jp2", "_SCL_60m.jp2"],
-            "psri":             ["_B02_60m.jp2", "_B04_60m.jp2", "_B06_60m.jp2", "_SCL_60m.jp2"],
-            "bsi":              ["_B8A_60m.jp2", "_B11_60m.jp2", "_B04_60m.jp2", "_B02_60m.jp2", "_SCL_60m.jp2"],
-            "r0":               ["_B02_60m.jp2", "_B03_60m.jp2", "_B04_60m.jp2", "_B8A_60m.jp2", "_SCL_60m.jp2"],
+            "coastal_aerosol": ["_B01_60m.jp2", "_SCL_60m.jp2"],
+            "blue": ["_B02_60m.jp2", "_SCL_60m.jp2"],
+            "green": ["_B03_60m.jp2", "_SCL_60m.jp2"],
+            "red": ["_B04_60m.jp2", "_SCL_60m.jp2"],
+            "red_edge_703": ["_B05_60m.jp2", "_SCL_60m.jp2"],
+            "red_edge_740": ["_B06_60m.jp2", "_SCL_60m.jp2"],
+            "red_edge_782": ["_B07_60m.jp2", "_SCL_60m.jp2"],
+            "nir": ["_B8A_60m.jp2", "_SCL_60m.jp2"],
+            "narrow_nir": ["_B09_60m.jp2", "_SCL_60m.jp2"],
+            "swir1": ["_B11_60m.jp2", "_SCL_60m.jp2"],
+            "swir2": ["_B12_60m.jp2", "_SCL_60m.jp2"],
+            "qa": ["_SCL_60m.jp2"],
+            "ndvi": ["_B04_60m.jp2", "_B8A_60m.jp2", "_SCL_60m.jp2"],
+            "mndwi": ["_B03_60m.jp2", "_B11_60m.jp2", "_SCL_60m.jp2"],
+            "vari_red_edge": [
+                "_B06_60m.jp2",
+                "_B02_60m.jp2",
+                "_B04_60m.jp2",
+                "_SCL_60m.jp2",
+            ],
+            "nmdi": ["_B11_60m.jp2", "_B12_60m.jp2", "_B8A_60m.jp2", "_SCL_60m.jp2"],
+            "psri": ["_B02_60m.jp2", "_B04_60m.jp2", "_B06_60m.jp2", "_SCL_60m.jp2"],
+            "bsi": [
+                "_B8A_60m.jp2",
+                "_B11_60m.jp2",
+                "_B04_60m.jp2",
+                "_B02_60m.jp2",
+                "_SCL_60m.jp2",
+            ],
+            "r0": [
+                "_B02_60m.jp2",
+                "_B03_60m.jp2",
+                "_B04_60m.jp2",
+                "_B8A_60m.jp2",
+                "_SCL_60m.jp2",
+            ],
         },
     }
 
-    out = {val:variables[product_name][val] for sublist in map(req_dl_vars[product_name].get, req_vars) for val in sublist}
+    out = {
+        val: variables[product_name][val]
+        for sublist in map(req_dl_vars[product_name].get, req_vars)
+        for val in sublist
+    }
 
     return out
 
+
 def default_post_processors(product_name, req_vars):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a 
+    """Given a `product_name` and a list of requested variables, returns a dictionary with a
     list of functions per variable that should be applied after having collected the data
     from a server.
 
@@ -380,65 +459,70 @@ def default_post_processors(product_name, req_vars):
     dict
         Functions per variable that should be applied to the variable.
     """
-    
+
     post_processors = {
         "S2MSI2A_R10m": {
-            "blue":             [gap_fill],
-            "green":            [gap_fill],
-            "red":              [gap_fill],
-            "nir":              [gap_fill],
-            "qa":               [],
-            "ndvi":             [calc_normalized_difference, gap_fill],
-            "r0":               [calc_r0, gap_fill],
+            "blue": [gap_fill],
+            "green": [gap_fill],
+            "red": [gap_fill],
+            "nir": [gap_fill],
+            "qa": [],
+            "ndvi": [calc_normalized_difference, gap_fill],
+            "r0": [calc_r0, gap_fill],
         },
-
         "S2MSI2A_R20m": {
-            "coastal_aerosol":  [gap_fill],
-            "blue":             [gap_fill],
-            "green":            [gap_fill],
-            "red":              [gap_fill],
-            "red_edge_703":     [gap_fill],
-            "red_edge_740":     [gap_fill],
-            "red_edge_782":     [gap_fill],
-            "nir":              [gap_fill],
-            "qa":               [],
-            "swir1":            [gap_fill],
-            "swir2":            [gap_fill],
-            "psri":             [calc_psri],
-            "ndvi":             [calc_normalized_difference, gap_fill],
-            "nmdi":             [calc_nmdi, gap_fill],
-            "vari_red_edge":    [calc_vari_red_egde, gap_fill],
-            "bsi":              [calc_bsi, gap_fill],
-            "mndwi":            [partial(calc_normalized_difference, bands = ["swir1", "green"]), gap_fill],
-            "r0":               [calc_r0, gap_fill],
-            },
-
+            "coastal_aerosol": [gap_fill],
+            "blue": [gap_fill],
+            "green": [gap_fill],
+            "red": [gap_fill],
+            "red_edge_703": [gap_fill],
+            "red_edge_740": [gap_fill],
+            "red_edge_782": [gap_fill],
+            "nir": [gap_fill],
+            "qa": [],
+            "swir1": [gap_fill],
+            "swir2": [gap_fill],
+            "psri": [calc_psri],
+            "ndvi": [calc_normalized_difference, gap_fill],
+            "nmdi": [calc_nmdi, gap_fill],
+            "vari_red_edge": [calc_vari_red_egde, gap_fill],
+            "bsi": [calc_bsi, gap_fill],
+            "mndwi": [
+                partial(calc_normalized_difference, bands=["swir1", "green"]),
+                gap_fill,
+            ],
+            "r0": [calc_r0, gap_fill],
+        },
         "S2MSI2A_R60m": {
-            "coastal_aerosol":  [gap_fill],
-            "blue":             [gap_fill],
-            "green":            [gap_fill],
-            "red":              [gap_fill],
-            "red_edge_703":     [gap_fill],
-            "red_edge_740":     [gap_fill],
-            "red_edge_782":     [gap_fill],
-            "nir":              [gap_fill],
-            "narrow_nir":       [gap_fill],
-            "qa":               [],
-            "swir1":            [gap_fill],
-            "swir2":            [gap_fill],
-            "psri":             [calc_psri, gap_fill],
-            "ndvi":             [calc_normalized_difference, gap_fill],
-            "nmdi":             [calc_nmdi, gap_fill],
-            "vari_red_edge":    [calc_vari_red_egde, gap_fill],
-            "bsi":              [calc_bsi, gap_fill],
-            "mndwi":            [partial(calc_normalized_difference, bands = ["swir1", "green"]), gap_fill],
-            "r0":               [calc_r0, gap_fill],
-            },
+            "coastal_aerosol": [gap_fill],
+            "blue": [gap_fill],
+            "green": [gap_fill],
+            "red": [gap_fill],
+            "red_edge_703": [gap_fill],
+            "red_edge_740": [gap_fill],
+            "red_edge_782": [gap_fill],
+            "nir": [gap_fill],
+            "narrow_nir": [gap_fill],
+            "qa": [],
+            "swir1": [gap_fill],
+            "swir2": [gap_fill],
+            "psri": [calc_psri, gap_fill],
+            "ndvi": [calc_normalized_difference, gap_fill],
+            "nmdi": [calc_nmdi, gap_fill],
+            "vari_red_edge": [calc_vari_red_egde, gap_fill],
+            "bsi": [calc_bsi, gap_fill],
+            "mndwi": [
+                partial(calc_normalized_difference, bands=["swir1", "green"]),
+                gap_fill,
+            ],
+            "r0": [calc_r0, gap_fill],
+        },
     }
 
-    out = {k:v for k,v in post_processors[product_name].items() if k in req_vars}
+    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
     return out
+
 
 def time_func(fn):
     """Return a np.datetime64 given a filename.
@@ -456,15 +540,18 @@ def time_func(fn):
     dtime = np.datetime64(dt.strptime(fn.split("_")[2], "%Y%m%dT%H%M%S"), "ns")
     return dtime
 
-def s2_processor(scene_folder, variables, **kwargs):
 
+def s2_processor(scene_folder, variables, **kwargs):
     has_10m = np.any(["_10m" in x for x in variables.keys()])
 
     dss = list()
     dss__ = list()
     lowres_vars_idxs = list()
     for i, (k, v) in enumerate(variables.items()):
-        ds__ = open_ds(glob.glob(os.path.join(scene_folder, "**", "*" + k), recursive = True)[0], decode_coords=None)
+        ds__ = open_ds(
+            glob.glob(os.path.join(scene_folder, "**", "*" + k), recursive=True)[0],
+            decode_coords=None,
+        )
         ds_ = ds__.isel(band=0).rename({"band_data": v[1]})
         dss__.append(ds__)
         dss.append(ds_)
@@ -474,47 +561,70 @@ def s2_processor(scene_folder, variables, **kwargs):
     if len(lowres_vars_idxs) < len(dss) and has_10m:
         highres_ds = dss[[i for i in range(len(dss)) if i not in lowres_vars_idxs][0]]
         for idx in lowres_vars_idxs:
-            dss[idx] = dss[idx].interp_like(highres_ds, method = "nearest",kwargs = {"fill_value": "extrapolate"})
+            dss[idx] = dss[idx].interp_like(
+                highres_ds, method="nearest", kwargs={"fill_value": "extrapolate"}
+            )
 
     ds = xr.merge(dss).drop_vars("band")
 
-    meta_fps = glob.glob(os.path.join(scene_folder, "**", "MTD_MSIL2A.xml"), recursive = True)
-    
+    meta_fps = glob.glob(
+        os.path.join(scene_folder, "**", "MTD_MSIL2A.xml"), recursive=True
+    )
+
     if len(meta_fps) >= 1:
         tree = etree.parse(meta_fps[0])
         root = tree.getroot()
-        baseline = [float(x.text) for x in root.iter('PROCESSING_BASELINE')][0]    
+        baseline = [float(x.text) for x in root.iter("PROCESSING_BASELINE")][0]
         # NOTE https://sentinels.copernicus.eu/en/web/sentinel/-/copernicus-sentinel-2-major-products-upgrade-upcoming
         # NOTE https://stackoverflow.com/questions/72566760/how-to-correct-sentinel-2-baseline-v0400-offset
         if baseline >= 4.0:
-            offsets = [float(x.text) for x in root.iter('BOA_ADD_OFFSET')]
-            scales = [float(x.text) for x in root.iter('BOA_QUANTIFICATION_VALUE')]
+            offsets = [float(x.text) for x in root.iter("BOA_ADD_OFFSET")]
+            scales = [float(x.text) for x in root.iter("BOA_QUANTIFICATION_VALUE")]
             scale = np.median(scales)
             offset = np.median(offsets)
             ds.attrs = {"scale_factor": scale, "offset_factor": offset}
         else:
-            offsets = [0.]
+            offsets = [0.0]
             offset = offsets[0]
-            scales = [float(x.text) for x in root.iter('BOA_QUANTIFICATION_VALUE')]
+            scales = [float(x.text) for x in root.iter("BOA_QUANTIFICATION_VALUE")]
             scale = np.median(scales)
             ds.attrs = {"scale_factor": scale, "offset_factor": offset}
         if len(np.unique(offsets)) != 1:
-            log.warning(f"--> Multiple offsets found for `{scene_folder}`, using `{offset}`, check `{meta_fps[0]}` for more info.")
+            log.warning(
+                f"--> Multiple offsets found for `{scene_folder}`, using `{offset}`, check `{meta_fps[0]}` for more info."
+            )
         if len(scales) != 1:
-            log.warning(f"--> Multiple scales found for `{scene_folder}`, using `{scale}`, check `{meta_fps[0]}` for more info.")
+            log.warning(
+                f"--> Multiple scales found for `{scene_folder}`, using `{scale}`, check `{meta_fps[0]}` for more info."
+            )
     else:
         t = time_func(os.path.split(scene_folder)[-1])
         if t < np.datetime64("2022-01-25"):
-            ds.attrs = {"scale_factor": 10000.0, "offset_factor": 0.}
+            ds.attrs = {"scale_factor": 10000.0, "offset_factor": 0.0}
         else:
             ds.attrs = {"scale_factor": 10000.0, "offset_factor": -1000.0}
-        log.warning(f"--> No scale/offset found for `{meta_fps[0]}`, using `{ds.attrs}`.")
+        log.warning(
+            f"--> No scale/offset found for `{scene_folder}`, using `{ds.attrs}`."
+        )
 
     return ds, dss__
 
-def download(folder, latlim, lonlim, timelim, product_name, 
-                req_vars, variables = None, post_processors = None, 
-                extra_search_kwargs = {"cloudcoverpercentage": (0, 30)}):
+
+def most_recent(product_name, latlim, lonlim):
+    return copernicus_odata.most_recent(product_name, latlim, lonlim, "SENTINEL-2")
+
+
+def download(
+    folder,
+    latlim,
+    lonlim,
+    timelim,
+    product_name,
+    req_vars,
+    variables=None,
+    post_processors=None,
+    extra_search_kwargs={"cloudcoverpercentage": (0, 30)},
+):
     """Download SENTINEL2 data and store it in a single netCDF file.
 
     Parameters
@@ -564,7 +674,11 @@ def download(folder, latlim, lonlim, timelim, product_name,
         post_processors = default_post_processors(product_name, req_vars)
     else:
         default_processors = default_post_processors(product_name, req_vars)
-        post_processors = {k: {True: default_processors[k], False: v}[v == "default"] for k,v in post_processors.items() if k in req_vars}
+        post_processors = {
+            k: {True: default_processors[k], False: v}[v == "default"]
+            for k, v in post_processors.items()
+            if k in req_vars
+        }
 
     timelim = adjust_timelim_dtype(timelim)
     bb = [lonlim[0], latlim[0], lonlim[1], latlim[1]]
@@ -576,13 +690,23 @@ def download(folder, latlim, lonlim, timelim, product_name,
 
     final_fn = os.path.split(fn)[-1]
     processor = s2_processor
-    scenes = copernicus_odata.download(product_folder, latlim, lonlim, timelim, "SENTINEL2", product_name.split("_")[0], node_filter = node_filter)
-    ds = copernicus_odata.process_sentinel(scenes, variables, time_func, final_fn, post_processors, processor, bb = bb)
+    scenes = copernicus_odata.download(
+        product_folder,
+        latlim,
+        lonlim,
+        timelim,
+        "SENTINEL2",
+        product_name.split("_")[0],
+        node_filter=node_filter,
+    )
+    ds = copernicus_odata.process_sentinel(
+        scenes, variables, time_func, final_fn, post_processors, processor, bb=bb
+    )
 
     return ds[req_vars_orig]
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     os.environ["PYWAPOR_REMOVE_TEMP_FILES"] = "NO"
 
     folder = r"/Users/hmcoerver/Local/s2_test"
@@ -591,13 +715,13 @@ if __name__ == "__main__":
     latlim = [28.9, 29.1]
     lonlim = [30.2, 30.4]
 
-    product_name = 'S2MSI2A_R10m'
+    product_name = "S2MSI2A_R10m"
     # req_vars = ["mndwi", "psri", "vari_red_edge", "bsi", "nmdi", "green", "nir"]
     req_vars = ["ndvi", "r0"]
     post_processors = None
     variables = None
 
-    # ds = download(folder, latlim, lonlim, timelim, product_name, 
+    # ds = download(folder, latlim, lonlim, timelim, product_name,
     #             req_vars, variables = variables, post_processors = post_processors)
 
     # variables = {'_B02_10m.jp2': [(), 'blue', []], '_SCL_20m.jp2': [(), 'qa', []]}

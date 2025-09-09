@@ -5,7 +5,6 @@ import tempfile
 import warnings
 import requests
 import copy
-import functools
 import urllib.parse
 import xarray as xr
 import multiprocessing
@@ -298,7 +297,7 @@ def raise_if_form_exists(url, session):
                     'registration steps before acessing this data.')
 
     resp = session.get(url)
-    soup = BeautifulSoup(resp.content, 'lxml')
+    soup = BeautifulSoup(resp.content, features="xml")
     if len(soup.select('form')) > 0:
         raise UserWarning(user_warning)
 
@@ -308,7 +307,7 @@ def soup_login(session, url, username, password,
                password_field='password'):
     resp = session.get(url)
 
-    soup = BeautifulSoup(resp.content, 'lxml')
+    soup = BeautifulSoup(resp.content, features="xml")
     login_form = soup.select('form')[0]
 
     def get_to_url(current_url, to_url):
