@@ -170,7 +170,7 @@ def main(dss, sources, folder, general_enhancers, example_t_vars = ["lst"]):
     cleanup.append(temp_files3)
 
     # Merge everything.
-    ds = xr.merge(dss3)
+    ds = xr.merge(dss3, compat='no_conflicts')
 
     # Apply general enhancers.
     for func in general_enhancers:

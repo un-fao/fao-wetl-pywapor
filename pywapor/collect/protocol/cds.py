@@ -246,7 +246,7 @@ def download(folder, product_name, latlim, lonlim, timelim, variables, post_proc
         dss.append(ds)
 
     # Merge everything together.
-    ds = xr.merge(dss)
+    ds = xr.merge(dss, compat='no_conflicts')
 
     # Clean up the dataset.
     relevant_coords = {

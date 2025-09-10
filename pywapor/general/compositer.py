@@ -52,7 +52,7 @@ def add_times(ds, bins, composite_type):
     new_t = determine_new_x(empty_bins.values, composite_type, bins = None, dtype = None)
 
     if len(new_t) > 0:
-        ds = xr.merge([ds, xr.Dataset({"time": new_t})]).sortby("time")
+        ds = xr.merge([ds, xr.Dataset({"time": new_t})], compat='no_conflicts').sortby("time")
 
     return ds
 
@@ -261,7 +261,7 @@ def main(dss, sources, folder, general_enhancers, bins):
     cleanup.append(temp_files3)
     
     # Merge everything
-    ds = xr.merge(dss3)
+    ds = xr.merge(dss3, compat='no_conflicts')
 
     # Apply general enhancers.
     for func in general_enhancers:
