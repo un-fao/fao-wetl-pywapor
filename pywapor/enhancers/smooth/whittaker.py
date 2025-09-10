@@ -221,7 +221,7 @@ def whittaker_smoothing(ds, var, lmbdas = 100., weights = None, a = 0.5,
 
     # Add new x values.
     if not isinstance(new_x, type(None)) and getattr(xdim, '__len__', lambda: 0)() > 0:
-        ds = xr.merge([ds, xr.Dataset({xdim: new_x})], compat='no_conflicts').drop_duplicates(xdim).chunk(chunks).sortby(xdim).chunk(chunks)
+        ds = xr.merge([ds, xr.Dataset({xdim: new_x})], compat='no_conflicts', join='outer').drop_duplicates(xdim).chunk(chunks).sortby(xdim).chunk(chunks)
         if "sensor" in ds.data_vars:
             sensor_id = np.nanmax(np.unique(ds["sensor"])) + 1
             ds["sensor"] = ds["sensor"].fillna(sensor_id).assign_attrs({str(int(sensor_id)): "Interp."})
