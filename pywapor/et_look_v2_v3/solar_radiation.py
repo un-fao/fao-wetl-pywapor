@@ -285,7 +285,7 @@ def sunset_hour_angle(lat, decl):
         [rad]
 
     """
-    return np.arccos(-(np.tan(lat) * np.tan(decl)))
+    return np.arccos(np.clip(-(np.tan(lat) * np.tan(decl)), -1, 1))
 
 
 def hour_angle(sc, dtime, lon = 0):
