@@ -393,6 +393,13 @@ def download_xarray(url, fp, coords, variables, post_processors,
     # Make the selection on the remote.
     online_ds = online_ds.sel({k: slice(*v) for k, v in selection.items()})
 
+    if online_ds.time.size == 0:
+        t_req = coords.get("t", [None, [None, None]])[1]
+        raise ValueError(
+            f"No data available at `{url}` for requested time range "
+            f"{t_req[0]} to {t_req[1]}."
+        )
+
     # Rename variables and assign crs.
     online_ds = process_ds(online_ds, coords, variables, crs = data_source_crs)
 
