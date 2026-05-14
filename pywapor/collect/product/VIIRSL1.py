@@ -16,12 +16,13 @@ import numpy as np
 import requests
 import tqdm
 import xarray as xr
+from bs4 import BeautifulSoup
 from joblib import Memory, Parallel, delayed
 from osgeo import gdal
 
 from pywapor.collect import accounts
 from pywapor.collect.protocol.crawler import download_url, download_urls
-from pywapor.collect.protocol.opendap import make_opendap_url
+from pywapor.collect.protocol.opendap import make_opendap_url, setup_session
 from pywapor.enhancers.apply_enhancers import apply_enhancers
 from pywapor.enhancers.other import drop_empty_times
 from pywapor.general.curvilinear import create_grid, curvi_to_recto
@@ -35,6 +36,42 @@ from pywapor.general.processing_functions import (
 )
 
 gdal.UseExceptions()
+
+
+def _authorize_urs_session(session, url, verify=True, max_hops=4):
+    # LAADS uses URS OAuth Authorization Code grant. When the user is already
+    # logged in to URS, URS returns a 200 OK HTML page whose only redirect is
+    # in JavaScript -- `requests` cannot follow it, so the LAADS app never
+    # receives the OAuth `code` and never sets its session cookie. Walk the
+    # `<a id="redir_link">` chain manually until we land on non-HTML content
+    # (i.e. the data), priming the session cookie for subsequent downloads.
+    resp = None
+    for _ in range(max_hops):
+        resp = session.get(url, allow_redirects=True, verify=verify)
+        if "text/html" not in resp.headers.get("Content-Type", "").lower():
+            return
+        soup = BeautifulSoup(resp.content, features="html.parser")
+        link = soup.find("a", id="redir_link")
+        if link is None:
+            break
+        url = link["href"]
+
+    title = ""
+    if resp is not None:
+        try:
+            soup = BeautifulSoup(resp.content, features="html.parser")
+            title = (soup.title.string or "").strip() if soup.title else ""
+        except Exception:
+            pass
+    raise ConnectionError(
+        "Failed to complete NASA Earthdata Login (URS) OAuth for LAADS OPeNDAP "
+        f"(stopped at {resp.url if resp is not None else url!r}, page title: {title!r}). "
+        "Most likely your URS account has not authorized the LAADS application yet. "
+        "Fix: log in at https://urs.earthdata.nasa.gov, go to "
+        "Applications -> Authorized Apps, and approve 'LAADS Web' (and "
+        "'LAADS DAAC Cumulus' if listed). If that does not help, verify your "
+        "credentials with `accounts.setup('NASA')`."
+    )
 
 
 def get_token():
@@ -674,6 +711,9 @@ def download(
             cleanup += [nc03_file, nc02_file_, ncqa_file_]
 
         elif dl_method == "opendap":
+            un_pw = accounts.get("NASA")
+            vrfy = {"NO": False, "YES": True}.get(os.environ.get("PYWAPOR_VERIFY_SSL", "YES"), True)
+            session = None
             base_url = "https://ladsweb.modaps.eosdis.nasa.gov/opendap/RemoteResources/laads/allData"
             nc02_parts = os.path.normpath(nc02).split(os.sep)
             nc03_parts = os.path.normpath(nc03).split(os.sep)
@@ -711,8 +751,17 @@ def download(
                 "/geolocation_data/latitude": {},
             }
             url = make_opendap_url(base_url03, order)
+            if session is None:
+                session = setup_session(
+                    "https://urs.earthdata.nasa.gov",
+                    username=un_pw[0],
+                    password=un_pw[1],
+                    check_url=url,
+                    verify=vrfy,
+                )
+                _authorize_urs_session(session, url, verify=vrfy)
             log.info(f"--> Downloading `{nc03_parts[-1]}`.")
-            nc03_file = download_url(url, os.path.join(folder, nc03_parts[-1]))
+            nc03_file = download_url(url, os.path.join(folder, nc03_parts[-1]), session=session)
 
             # Determine AOI inside scene.
             log.info("--> Determining indices of AOI inside scene.").add()
@@ -791,7 +840,8 @@ def download(
             }
             url = make_opendap_url(base_url02, order)
             nc02_file = download_url(
-                url, os.path.join(folder, nc02_parts[-1].replace(".nc", "_data_lut.nc"))
+                url, os.path.join(folder, nc02_parts[-1].replace(".nc", "_data_lut.nc")),
+                session=session,
             )
 
             # Download cloud mask.
@@ -803,6 +853,7 @@ def download(
             ncqa_file = download_url(
                 url,
                 os.path.join(folder, nc_cloud_parts[-1].replace(".nc", "_cloud.nc")),
+                session=session,
             )
 
             lut_file = None
