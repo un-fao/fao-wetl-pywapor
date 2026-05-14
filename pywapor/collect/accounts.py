@@ -242,7 +242,7 @@ def terra_account(user_pw):
         True if the password works, otherwise False.
     """
 
-    url = "https://sso.vgt.vito.be/auth/realms/terrascope/protocol/openid-connect/token"
+    url = "https://sso.terrascope.be/auth/realms/terrascope/protocol/openid-connect/token"
     params = {
         "grant_type": "password",
         "client_id": "public",
