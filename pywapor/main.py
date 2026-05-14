@@ -1215,6 +1215,7 @@ class Project:
             "MODIS": "NASA",
             "SRTM": "NASA",
             "MERRA2": "NASA",
+            "VIIRS": "NASA",
             "TERRA": "TERRA",
             "ERA5": "CDS",
             "LANDSAT": "EARTHEXPLORER",
