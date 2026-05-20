@@ -14,7 +14,7 @@ conda create -n my_pywapor_env -c conda-forge pywapor
 
 ### Contact
 
-For technical questions or bug-reports, please open an [Issue here](https://bitbucket.org/cioapps/pywapor/issues). For more general questions please contact Bert Coerver at [bert.coerver@fao.org](mailto:bert.coerver@fao.org) or the WaPOR team at [wapor@fao.org](mailto:wapor@fao.org).
+For technical questions or bug-reports, please open an [Issue here](https://github.com/un-fao/fao-wetl-pywapor/issues). For more general questions please contact Bert Coerver at [bert.coerver@fao.org](mailto:bert.coerver@fao.org) or the WaPOR team at [wapor@fao.org](mailto:wapor@fao.org).
 
 ### Usage
 
@@ -122,15 +122,15 @@ Go [here](https://www.fao.org/aquastat/py-wapor/) for the full pyWaPOR documenta
 ###### WaPOR v2
 
 <ul>
-<li><a href="https://bitbucket.org/cioapps/pywapor/downloads/FRAME_ET_v2_data_manual_finaldraft_v2.2.pdf">WaPOR-ETLook Data Manual (v2)</a></li>
+<li><a href="https://storage.googleapis.com/fao-cog-data/WAPOR_DOCS/FRAME_ET_v2_data_manual_finaldraft_v2.2.pdf">WaPOR-ETLook Data Manual (v2)</a></li>
 
-<li><a href="https://bitbucket.org/cioapps/pywapor/downloads/FRAME_NPP_v2_data_manual_finaldraft_v2.2.pdf">WaPOR-Biomass Data Manual (v2)</a></li>
+<li><a href="https://storage.googleapis.com/fao-cog-data/WAPOR_DOCS/FRAME_NPP_v2_data_manual_finaldraft_v2.2.pdf">WaPOR-Biomass Data Manual (v2)</a></li>
 </ul>
 
 ###### WaPOR v1
 
 <ul>
-<li><a href="https://bitbucket.org/cioapps/pywapor/downloads/20190522_V1_WaPOR_v_1_Data_Manual_Evapotranspiration.pdf">WaPOR-ETLook Data Manual (v1)</a></li>
+<li><a href="https://storage.googleapis.com/fao-cog-data/WAPOR_DOCS/20190522_V1_WaPOR_v_1_Data_Manual_Evapotranspiration.pdf">WaPOR-ETLook Data Manual (v1)</a></li>
 </ul>
 
 ### Acknowledgments
@@ -271,4 +271,4 @@ The code in the pywapor.et_look_v2_v3 module of this repository, containing all 
 </ul>
 
 ### License
-[APACHE](https://bitbucket.org/cioapps/wapor-et-look/src/dev/LICENSE)
+[APACHE](https://github.com/un-fao/fao-wetl-pywapor/blob/main/LICENSE)
