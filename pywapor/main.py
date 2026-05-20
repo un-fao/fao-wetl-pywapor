@@ -107,7 +107,7 @@ class Configuration:
         [("r0",)],
         [("se_root",)],
         [("p",)],
-        [("z", "slope", "aspect"), ("z")],
+        [("z", "slope", "aspect"), ("z", )],
         [("ra_flat",)],
         [("u",), ("u2m", "v2m")],
         [("p_air",)],
@@ -930,7 +930,8 @@ class Project:
             else:
                 log.warning(f"> Latest version is '{latest_version}'.")
                 log.warning("> Please update pywapor.")
-        log.sub()
+        finally:
+            log.sub()
 
     @staticmethod
     def set_remove_temp_files(remove: bool = True):
@@ -1214,6 +1215,7 @@ class Project:
             "MODIS": "NASA",
             "SRTM": "NASA",
             "MERRA2": "NASA",
+            "VIIRS": "NASA",
             "TERRA": "TERRA",
             "ERA5": "CDS",
             "LANDSAT": "EARTHEXPLORER",

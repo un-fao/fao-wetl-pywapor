@@ -344,7 +344,7 @@ def reproject_chunk(src_ds, example_ds, dst_path, spatial_interp = "nearest", st
         ncs.append(ds_part)
         variables[var] = (None, var)
 
-    ds = xr.merge(das)
+    ds = xr.merge(das, compat='no_conflicts')
 
     if "spatial_ref" not in ds.coords:
         ds = ds.assign_coords({"spatial_ref": ds.crs})

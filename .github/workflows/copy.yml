@@ -26,7 +26,7 @@ jobs:
             echo "env=review" >> "$GITHUB_OUTPUT"
           fi
 
-  copy-files:
+  deploy:
     runs-on: ubuntu-22.04
     needs: set-environment
     environment: ${{ needs.set-environment.outputs.env }}

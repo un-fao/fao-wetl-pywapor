@@ -10,10 +10,12 @@ from cryptography.fernet import Fernet
 from pywapor.collect.product.LANDSAT import espa_api
 
 PASSWORD_INSTRUCTIONS = {
-"NASA": """> Used for `MODIS`, `SRTM` and `MERRA2` data.
+"NASA": """> Used for `MODIS`, `SRTM`, `VIIRS` and `MERRA2` data.
 > Create an account at https://urs.earthdata.nasa.gov.
 > Make sure to accept the terms of use at "Applications > Authorized Apps > Approve More Applications":
   * NASA GESDISC DATA ARCHIVE
+  * LAADS DAAC Cumulus
+  * LAADS Web
   * LP DAAC OPeNDAP""",
 
 "TERRA": """> Used for `TERRA` (VITO:PROVA-V).
@@ -25,7 +27,7 @@ PASSWORD_INSTRUCTIONS = {
   * Accept conditions when running `setup("ECMWF")` for the first time.""",
 
 "CDS": """> Used for `ERA5`.
-> Create an account at https://cds-beta.climate.copernicus.eu.
+> Create an account at https://cds.climate.copernicus.eu.
   * On your profile page, scroll to the "Personal Access Token" section.
   * Accept conditions when running `setup("CDS")` for the first time.""",
 
@@ -240,7 +242,7 @@ def terra_account(user_pw):
         True if the password works, otherwise False.
     """
 
-    url = "https://sso.vgt.vito.be/auth/realms/terrascope/protocol/openid-connect/token"
+    url = "https://sso.terrascope.be/auth/realms/terrascope/protocol/openid-connect/token"
     params = {
         "grant_type": "password",
         "client_id": "public",
@@ -291,7 +293,7 @@ def nasa_account(user_pw):
 
     try:
         x = requests.get(test_url, allow_redirects = False)
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         # TODO fix this...
         log.add().warning("> Test not working right now, assuming your account is valid.")
         log.warning("> If you want to enter a new password, run `pywapor.collect.accounts.setup('NASA')`.").sub()
@@ -380,7 +382,7 @@ def earthexplorer_account(user_pw):
 
     try:
         response = espa_api('user', uauth = (username, pw))
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         # TODO fix this...
         log.add().warning("> Test not working right now, assuming your account is valid.")
         log.warning("> If you want to enter a new password, run `pywapor.collect.accounts.setup('EARTHEXPLORER')`.").sub()

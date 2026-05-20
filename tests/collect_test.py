@@ -267,6 +267,7 @@ TIMELIM = {
     "VIIRSL1": ["2022-03-01", "2022-03-01"],
     # opendap.xarray
     "GEOS5": ["2022-03-01", "2022-03-03"],
+    "GEOS5.tavg3_2d_aer_Nx": ["2026-03-01", "2026-03-03"],
     # cds
     "ERA5": ["2022-03-01", "2022-03-03"],
     "SENTINEL2": ["2023-03-01", "2023-03-03"],
@@ -309,7 +310,7 @@ def test_base(source_product, tmp_path, slicer = slice(None)):
     source = x[0]
     product_name = ".".join(x[1:])
 
-    timelim = TIMELIM.get(source, TIMELIM.get(source_product, None))
+    timelim = TIMELIM.get(source_product, TIMELIM.get(source, None))
     req_vars = SOURCES[source_product][slicer]
     latlim = [29.4, 29.5]
     lonlim = [30.7, 30.8]

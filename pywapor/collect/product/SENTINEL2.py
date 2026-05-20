@@ -565,7 +565,7 @@ def s2_processor(scene_folder, variables, **kwargs):
                 highres_ds, method="nearest", kwargs={"fill_value": "extrapolate"}
             )
 
-    ds = xr.merge(dss).drop_vars("band")
+    ds = xr.merge(dss, compat='no_conflicts').drop_vars("band")
 
     meta_fps = glob.glob(
         os.path.join(scene_folder, "**", "MTD_MSIL2A.xml"), recursive=True

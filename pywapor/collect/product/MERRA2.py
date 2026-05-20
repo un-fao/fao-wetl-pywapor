@@ -156,13 +156,15 @@ def url_func(product_name, tile):
 
     def _filter(tag):
         tag_value = tag["href"]
-        if tag_value[-5:] == ".html":
+        if tag_value.endswith(".dmr.html"):
+            tag_value = tag_value[:-9]
+        elif tag_value.endswith(".html"):
             tag_value = tag_value[:-5]
         return tag_value
 
     # Find the existing tiles for the given year and month, this is necessary
     # because the version number (`\d{3}`) in the filenames is irregular.
-    regex = r"MERRA2_\d{3}\..*\.\d{8}.nc4.html"
+    regex = r"MERRA2_\d{3}\..*\.\d{8}\.nc4\.dmr\.html"
     url = f"https://goldsmr4.gesdisc.eosdis.nasa.gov/opendap/MERRA2/{product_name}/{tile.year}/{tile.month:02d}/contents.html"
     tile_names = find_paths(url, regex, filter=_filter)
 
@@ -181,11 +183,13 @@ def most_recent(product_name, *args):
 
     def _filter(tag):
         tag_value = tag["href"]
-        if tag_value[-5:] == ".html":
+        if tag_value.endswith(".dmr.html"):
+            tag_value = tag_value[:-9]
+        elif tag_value.endswith(".html"):
             tag_value = tag_value[:-5]
         return tag_value
 
-    regex = r"MERRA2_\d{3}\..*\.\d{8}.nc4.html"
+    regex = r"MERRA2_\d{3}\..*\.\d{8}\.nc4\.dmr\.html"
 
     found = False
     iter = 0

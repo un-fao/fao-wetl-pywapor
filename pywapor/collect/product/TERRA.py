@@ -355,7 +355,7 @@ def download(
                         time.sleep(10)
                 log.sub()
 
-        ds = xr.merge(dss)
+        ds = xr.merge(dss, compat='no_conflicts')
         ds = process_ds(ds, coords, variables)
         ds = ds.expand_dims({"time": 1}).assign_coords(
             {
@@ -385,7 +385,7 @@ def download(
 
     log.sub()
 
-    ds = xr.merge(outs)
+    ds = xr.merge(outs, compat='no_conflicts')
 
     if not isinstance(timedelta, type(None)):
         ds["time"] = ds["time"] + timedelta
@@ -401,10 +401,20 @@ def download(
     return ds[req_vars_orig]
 
 
+_STAC_COLLECTION_MAP = {
+    "urn:eop:VITO:PROBAV_S5_TOC_100M_COG_V2": "terrascope-probav-s5-toc-100m-cog-v2",
+}
+
+
 def search_stac(params, cachedir):
     memory = Memory(cachedir, verbose=0)
 
-    search = "https://services.terrascope.be/stac/search"
+    search = "https://stac.terrascope.be/search"
+
+    params = dict(params)
+    params["collections"] = [
+        _STAC_COLLECTION_MAP.get(c, c) for c in params.get("collections", [])
+    ]
 
     @memory.cache()
     def _post_query(params):

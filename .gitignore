@@ -22,10 +22,16 @@
 # JetBrains IDE
 .idea/
 
+
+
 # Visual Code IDE
 *.code-workspace
 .vscode/
 
+.coverage
+
+tests/coverage/coverage.xml
+test_data/
 devs/
 dist/
 build/

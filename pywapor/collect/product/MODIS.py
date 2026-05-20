@@ -1,94 +1,83 @@
+"""MODIS collection via NASA AppEEARS.
+
+The on-prem LP DAAC OPeNDAP Hyrax service that this module previously targeted
+was retired on 2025-09-19; AppEEARS is NASA's recommended replacement for MODIS
+subsetting workflows.
+
+`default_vars` and `default_post_processors` are preserved so that
+`pywapor.main.Configuration.has_var` (validation) and `MODIS_cloud` (which
+reuses the same layer/post-processor tables) keep working.
+"""
+
 import copy
-import json
 import os
+import shutil
 import tempfile
-import urllib.parse
+import time
 import warnings
 from functools import partial
 
 import numpy as np
 import pandas as pd
 import xarray as xr
-from shapely.geometry import shape
-from shapely.geometry.polygon import Polygon
 
-import pywapor
 import pywapor.collect.accounts as accounts
-from pywapor.collect.protocol import crawler, opendap
-from pywapor.collect.protocol.projections import get_crss
+import pywapor.collect.protocol.appeears as appeears
+from pywapor.enhancers.apply_enhancers import apply_enhancers
 from pywapor.general import bitmasks
-from pywapor.general.processing_functions import adjust_timelim_dtype, open_ds
+from pywapor.general.logger import log
+from pywapor.general.processing_functions import (
+    adjust_timelim_dtype,
+    open_ds,
+    save_ds,
+)
 
+# Per-product, per-req-var: AppEEARS layer name -> pywapor variable name.
+# These must match the layers expected by `default_post_processors` so the
+# masking/expansion functions keep working unchanged.
+LAYERS = {
+    "MOD11A1.061": {
+        "lst": {
+            "LST_Day_1km": "lst",
+            "Day_view_time": "lst_hour",
+            "QC_Day": "lst_qa",
+        },
+    },
+    "MYD11A1.061": {
+        "lst": {
+            "LST_Day_1km": "lst",
+            "Day_view_time": "lst_hour",
+            "QC_Day": "lst_qa",
+        },
+    },
+    "MOD13Q1.061": {
+        "ndvi": {
+            "_250m_16_days_NDVI": "ndvi",
+            "_250m_16_days_pixel_reliability": "ndvi_qa",
+        },
+    },
+    "MYD13Q1.061": {
+        "ndvi": {
+            "_250m_16_days_NDVI": "ndvi",
+            "_250m_16_days_pixel_reliability": "ndvi_qa",
+        },
+    },
+    "MCD43A3.061": {
+        "r0": {
+            "Albedo_WSA_shortwave": "white_r0",
+            "Albedo_BSA_shortwave": "black_r0",
+            "BRDF_Albedo_Band_Mandatory_Quality_shortwave": "r0_qa",
+        },
+    },
+}
 
-def fn_func(product_name, tile):
-    """Returns a client-side filename at which to store data.
-
-    Parameters
-    ----------
-    product_name : str
-        Name of the product to download.
-    tile : str
-        Name of the server-side tile to download.
-
-    Returns
-    -------
-    str
-        Filename.
-    """
-    fn = f"{product_name}_h{tile[0]:02d}v{tile[1]:02d}.nc"
-    return fn
-
-
-def url_func(product_name, tile):
-    """Returns a url at which to collect MODIS data.
-
-    Parameters
-    ----------
-    product_name : str
-        Name of the product to download.
-    tile : str
-        Name of the server-side tile to download.
-
-    Returns
-    -------
-    str
-        The url.
-    """
-    url = f"https://opendap.cr.usgs.gov/opendap/hyrax/{product_name}/h{tile[0]:02d}v{tile[1]:02d}.ncml.nc4?"
-    return url
-
-
-def tiles_intersect(latlim, lonlim):
-    """Creates a list of server-side filenames for tiles that intersect with `latlim` and
-    `lonlim` for the selected product.
-
-    Parameters
-    ----------
-    latlim : list
-        Latitude limits of area of interest.
-    lonlim : list
-        Longitude limits of area of interest.
-
-    Returns
-    -------
-    list
-        Server-side filenames for tiles.
-    """
-    with open(
-        os.path.join(pywapor.collect.__path__[0], "product/MODIS_tiles.geojson")
-    ) as f:
-        features = json.load(f)["features"]
-    aoi = Polygon.from_bounds(lonlim[0], latlim[0], lonlim[1], latlim[1])
-    tiles = list()
-    for feature in features:
-        shp = shape(feature["geometry"])
-        tile = feature["properties"]["Name"]
-        if shp.intersects(aoi):
-            h, v = tile.split(" ")
-            htile = int(h.split(":")[-1])
-            vtile = int(v.split(":")[-1])
-            tiles.append((htile, vtile))
-    return tiles
+SPATIAL_BUFFER = {
+    "MOD11A1.061": True,
+    "MYD11A1.061": True,
+    "MCD43A3.061": True,
+    "MOD13Q1.061": False,
+    "MYD13Q1.061": False,
+}
 
 
 def shortwave_r0(ds, *args):
@@ -213,8 +202,18 @@ def mask_qa(ds, var, masker=("ndvi_qa", 1.0)):
 
 def default_vars(product_name, req_vars):
     """Given a `product_name` and a list of requested variables, returns a dictionary
-    with metadata on which exact layers need to be requested from the server, how they should
+    with metadata on which exact layers need to be requested, how they should
     be renamed, and how their dimensions are defined.
+
+    The AppEEARS-backed `download` in this module derives its layer list from
+    `LAYERS` directly and does not consume this dictionary, but it is preserved
+    in the legacy (dim-tuple, pywapor-name) shape for two consumers:
+
+    - `pywapor.main.Configuration.has_var` — uses a `TypeError` from this
+      function to flag an invalid `req_vars` entry against `product_name`.
+    - `pywapor.collect.product.MODIS_cloud.download` — reads the dim tuples
+      to identify which entries are HDF-EOS data fields vs. coordinate /
+      projection helpers.
 
     Parameters
     ----------
@@ -234,7 +233,6 @@ def default_vars(product_name, req_vars):
             "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
             "_250m_16_days_pixel_reliability": [("time", "YDim", "XDim"), "ndvi_qa"],
             "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection": [(), "spatial_ref"],
-            "time": [("time"), "time"],
         },
         "MYD13Q1.061": {
             "_250m_16_days_NDVI": [("time", "YDim", "XDim"), "ndvi"],
@@ -271,7 +269,6 @@ def default_vars(product_name, req_vars):
                 "_250m_16_days_pixel_reliability",
                 "MODIS_Grid_16DAY_250m_500m_VI_eos_cf_projection",
             ],
-            "time": ["time"],
         },
         "MYD13Q1.061": {
             "ndvi": [
@@ -334,10 +331,7 @@ def default_post_processors(product_name, req_vars=None):
     """
 
     post_processors = {
-        "MOD13Q1.061": {
-            "ndvi": [mask_qa],
-            "time": [],
-        },
+        "MOD13Q1.061": {"ndvi": [mask_qa]},
         "MYD13Q1.061": {"ndvi": [mask_qa]},
         "MOD11A1.061": {"lst": [mask_bitwise_qa, expand_time_dim]},
         "MYD11A1.061": {"lst": [mask_bitwise_qa, expand_time_dim]},
@@ -354,22 +348,98 @@ def default_post_processors(product_name, req_vars=None):
     return out
 
 
+def _resolve_layer_map(product_name, req_vars):
+    """{appeears_layer: pywapor_var} for all req_vars of one product."""
+    out = {}
+    for v in req_vars:
+        out.update(LAYERS[product_name][v])
+    return out
+
+
+def _find_dim(ds, candidates):
+    for c in candidates:
+        if c in ds.dims or c in ds.coords:
+            return c
+    raise KeyError(f"None of {candidates} present in dataset (dims={list(ds.dims)}).")
+
+
+def _standardise(ds, layer_map):
+    """Coerce an AppEEARS-produced NetCDF into the schema pywapor expects.
+
+    - Rename layer variables to pywapor names.
+    - Rename spatial dims/coords to `x` / `y`.
+    - Ensure `y` is decreasing, `x` is increasing.
+    - Attach EPSG:4326 via rioxarray (adds `spatial_ref` coord).
+    """
+    # Drop AppEEARS-internal scalar CRS variable if present; rioxarray will
+    # re-create a clean `spatial_ref` coord below.
+    for v in ("crs", "spatial_ref"):
+        if v in ds.variables and v not in ds.dims:
+            ds = ds.drop_vars(v, errors="ignore")
+
+    keep = {k: v for k, v in layer_map.items() if k in ds.variables}
+    if not keep:
+        raise ValueError(
+            f"AppEEARS output is missing all requested layers {list(layer_map)} "
+            f"(found vars: {list(ds.data_vars)})."
+        )
+    ds = ds[list(keep.keys())].rename(keep)
+
+    y_name = _find_dim(ds, ["lat", "latitude", "YDim", "y"])
+    x_name = _find_dim(ds, ["lon", "longitude", "XDim", "x"])
+    rename = {}
+    if y_name != "y":
+        rename[y_name] = "y"
+    if x_name != "x":
+        rename[x_name] = "x"
+    if rename:
+        ds = ds.rename(rename)
+
+    if ds["y"].values[0] < ds["y"].values[-1]:
+        ds = ds.isel(y=slice(None, None, -1))
+    if ds["x"].values[0] > ds["x"].values[-1]:
+        ds = ds.isel(x=slice(None, None, -1))
+
+    # AppEEARS MODIS NetCDF uses a Julian calendar that xarray decodes to
+    # `cftime.DatetimeJulian`. Downstream code (e.g. expand_time_dim) does
+    # arithmetic with `np.timedelta64`, which only works on `np.datetime64`.
+    if "time" in ds.coords and not np.issubdtype(ds["time"].dtype, np.datetime64):
+        ds = ds.assign_coords(
+            time=np.array([np.datetime64(t.isoformat()) for t in ds["time"].values])
+        )
+
+    # AppEEARS bundles carry their own `grid_mapping` / `coordinates`
+    # references (pointing at `crs`, `lat`, `lon`) in both attrs and
+    # encoding. After dropping the bundle's CRS var and renaming the spatial
+    # dims, those references go stale; rioxarray then refuses to attach a
+    # fresh `spatial_ref` via `write_crs`. Clear them on every data var.
+    for var in list(ds.data_vars):
+        for key in ("grid_mapping", "coordinates"):
+            ds[var].attrs.pop(key, None)
+            ds[var].encoding.pop(key, None)
+
+    ds = ds.rio.write_crs(4326).rio.write_grid_mapping("spatial_ref")
+    return ds
+
+
+def _open_bundle(nc_files):
+    """Open AppEEARS bundle NetCDFs and merge.
+
+    AppEEARS area+netcdf4 output is typically one file per product with all
+    requested layers and dates concatenated. To stay robust against multiple
+    files (e.g. multiple products) we merge by intersection of dims.
+    """
+    if len(nc_files) == 1:
+        return xr.open_dataset(nc_files[0], decode_coords="all")
+    dss = [xr.open_dataset(f, decode_coords="all") for f in nc_files]
+    return xr.merge(dss, compat="override", join="outer")
+
+
 def most_recent(product_name, latlim, lonlim):
-    tiles = tiles_intersect(latlim, lonlim)
-
-    base_url = url_func(product_name, tiles[0])
-
-    un_pw = accounts.get("NASA")
-    selection = {"time": []}
-
-    session = opendap.start_session(base_url, selection, un_pw)
-
-    fp = tempfile.NamedTemporaryFile(suffix=".nc").name
-    url_coords = base_url + urllib.parse.quote(",".join(selection.keys()))
-    fp = crawler.download_url(url_coords, fp, session, waitbar=False)
-    x = xr.open_dataset(fp, decode_coords="all")
-
-    return pd.to_datetime(x["time"][-1].values).to_pydatetime()
+    # AppEEARS does not expose a cheap "latest granule" probe analogous to
+    # the OPeNDAP NCML aggregation. Return None to signal "unknown" until a
+    # CMR-based lookup is wired in.
+    return None
 
 
 def download(
@@ -381,8 +451,9 @@ def download(
     req_vars,
     variables=None,
     post_processors=None,
+    reuse_existing=True,
 ):
-    """Download MODIS data and store it in a single netCDF file.
+    """Download MODIS data via NASA AppEEARS and store it in a single netCDF file.
 
     Parameters
     ----------
@@ -399,110 +470,144 @@ def download(
     req_vars : list
         Which variables to download for the selected product.
     variables : dict, optional
-        Metadata on which exact layers need to be requested from the server, by default None.
+        OPeNDAP-era layer-selection dict; ignored. Layer selection is driven by
+        `req_vars` against `LAYERS`.
     post_processors : dict, optional
-        Functions per variable that should be applied to the variable, by default None.
+        Functions per variable that should be applied to the variable, by
+        default None.
+    reuse_existing : bool, optional
+        If True (default), checks the user's AppEEARS task history for a
+        matching prior order before submitting; matches are reused. Set to
+        False to force a fresh order.
 
     Returns
     -------
     xr.Dataset
         Downloaded data.
     """
+    if variables is not None:
+        log.warning(
+            "MODIS: `variables` kwarg is ignored — layer selection is driven "
+            "by `req_vars` against the LAYERS table."
+        )
+
+    if product_name not in LAYERS:
+        raise NotImplementedError(
+            f"MODIS AppEEARS backend supports {sorted(LAYERS)}; "
+            f"got {product_name!r}."
+        )
 
     folder = os.path.join(folder, "MODIS")
-
+    os.makedirs(folder, exist_ok=True)
     fn = os.path.join(folder, f"{product_name}.nc")
+
     req_vars_orig = copy.deepcopy(req_vars)
     if os.path.isfile(fn):
         existing_ds = open_ds(fn)
         req_vars_new = list(set(req_vars).difference(set(existing_ds.data_vars)))
-        if len(req_vars_new) > 0:
-            req_vars = req_vars_new
-            existing_ds = existing_ds.close()
-        else:
+        if not req_vars_new:
             return existing_ds[req_vars_orig]
+        existing_ds.close()
+        req_vars = req_vars_new
 
-    spatial_buffer = {
-        "MYD13Q1.061": False,
-        "MYD11A1.061": True,
-        "MOD11A1.061": True,
-        "MCD43A3.061": True,
-        "MOD13Q1.061": False,
-    }[product_name]
-    if spatial_buffer:
+    if SPATIAL_BUFFER.get(product_name, False):
         latlim = [latlim[0] - 0.01, latlim[1] + 0.01]
         lonlim = [lonlim[0] - 0.01, lonlim[1] + 0.01]
 
     timelim = adjust_timelim_dtype(timelim)
-    if product_name == "MOD13Q1.061" or product_name == "MYD13Q1.061":
+
+    if product_name in ("MOD13Q1.061", "MYD13Q1.061"):
         timedelta = np.timedelta64(8, "D")
-        timelim[0] = timelim[0] - pd.Timedelta(timedelta)
+        timelim = [timelim[0] - pd.Timedelta(timedelta), timelim[1]]
     elif product_name == "MCD43A3.061":
         timedelta = np.timedelta64(12, "h")
-        timelim[0] = timelim[0] - pd.Timedelta(timedelta)
+        timelim = [timelim[0] - pd.Timedelta(timedelta), timelim[1]]
     else:
         timedelta = None
 
-    tiles = tiles_intersect(latlim, lonlim)
-    coords = {"x": ["XDim", lonlim], "y": ["YDim", latlim], "t": ["time", timelim]}
+    layer_map = _resolve_layer_map(product_name, req_vars)
+    product_layers = [(product_name, layer) for layer in layer_map.keys()]
 
-    if isinstance(variables, type(None)):
-        variables = default_vars(product_name, req_vars)
-
-    if isinstance(post_processors, type(None)):
+    if post_processors is None:
         post_processors = default_post_processors(product_name, req_vars)
     else:
-        default_processors = default_post_processors(product_name, req_vars)
+        defaults = default_post_processors(product_name, req_vars)
         post_processors = {
-            k: {True: default_processors[k], False: v}[v == "default"]
+            k: (defaults[k] if v == "default" else v)
             for k, v in post_processors.items()
             if k in req_vars
         }
 
-    data_source_crs = get_crss("MODIS")
-    parallel = False
-    spatial_tiles = True
     un_pw = accounts.get("NASA")
-    request_dims = True
-    ds = opendap.download(
-        fn,
-        product_name,
-        coords,
-        variables,
-        post_processors,
-        fn_func,
-        url_func,
-        un_pw=un_pw,
-        tiles=tiles,
-        data_source_crs=data_source_crs,
-        parallel=parallel,
-        spatial_tiles=spatial_tiles,
-        request_dims=request_dims,
-        timedelta=timedelta,
-    )
+
+    staging = tempfile.mkdtemp(prefix="appeears_", dir=folder)
+    try:
+        files = appeears.run_area_task(
+            username=un_pw[0],
+            password=un_pw[1],
+            task_name=f"pywapor_{product_name}_{int(time.time())}",
+            product_layers=product_layers,
+            latlim=latlim,
+            lonlim=lonlim,
+            timelim=[pd.Timestamp(t) for t in timelim],
+            out_dir=staging,
+            projection="geographic",
+            out_format="netcdf4",
+            file_filter=lambda m: m["file_name"].lower().endswith(".nc"),
+            reuse_existing=reuse_existing,
+        )
+        if not files:
+            raise RuntimeError(
+                "AppEEARS task produced no NetCDF files for this request."
+            )
+
+        raw = _open_bundle(files)
+        ds = _standardise(raw, layer_map)
+
+        ds = ds.rio.clip_box(lonlim[0], latlim[0], lonlim[1], latlim[1])
+
+        ds = apply_enhancers(post_processors, ds)
+
+        if isinstance(timedelta, np.timedelta64):
+            ds["time"] = ds["time"] + timedelta
+
+        ds = ds[list(post_processors.keys())]
+
+        ds.attrs = {}
+        for var in ds.data_vars:
+            ds[var].attrs = {}
+
+        ds = save_ds(ds, fn, encoding="initiate", label="Saving AppEEARS bundle.")
+    finally:
+        try:
+            raw.close()
+        except Exception:
+            pass
+        shutil.rmtree(staging, ignore_errors=True)
 
     return ds[req_vars_orig]
 
 
 if __name__ == "__main__":
-    products = [
-        # ('MCD43A3.061', ["r0"]),
-        ("MOD11A1.061", ["lst"]),
-        # ('MYD11A1.061', ["lst"]),
-        # ('MOD13Q1.061', ["ndvi"]),
-        # ('MYD13Q1.061', ["ndvi"]),
-    ]
+    from pywapor.general.logger import adjust_logger
 
-    # folder = r"/Users/hmcoerver/Downloads/pywapor_test"
-    # latlim = [26.9, 33.7]
-    # lonlim = [25.2, 37.2]
-    latlim = [28.9, 29.7]
-    lonlim = [30.2, 31.2]
-    # timelim = [datetime.date(2020, 7, 1), datetime.date(2020, 7, 11)]
+    out_folder = "/Users/hmcoerver/Local/modis_test"
+    os.makedirs(out_folder, exist_ok=True)
+    adjust_logger(True, out_folder, "INFO")
 
-    # variables = None
-    # post_processors = None
+    for x in LAYERS.keys():
+        vars = LAYERS[x].keys()
+        for var in vars:
 
-    # for product_name, req_vars in products:
-    #     ds = download(folder, latlim, lonlim, timelim, product_name, req_vars)
-    #     print(ds.rio.crs, ds.rio.grid_mapping)
+            ds = download(
+                folder=out_folder,
+                latlim=[29.4, 29.5],
+                lonlim=[30.7, 30.8],
+                timelim=["2019-03-01", "2019-03-05"],
+                product_name=x,
+                req_vars=[var],
+            )
+
+            print(ds)
+            print("CRS:", ds.rio.crs)
+            print("Vars:", list(ds.data_vars))

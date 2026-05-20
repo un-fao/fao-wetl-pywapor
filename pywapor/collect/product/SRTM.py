@@ -1,115 +1,68 @@
-"""
-https://opendap.cr.usgs.gov/opendap/hyrax/SRTMGL1_NUMNC.003/contents.html
+"""SRTM (30 m) collection via NASA AppEEARS.
+
+Replaces the previous OPeNDAP-backed implementation; the LP DAAC Hyrax
+service that hosted `SRTMGL1_NC.003` was retired on 2025-09-19. AppEEARS is
+NASA's recommended successor for MODIS/SRTM subsetting.
+
+The single AppEEARS layer `SRTMGL1.003.SRTM_DEM` provides elevation; `slope`
+and `aspect` are derived from `z` via `pywapor.enhancers.dem.calc_slope_or_aspect`.
 """
 
 import copy
 import datetime
-import json
 import os
+import shutil
+import tempfile
+import time
 
-from shapely.geometry import shape
-from shapely.geometry.polygon import Polygon
+import numpy as np
+import xarray as xr
 
-import pywapor.collect
 import pywapor.collect.accounts as accounts
-import pywapor.collect.protocol.opendap as opendap
+import pywapor.collect.protocol.appeears as appeears
+from pywapor.enhancers.apply_enhancers import apply_enhancers
 from pywapor.enhancers.dem import calc_slope_or_aspect
-from pywapor.general.processing_functions import open_ds
+from pywapor.general.logger import log
+from pywapor.general.processing_functions import open_ds, save_ds
 
+# Pywapor product_name -> AppEEARS product id.
+APPEEARS_PRODUCT = {
+    "30M": "SRTMGL1_NC.003",
+}
 
-def tiles_intersect(latlim, lonlim):
-    """Creates a list of server-side filenames for tiles that intersect with `latlim` and
-    `lonlim` for the selected product.
+# {pywapor_product: {req_var: {appeears_layer: pywapor_var}}}.
+# All three req_vars need the same DEM layer; slope/aspect are derived from z
+# by the post-processor.
+LAYERS = {
+    "30M": {
+        "z": {"SRTMGL1_DEM": "z"},
+        "slope": {"SRTMGL1_DEM": "z"},
+        "aspect": {"SRTMGL1_DEM": "z"},
+    },
+}
 
-    Parameters
-    ----------
-    latlim : list
-        Latitude limits of area of interest.
-    lonlim : list
-        Longitude limits of area of interest.
-
-    Returns
-    -------
-    list
-        Server-side filenames for tiles.
-    """
-    with open(
-        os.path.join(pywapor.collect.__path__[0], "product/SRTM30_tiles.geojson")
-    ) as f:
-        features = json.load(f)["features"]
-    aoi = Polygon.from_bounds(lonlim[0], latlim[0], lonlim[1], latlim[1])
-    tiles = list()
-    for feature in features:
-        shp = shape(feature["geometry"])
-        tile = feature["properties"]["dataFile"]
-        if shp.intersects(aoi):
-            tiles.append(tile.split(".")[0])
-    return tiles
+# SRTM was acquired in February 2000; AppEEARS still requires a date range.
+SRTM_TIMELIM = [datetime.date(2000, 2, 10), datetime.date(2000, 2, 12)]
 
 
 def default_vars(product_name, req_vars=["z"]):
-    """Given a `product_name` and a list of requested variables, returns a dictionary
-    with metadata on which exact layers need to be requested from the server, how they should
-    be renamed, and how their dimensions are defined.
+    """Resolve req_vars to {appeears_layer: [(), pywapor_var]} for `product_name`.
 
-    Parameters
-    ----------
-    product_name : str
-        Name of the product.
-    req_vars : list
-        List of variables to be collected.
-
-    Returns
-    -------
-    dict
-        Metadata on which exact layers need to be requested from the server.
+    Used by `pywapor.main.Configuration.has_var` to validate variable support;
+    invalid req_vars must raise `TypeError` (see main.py:656).
     """
-    variables = {
-        "30M": {
-            "SRTMGL1_DEM": [("time", "lat", "lon"), "z"],
-            "crs": [(), "spatial_ref"],
-        }
-    }
-
-    req_dl_vars = {
-        "30M": {
-            "z": ["SRTMGL1_DEM", "crs"],
-            "slope": ["SRTMGL1_DEM", "crs"],
-            "aspect": ["SRTMGL1_DEM", "crs"],
-        }
-    }
-
-    out = {
-        val: variables[product_name][val]
-        for sublist in map(req_dl_vars[product_name].get, req_vars)
-        for val in sublist
-    }
-
+    supported = LAYERS[product_name]
+    out = {}
+    for v in req_vars:
+        if v not in supported:
+            raise TypeError(f"SRTM.{product_name} has no req_var {v!r}")
+        for layer, name in supported[v].items():
+            out[layer] = [(), name]
     return out
 
 
-def drop_time(ds):
-    return ds.isel(time=0).drop("time")
-
-
 def default_post_processors(product_name, req_vars=["z"]):
-    """Given a `product_name` and a list of requested variables, returns a dictionary with a
-    list of functions per variable that should be applied after having collected the data
-    from a server.
-
-    Parameters
-    ----------
-    product_name : str
-        Name of the product.
-    req_vars : list
-        List of variables to be collected.
-
-    Returns
-    -------
-    dict
-        Functions per variable that should be applied to the variable.
-    """
-
+    """Return `{req_var: [callables]}` for the requested variables."""
     post_processors = {
         "30M": {
             "z": [],
@@ -117,51 +70,87 @@ def default_post_processors(product_name, req_vars=["z"]):
             "slope": [calc_slope_or_aspect],
         }
     }
+    return {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
-    out = {k: v for k, v in post_processors[product_name].items() if k in req_vars}
 
+def _resolve_layer_map(product_name, req_vars):
+    """{appeears_layer: pywapor_var} for all req_vars of one product."""
+    out = {}
+    for v in req_vars:
+        out.update(LAYERS[product_name][v])
     return out
 
 
-def fn_func(product_name, tile):
-    """Returns a client-side filename at which to store data.
-
-    Parameters
-    ----------
-    product_name : str
-        Name of the product to download.
-    tile : str
-        Name of the server-side tile to download.
-
-    Returns
-    -------
-    str
-        Filename.
-    """
-    fn = f"{product_name}_{tile}.nc"
-    return fn
+def _find_dim(ds, candidates):
+    for c in candidates:
+        if c in ds.dims or c in ds.coords:
+            return c
+    raise KeyError(f"None of {candidates} present in dataset (dims={list(ds.dims)}).")
 
 
-def url_func(product_name, tile):
-    """Returns a url at which to collect MERRA2 data.
+def _standardise(ds, layer_map):
+    """Coerce an AppEEARS-produced NetCDF into the schema pywapor expects."""
+    for v in ("crs", "spatial_ref"):
+        if v in ds.variables and v not in ds.dims:
+            ds = ds.drop_vars(v, errors="ignore")
 
-    Parameters
-    ----------
-    product_name : None
-        Not used.
-    tile : str
-        Name of the server-side tile to download.
+    keep = {k: v for k, v in layer_map.items() if k in ds.variables}
+    if not keep:
+        raise ValueError(
+            f"AppEEARS output is missing all requested layers {list(layer_map)} "
+            f"(found vars: {list(ds.data_vars)})."
+        )
+    ds = ds[list(keep.keys())].rename(keep)
 
-    Returns
-    -------
-    str
-        The url.
-    """
-    url = f"https://opendap.cr.usgs.gov/opendap/hyrax/SRTMGL1_NC.003/{tile}.SRTMGL1_NC.ncml.nc4?"
-    return url
+    y_name = _find_dim(ds, ["lat", "latitude", "YDim", "y"])
+    x_name = _find_dim(ds, ["lon", "longitude", "XDim", "x"])
+    rename = {}
+    if y_name != "y":
+        rename[y_name] = "y"
+    if x_name != "x":
+        rename[x_name] = "x"
+    if rename:
+        ds = ds.rename(rename)
+
+    if ds["y"].values[0] < ds["y"].values[-1]:
+        ds = ds.isel(y=slice(None, None, -1))
+    if ds["x"].values[0] > ds["x"].values[-1]:
+        ds = ds.isel(x=slice(None, None, -1))
+
+    if "time" in ds.coords and not np.issubdtype(ds["time"].dtype, np.datetime64):
+        ds = ds.assign_coords(
+            time=np.array([np.datetime64(t.isoformat()) for t in ds["time"].values])
+        )
+
+    for var in list(ds.data_vars):
+        for key in ("grid_mapping", "coordinates"):
+            ds[var].attrs.pop(key, None)
+            ds[var].encoding.pop(key, None)
+
+    ds = ds.rio.write_crs(4326).rio.write_grid_mapping("spatial_ref")
+    return ds
+
+
+def _drop_time(ds):
+    """Collapse the singleton time dim left over from the AppEEARS bundle."""
+    if "time" in ds.dims:
+        ds = ds.isel(time=0)
+    for coord in ("time",):
+        if coord in ds.coords:
+            ds = ds.drop_vars(coord, errors="ignore")
+    return ds
+
+
+def _open_bundle(nc_files):
+    if len(nc_files) == 1:
+        return xr.open_dataset(nc_files[0], decode_coords="all")
+    dss = [xr.open_dataset(f, decode_coords="all") for f in nc_files]
+    return xr.merge(dss, compat="override", join="outer")
+
 
 def most_recent(product_name, *args):
     return None
+
 
 def download(
     folder,
@@ -171,112 +160,116 @@ def download(
     req_vars=["z"],
     variables=None,
     post_processors=None,
+    reuse_existing=True,
     **kwargs,
 ):
-    """Download SRTM data and store it in a single netCDF file.
+    """AppEEARS-backed replacement for the OPeNDAP SRTM download.
 
-    Parameters
-    ----------
-    folder : str
-        Path to folder in which to store results.
-    latlim : list
-        Latitude limits of area of interest.
-    lonlim : list
-        Longitude limits of area of interest.
-    timelim : list
-        Period for which to prepare data.
-    product_name : str, optional
-        Name of the product to download, by default "30M".
-    req_vars : list, optional
-        Which variables to download for the selected product, by default ["z"].
-    variables : dict, optional
-        Metadata on which exact layers need to be requested from the server, by default None.
-    post_processors : dict, optional
-        Functions per variable that should be applied to the variable, by default None.
-
-    Returns
-    -------
-    xr.Dataset
-        Downloaded data.
+    `timelim` is accepted via **kwargs and ignored — SRTM is a single-epoch
+    DEM, so the request is always pinned to the acquisition window.
     """
-    folder = os.path.join(folder, "SRTM")
+    if variables is not None:
+        log.warning(
+            "SRTM: `variables` kwarg is ignored — layer selection is driven by "
+            "`req_vars` against the LAYERS table."
+        )
 
+    if product_name not in LAYERS:
+        raise NotImplementedError(
+            f"SRTM only supports {sorted(LAYERS)}; got {product_name!r}."
+        )
+
+    folder = os.path.join(folder, "SRTM")
+    os.makedirs(folder, exist_ok=True)
     fn = os.path.join(folder, f"{product_name}.nc")
+
     req_vars_orig = copy.deepcopy(req_vars)
     if os.path.isfile(fn):
         existing_ds = open_ds(fn)
         req_vars_new = list(set(req_vars).difference(set(existing_ds.data_vars)))
-        if len(req_vars_new) > 0:
-            req_vars = req_vars_new
-            existing_ds = existing_ds.close()
-        else:
+        if not req_vars_new:
             return existing_ds[req_vars_orig]
+        existing_ds.close()
+        req_vars = req_vars_new
 
-    spatial_buffer = True
-    if spatial_buffer:
-        dx = dy = 0.0002777777777777768
-        latlim = [latlim[0] - dy, latlim[1] + dy]
-        lonlim = [lonlim[0] - dx, lonlim[1] + dx]
+    dx = dy = 0.0002777777777777768
+    latlim = [latlim[0] - dy, latlim[1] + dy]
+    lonlim = [lonlim[0] - dx, lonlim[1] + dx]
 
-    timelim = [datetime.date(2000, 2, 10), datetime.date(2000, 2, 12)]
-    tiles = tiles_intersect(latlim, lonlim)
+    layer_map = _resolve_layer_map(product_name, req_vars)
+    appeears_product = APPEEARS_PRODUCT[product_name]
+    product_layers = [(appeears_product, layer) for layer in layer_map.keys()]
 
-    coords = {"x": ["lon", lonlim], "y": ["lat", latlim], "t": ["time", timelim]}
-
-    if isinstance(variables, type(None)):
-        variables = default_vars(product_name, req_vars)
-
-    if isinstance(post_processors, type(None)):
+    if post_processors is None:
         post_processors = default_post_processors(product_name, req_vars)
     else:
-        default_processors = default_post_processors(product_name, req_vars)
+        defaults = default_post_processors(product_name, req_vars)
         post_processors = {
-            k: {True: default_processors[k], False: v}[v == "default"]
+            k: (defaults[k] if v == "default" else v)
             for k, v in post_processors.items()
             if k in req_vars
         }
 
-    data_source_crs = None
-    parallel = False
-    spatial_tiles = True
     un_pw = accounts.get("NASA")
-    request_dims = True
 
-    ds = opendap.download(
-        fn,
-        product_name,
-        coords,
-        variables,
-        post_processors,
-        fn_func,
-        url_func,
-        un_pw=un_pw,
-        tiles=tiles,
-        data_source_crs=data_source_crs,
-        parallel=parallel,
-        spatial_tiles=spatial_tiles,
-        request_dims=request_dims,
-    )
+    staging = tempfile.mkdtemp(prefix="appeears_", dir=folder)
+    raw = None
+    try:
+        files = appeears.run_area_task(
+            username=un_pw[0],
+            password=un_pw[1],
+            task_name=f"pywapor_SRTM_{product_name}_{int(time.time())}",
+            product_layers=product_layers,
+            latlim=latlim,
+            lonlim=lonlim,
+            timelim=SRTM_TIMELIM,
+            out_dir=staging,
+            projection="geographic",
+            out_format="netcdf4",
+            file_filter=lambda m: m["file_name"].lower().endswith(".nc"),
+            reuse_existing=reuse_existing,
+        )
+        if not files:
+            raise RuntimeError(
+                "AppEEARS task produced no NetCDF files for this request."
+            )
+
+        raw = _open_bundle(files)
+        ds = _standardise(raw, layer_map)
+        ds = ds.rio.clip_box(lonlim[0], latlim[0], lonlim[1], latlim[1])
+        ds = _drop_time(ds)
+
+        ds = apply_enhancers(post_processors, ds)
+
+        ds = ds[list(post_processors.keys())]
+
+        ds.attrs = {}
+        for var in ds.data_vars:
+            ds[var].attrs = {}
+
+        ds = save_ds(ds, fn, encoding="initiate", label="Saving AppEEARS bundle.")
+    finally:
+        if raw is not None:
+            try:
+                raw.close()
+            except Exception:
+                pass
+        shutil.rmtree(staging, ignore_errors=True)
 
     return ds[req_vars_orig]
 
 
 if __name__ == "__main__":
-    folder = r"/Users/hmcoerver/Local/cog2_test"
-    # latlim = [26.9, 33.7]
-    # lonlim = [25.2, 37.2]
+    from pywapor.general.logger import adjust_logger
+
+    out_folder = "/Users/hmcoerver/Local/srtm_test"
+    os.makedirs(out_folder, exist_ok=True)
+    adjust_logger(True, out_folder, "INFO")
+
     latlim = [28.9, 29.7]
     lonlim = [30.2, 31.2]
-    timelim = [datetime.date(2020, 7, 1), datetime.date(2020, 7, 11)]
-    req_vars = ["z", "aspect", "slope"]
 
-    variables = None
-    post_processors = None
-
-    # fn = os.path.join(os.path.join(folder, "SRTM"), "30M.nc")
-    # if os.path.isfile(fn):
-    #     os.remove(fn)
-
-    # SRTM.
-    ds = download(folder, latlim, lonlim, req_vars=req_vars)
-    print(ds.rio.crs, ds.rio.grid_mapping)
+    ds = download(out_folder, latlim, lonlim, req_vars=["z", "slope", "aspect"])
+    print(ds)
+    print("CRS:", ds.rio.crs)
+    print("Vars:", list(ds.data_vars))

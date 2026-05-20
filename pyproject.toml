@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pywapor"
+version = "3.7.0"
+description = "Python implementation of the WaPOR algorithm for evaporation, transpiration and biomass production maps."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "FAO", email = "bert.coerver@fao.org" },
+]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "netcdf4",
+    "gdal>=3,<4.0",
+    "xarray",
+    "numpy<2",
+    "pandas<3",
+    "requests",
+    "matplotlib",
+    "pyproj",
+    "scipy",
+    "pycurl",
+    "joblib",
+    "bs4",
+    "rasterio",
+    "bottleneck",
+    "tqdm",
+    "dask",
+    "rioxarray>=0.15.5",
+    "cryptography",
+    "cachetools",
+    "cdsapi>=0.7.0",
+    "shapely",
+    "lxml",
+    "scikit-learn",
+    "numba",
+    "xmltodict",
+]
+
+[project.urls]
+Homepage = "https://www.fao.org/aquastat/py-wapor/"
+
+[tool.setuptools.packages.find]
+include = ["pywapor*"]
+
+[tool.setuptools]
+include-package-data = true
