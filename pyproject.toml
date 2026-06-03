@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pywapor"
-version = "3.7.1"
+version = "3.7.2"
 description = "Python implementation of the WaPOR algorithm for evaporation, transpiration and biomass production maps."
 readme = "README.md"
 requires-python = ">=3.10"
