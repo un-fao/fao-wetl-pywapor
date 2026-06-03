@@ -37,6 +37,13 @@ def initiator(Y):
 @njit(float64[:](float64[::1], float64[:,::1], float64, float64[:], float64, float64, float64, int64))
 def whittaker(Y, A, lmbda, u, a, min_drange, max_drange, max_iter):
     Z, Y_, w, a_, j, rmse = initiator(Y)
+    # `A` (= DᵀD) has a 2-dimensional null space, so `W + lmb * A` is only
+    # invertible when at least 2 points carry weight. With fewer, the matrix is
+    # singular: some LAPACK builds raise `LinAlgError`, others silently return
+    # garbage. Return NaN so these pixels are treated as gaps downstream.
+    if np.sum((w * u) != 0) < 2:
+        Z[:] = np.nan
+        return Z
     relevant_idxs_size = n_peaks = 0
     while j == 0 or ((not (a == 0.5 or rmse < 0.01) or (relevant_idxs_size > 0)) and (j < max_iter)):
         Z[:], rmse, a_ = iterator(Z, Y_, a_, w, u, lmbda, A, a)
@@ -124,6 +131,11 @@ def cve0(lmbdas, Y, A):
              '(k),(m),(m,m),(m)->(k)', nopython = True, target = "parallel")
 def cve1(lmbdas, Y, A, u, cves):
     w = np.isfinite(Y, np.zeros_like(Y))
+    # See `whittaker`: `W + lmbda * A` is singular with fewer than 2 weighted
+    # points, so report NaN cross-validation error instead of solving.
+    if np.sum((w * u) != 0) < 2:
+        cves[:] = np.nan
+        return
     W = np.diag(w*u)
     Y_ = np.where(w == 0, 0, Y)
     for i, lmbda in enumerate(lmbdas):
