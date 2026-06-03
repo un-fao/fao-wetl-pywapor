@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Bump the version in pyproject.toml, commit, tag, and push.
-# Usage: ./tag_release.sh [major|minor|patch]   (default: patch)
+# Usage: ./release_pip.sh [major|minor|patch]   (default: patch)
 
 # on dev, finish your work, merge to main via PR
 # git checkout main && git pull
-# ./tag_release.sh patch   # or minor / major
+# ./release_pip.sh patch   # or minor / major
 
 set -euo pipefail
 
@@ -81,6 +81,11 @@ if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
 fi
 
 echo "Bumping $CURRENT -> $NEW_VERSION (tag $NEW_TAG)"
+read -r -p "Proceed? [Y/n] " REPLY
+case "$REPLY" in
+  ""|y|Y|yes|YES) ;;
+  *) echo "aborted"; exit 1 ;;
+esac
 
 # In-place edit of the first `version = "..."` line inside [project].
 python3 - "$PYPROJECT" "$NEW_VERSION" <<'PY'
