@@ -32,6 +32,7 @@
 
 tests/coverage/coverage.xml
 test_data/
+projects/
 devs/
 dist/
 build/
