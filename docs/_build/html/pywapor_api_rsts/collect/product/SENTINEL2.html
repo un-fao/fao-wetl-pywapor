@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SENTINEL2 &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -117,278 +114,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pywapor.collect.product.SENTINEL2">
-<span id="sentinel2"></span><h1>SENTINEL2<a class="headerlink" href="#module-pywapor.collect.product.SENTINEL2" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.apply_qa">
-<span class="sig-name descname"><span class="pre">apply_qa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.apply_qa" title="Permalink to this definition"></a></dt>
-<dd><p>Mask SENTINEL2 data using a qa variable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data, should contain <cite>“qa”</cite> and <cite>var</cite> as variables.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Variable name in <cite>ds</cite> to be masked.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Masked dataset.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.mask_invalid">
-<span class="sig-name descname"><span class="pre">mask_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">65534)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.mask_invalid" title="Permalink to this definition"></a></dt>
-<dd><p>Mask invalid data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Variable to mask.</p></li>
-<li><p><strong>valid_range</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Range of valid values in <cite>var</cite>, by default (1, 65534).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Masked data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.scale_data">
-<span class="sig-name descname"><span class="pre">scale_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.scale_data" title="Permalink to this definition"></a></dt>
-<dd><p>Apply a scale and offset factor to <cite>ds</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input dataset.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Variable to scale and offset.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_normalized_difference">
-<span class="sig-name descname"><span class="pre">calc_normalized_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nir',</span> <span class="pre">'red']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_normalized_difference" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the normalized difference of two bands.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-<li><p><strong>bands</strong> (<em>list</em><em>, </em><em>optional</em>) – The two bands to use to calculate the norm. difference, by default [“nir”, “red”].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_psri">
-<span class="sig-name descname"><span class="pre">calc_psri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_psri" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the PSRI as (“red” - “blue)/”red_edge_740”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_nmdi">
-<span class="sig-name descname"><span class="pre">calc_nmdi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_nmdi" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the NMDI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_bsi">
-<span class="sig-name descname"><span class="pre">calc_bsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_bsi" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the BSI.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_vari_red_egde">
-<span class="sig-name descname"><span class="pre">calc_vari_red_egde</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_vari_red_egde" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the VARI_RED_EDGE.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.calc_r0">
-<span class="sig-name descname"><span class="pre">calc_r0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.calc_r0" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the Albedo.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
-<li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Output data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.default_vars">
-<span class="sig-name descname"><span class="pre">default_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.default_vars" title="Permalink to this definition"></a></dt>
-<dd><p>Given a <cite>product_name</cite> and a list of requested variables, returns a dictionary
-with metadata on which exact layers need to be requested from the server, how they should
-be renamed, and how their dimensions are defined.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>product_name</strong> (<em>str</em>) – Name of the product.</p></li>
-<li><p><strong>req_vars</strong> (<em>list</em>) – List of variables to be collected.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Metadata on which exact layers need to be requested from the server.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.default_post_processors">
-<span class="sig-name descname"><span class="pre">default_post_processors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.default_post_processors" title="Permalink to this definition"></a></dt>
-<dd><p>Given a <cite>product_name</cite> and a list of requested variables, returns a dictionary with a
-list of functions per variable that should be applied after having collected the data
-from a server.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>product_name</strong> (<em>str</em>) – Name of the product.</p></li>
-<li><p><strong>req_vars</strong> (<em>list</em>) – List of variables to be collected.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Functions per variable that should be applied to the variable.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.time_func">
-<span class="sig-name descname"><span class="pre">time_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.time_func" title="Permalink to this definition"></a></dt>
-<dd><p>Return a np.datetime64 given a filename.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fn</strong> (<em>str</em>) – Filename.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Date as described in the filename.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.datetime64</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.product.SENTINEL2.download">
-<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timelim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_search_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'cloudcoverpercentage':</span> <span class="pre">(0,</span> <span class="pre">30)}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.SENTINEL2.download" title="Permalink to this definition"></a></dt>
-<dd><p>Download SENTINEL2 data and store it in a single netCDF file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>folder</strong> (<em>str</em>) – Path to folder in which to store results.</p></li>
-<li><p><strong>latlim</strong> (<em>list</em>) – Latitude limits of area of interest.</p></li>
-<li><p><strong>lonlim</strong> (<em>list</em>) – Longitude limits of area of interest.</p></li>
-<li><p><strong>timelim</strong> (<em>list</em>) – Period for which to prepare data.</p></li>
-<li><p><strong>product_name</strong> (<em>str</em>) – Name of the product to download.</p></li>
-<li><p><strong>req_vars</strong> (<em>list</em>) – Which variables to download for the selected product.</p></li>
-<li><p><strong>variables</strong> (<em>dict</em><em>, </em><em>optional</em>) – Metadata on which exact layers need to be requested from the server, by default None.</p></li>
-<li><p><strong>post_processors</strong> (<em>dict</em><em>, </em><em>optional</em>) – Functions per variable that should be applied to the variable, by default None.</p></li>
-<li><p><strong>extra_search_kwargs</strong> (<em>dict</em>) – Extra search kwargs passed to SentinelAPI, by default {“cloudcoverpercentage”: (0, 30)}.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Downloaded data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="sentinel2">
+<h1>SENTINEL2<a class="headerlink" href="#sentinel2" title="Link to this heading"></a></h1>
 </section>
 
 

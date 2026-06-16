@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radiation &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -117,16 +114,16 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.radiation">
-<span id="radiation"></span><h1>Radiation<a class="headerlink" href="#module-pywapor.et_look_v2_v3.radiation" title="Permalink to this heading"></a></h1>
+<span id="radiation"></span><h1>Radiation<a class="headerlink" href="#module-pywapor.et_look_v2_v3.radiation" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.interception_wm2">
-<span class="sig-name descname"><span class="pre">interception_wm2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int_mm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.interception_wm2" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">interception_wm2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int_mm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.interception_wm2" title="Link to this definition"></a></dt>
 <dd><p>Computes the energy equivalent for the interception in Wm-2 if it
 is provide in mm/day</p>
 <div class="math notranslate nohighlight">
-\[I = \frac{\lambda \cdot I^*}{86400}\]</div>
+\[\begin{split}I = \frac{\lambda \\cdot I^*}{86400}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>int_mm</strong> (<em>float</em>) – interception,
 <span class="math notranslate nohighlight">\(I^*\)</span>
@@ -136,18 +133,18 @@ is provide in mm/day</p>
 [J kg-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>int_wm2</strong> – interception,
 <span class="math notranslate nohighlight">\(I\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.meteo</span> <span class="k">as</span> <span class="nn">meteo</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.meteo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meteo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lh</span> <span class="o">=</span> <span class="n">meteo</span><span class="o">.</span><span class="n">latent_heat_daily</span><span class="p">(</span><span class="mf">20.0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">interception_wm2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">lh</span><span class="p">)</span>
 <span class="go">28.40023148148148</span>
@@ -157,29 +154,29 @@ is provide in mm/day</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.soil_fraction">
-<span class="sig-name descname"><span class="pre">soil_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_fraction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">soil_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_fraction" title="Link to this definition"></a></dt>
 <dd><p>Computes the effect of the vegetation has in separating the net radiation
 into a soil and canopy component. If the canopy has a full cover almost
 no radiation reaches the soil.</p>
 <div class="math notranslate nohighlight">
-\[s_f = \exp^{-0.6 \cdot I_{lai}}\]</div>
+\[\begin{split}s_f = \exp^{-0.6 \\cdot I_{lai}}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lai</strong> (<em>float</em>) – leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai}\)</span>
 [-]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>sf_soil</strong> – soil fraction,
 <span class="math notranslate nohighlight">\(s_f\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">soil_fraction</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
 <span class="go">0.16529888822158656</span>
 </pre></div>
@@ -188,20 +185,20 @@ no radiation reaches the soil.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.longwave_radiation_fao_etref">
-<span class="sig-name descname"><span class="pre">longwave_radiation_fao_etref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao_etref" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">longwave_radiation_fao_etref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao_etref" title="Link to this definition"></a></dt>
 <dd><p>Computes the net longwave radiation according to the FAO 56 manual. For the
 reference ET calculation the values for vp_slope, vp_offset, lw_slope and
 lw_offset are being provided as defaults</p>
 <div class="math notranslate nohighlight">
-\[L^{*}=\sigma\left(T_{a,K}\right)^{4} \cdot
-\left(vp_{off}-vp_{slope}\sqrt{0.1e_{a}} \cdot
-\right)\left(lw_{slope}\frac{\tau}{0.75}+lw_{off}\right)\]</div>
+\[\begin{split}L^{*}=\sigma\left(T_{a,K}\right)^{4} \\cdot
+\left(vp_{off}-vp_{slope}\sqrt{0.1e_{a}} \\cdot
+\right)\left(lw_{slope}\frac{\tau}{0.75}+lw_{off}\right)\end{split}\]</div>
 <p>where the following constant is used</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\sigma\)</span> = Stefan Boltzmann constant = 5.67 e-8 J s-1 m-2 K-4</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_air_k_24</strong> (<em>float</em>) – daily air temperature in Kelvin,
 <span class="math notranslate nohighlight">\(T_{a,K}\)</span>
@@ -214,17 +211,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>l_net</strong> – daily net longwave radiation,
 <span class="math notranslate nohighlight">\(L^{*}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">longwave_radiation_fao_etref</span><span class="p">(</span><span class="n">t_air_k</span><span class="o">=</span><span class="mf">302.5</span><span class="p">,</span> <span class="n">vp</span><span class="o">=</span><span class="mf">10.3</span><span class="p">,</span> <span class="n">trans_24</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="go">68.594182173686306</span>
 </pre></div>
@@ -233,7 +230,7 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.longwave_radiation_fao">
-<span class="sig-name descname"><span class="pre">longwave_radiation_fao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.34</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.35</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">longwave_radiation_fao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.34</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.35</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.longwave_radiation_fao" title="Link to this definition"></a></dt>
 <dd><p>Computes the net longwave radiation according to the FAO 56 manual.</p>
 <div class="math notranslate nohighlight">
 \[L^{*}=\sigma\left(T_{a,K}\right)^{4}
@@ -244,7 +241,7 @@ lw_offset are being provided as defaults</p>
 <li><p><span class="math notranslate nohighlight">\(\sigma\)</span> = Stefan Boltzmann constant = 5.67 e-8 J s-1 m-2 K-4</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_air_k_24</strong> (<em>float</em>) – daily air temperature in Kelvin,
 <span class="math notranslate nohighlight">\(T_{a,K}\)</span>
@@ -269,17 +266,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>l_net</strong> – daily net longwave radiation,
 <span class="math notranslate nohighlight">\(L^{*}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">longwave_radiation_fao</span><span class="p">(</span><span class="n">t_air_k</span><span class="o">=</span><span class="mf">302.5</span><span class="p">,</span> <span class="n">vp</span><span class="o">=</span><span class="mf">10.3</span><span class="p">,</span> <span class="n">trans_24</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="go">68.594182173686306</span>
 </pre></div>
@@ -288,12 +285,12 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.net_radiation">
-<span class="sig-name descname"><span class="pre">net_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_wm2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_wm2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation</p>
 <div class="math notranslate nohighlight">
 \[Q^{*} = \left[\left(1-\alpha_{0}\right)S^{\downarrow}-L^{*}-I\right]\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>r0</strong> (<em>float</em>) – albedo,
 <span class="math notranslate nohighlight">\(\alpha_{0}\)</span>
@@ -309,17 +306,17 @@ lw_offset are being provided as defaults</p>
 [Wm-2]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_24</strong> – daily net radiation,
 <span class="math notranslate nohighlight">\(Q^{*}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">net_radiation</span><span class="p">(</span><span class="n">r0</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="n">ra_24</span><span class="o">=</span><span class="mf">123.</span><span class="p">,</span> <span class="n">l_net</span><span class="o">=</span><span class="mf">24.</span><span class="p">,</span> <span class="n">int_wm2</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">86.7</span>
 </pre></div>
@@ -328,12 +325,12 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.net_radiation_canopy">
-<span class="sig-name descname"><span class="pre">net_radiation_canopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_canopy" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation_canopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_canopy" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation for the canopy</p>
 <div class="math notranslate nohighlight">
 \[Q^{*}_{canopy} = \left(1-s_f\right) Q^{*}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24</strong> (<em>float</em>) – net radiation,
 <span class="math notranslate nohighlight">\(Q^{*}\)</span>
@@ -343,17 +340,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_24_canopy</strong> – net radiation for the canopy,
 <span class="math notranslate nohighlight">\(Q^{*}_{canopy}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">net_radiation_canopy</span><span class="p">(</span><span class="n">rn_24</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">sf_soil</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="go">120.0</span>
 </pre></div>
@@ -362,12 +359,12 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.net_radiation_soil">
-<span class="sig-name descname"><span class="pre">net_radiation_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_soil" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_soil" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation for the soil</p>
 <div class="math notranslate nohighlight">
 \[Q^{*}_{soil} = s_f \cdot Q^{*}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24</strong> (<em>float</em>) – net radiation,
 <span class="math notranslate nohighlight">\(Q^{*}\)</span>
@@ -377,17 +374,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_24_soil</strong> – net radiation for the soil,
 <span class="math notranslate nohighlight">\(Q^{*}_{soil}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">net_radiation_soil</span><span class="p">(</span><span class="n">rn_24</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">sf_soil</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="go">80.0</span>
 </pre></div>
@@ -396,12 +393,12 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.net_radiation_grass">
-<span class="sig-name descname"><span class="pre">net_radiation_grass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_grass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_grass" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation_grass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_grass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.23</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.net_radiation_grass" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation for reference grass</p>
 <div class="math notranslate nohighlight">
 \[Q^{*} = \left[\left(1-\alpha_{0, grass}\right)S^{\downarrow}-L^{*}-I\right]\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ra_24</strong> (<em>float</em>) – daily solar radiation,
 <span class="math notranslate nohighlight">\(S^{\downarrow}\)</span>
@@ -414,17 +411,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_24_grass</strong> – daily net radiation for reference grass,
 <span class="math notranslate nohighlight">\(Q^{*}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">net_radiation_grass</span><span class="p">(</span><span class="n">ra_24</span><span class="o">=</span><span class="mf">123.</span><span class="p">,</span> <span class="n">l_net</span><span class="o">=</span><span class="mf">24.</span><span class="p">)</span>
 <span class="go">70.7</span>
 </pre></div>
@@ -433,13 +430,13 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.volumetric_heat_capacity">
-<span class="sig-name descname"><span class="pre">volumetric_heat_capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">porosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.volumetric_heat_capacity" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">volumetric_heat_capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">porosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.volumetric_heat_capacity" title="Link to this definition"></a></dt>
 <dd><p>Computes the volumetric heat capacity of the soil</p>
 <div class="math notranslate nohighlight">
-\[\rho c_{p}=10^{6} \cdot \left[\left(1-\phi\right)^{2}+
-2.5 \cdot \phi+4.2 \cdot \phi \cdot S_{e,top}\right]\]</div>
+\[\begin{split}\rho c_{p}=10^{6} \\cdot \left[\left(1-\phi\right)^{2}+
+2.5 \\cdot \phi+4.2 \\cdot \phi \\cdot S_{e,top}\right]\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>se_top</strong> (<em>float</em>) – effective saturation of the topsoil,
 <span class="math notranslate nohighlight">\(S_{e,top}\)</span>
@@ -449,17 +446,17 @@ lw_offset are being provided as defaults</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vhc</strong> – volumetric heat capacity,
 <span class="math notranslate nohighlight">\(\rho c_{p}\)</span>
 [J m-3 K-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">volumetric_heat_capacity</span><span class="p">(</span><span class="n">se_top</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">porosity</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="go">23400000.0</span>
 </pre></div>
@@ -468,27 +465,27 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.soil_thermal_conductivity">
-<span class="sig-name descname"><span class="pre">soil_thermal_conductivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_thermal_conductivity" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">soil_thermal_conductivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_thermal_conductivity" title="Link to this definition"></a></dt>
 <dd><p>Computes the soil thermal conductivity</p>
 <div class="math notranslate nohighlight">
-\[k=0.15+18.5 \cdot S_{e,top}\]</div>
+\[\begin{split}k=0.15+18.5 \\cdot S_{e,top}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>se_top</strong> (<em>float</em>) – effective saturation of the topsoil,
 <span class="math notranslate nohighlight">\(S_{e,top}\)</span>
 [-]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>stc</strong> – soil thermal conductivity,
 <span class="math notranslate nohighlight">\(k\)</span>
 [W m-1 K-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">soil_thermal_conductivity</span><span class="p">(</span><span class="n">se_top</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="go">0.8900000000000001</span>
 </pre></div>
@@ -497,7 +494,7 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.damping_depth">
-<span class="sig-name descname"><span class="pre">damping_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.damping_depth" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">damping_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.damping_depth" title="Link to this definition"></a></dt>
 <dd><p>Computes the damping depth</p>
 <div class="math notranslate nohighlight">
 \[z_{d}=\sqrt{\frac{2kP}{2\pi\rho c_{p}}}\]</div>
@@ -506,7 +503,7 @@ lw_offset are being provided as defaults</p>
 <li><p><span class="math notranslate nohighlight">\(P\)</span> period (seconds within a year)</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>stc</strong> (<em>float</em>) – soil thermal conductivity,
 <span class="math notranslate nohighlight">\(k\)</span>
@@ -516,17 +513,17 @@ lw_offset are being provided as defaults</p>
 [J m-3 K-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>dd</strong> – damping depth,
 <span class="math notranslate nohighlight">\(z_{d}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">damping_depth</span><span class="p">(</span><span class="n">stc</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">vhc</span><span class="o">=</span><span class="n">volumetric_heat_capacity</span><span class="p">())</span>
 <span class="go">0.54514600029013294</span>
 </pre></div>
@@ -535,11 +532,11 @@ lw_offset are being provided as defaults</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.bare_soil_heat_flux">
-<span class="sig-name descname"><span class="pre">bare_soil_heat_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_amp_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.bare_soil_heat_flux" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bare_soil_heat_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_amp_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.bare_soil_heat_flux" title="Link to this definition"></a></dt>
 <dd><p>Computes the bare soil heat flux</p>
 <div class="math notranslate nohighlight">
-\[G_{0}=\frac{\sqrt{2} \cdot A_{t,year} \cdot k \cdot \sin\left(\frac{2\pi \cdot J}{P}-
-      \frac{\pi}{4}\right)}{z_{d}}\]</div>
+\[\begin{split}G_{0}=\frac{\sqrt{2} \\cdot A_{t,year} \\cdot k \\cdot \sin\left(\frac{2\pi \\cdot J}{P}-
+      \frac{\pi}{4}\right)}{z_{d}}\end{split}\]</div>
 <p>where the following constant is used</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(P\)</span> period (seconds within a year)</p></li>
@@ -547,7 +544,7 @@ lw_offset are being provided as defaults</p>
 <p>The term <span class="math notranslate nohighlight">\(-\frac{\pi}{4}\)</span> is a phase shift for northern latitudes.
 For southern latitudes the phase shift will be <span class="math notranslate nohighlight">\(-\frac{\pi}{4}+\pi\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>stc</strong> (<em>float</em>) – soil thermal conductivity,
 <span class="math notranslate nohighlight">\(k\)</span>
@@ -566,17 +563,17 @@ For southern latitudes the phase shift will be <span class="math notranslate noh
 [rad]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>g0_bs</strong> – bare soil heat flux,
 <span class="math notranslate nohighlight">\(G_{0}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stc</span> <span class="o">=</span> <span class="n">rad</span><span class="o">.</span><span class="n">soil_thermal_conductivity</span><span class="p">(</span><span class="n">se_top</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vhc</span> <span class="o">=</span> <span class="n">rad</span><span class="o">.</span><span class="n">volumetric_heat_capacity</span><span class="p">(</span><span class="n">se_top</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dd</span> <span class="o">=</span> <span class="n">damping_depth</span><span class="p">(</span><span class="n">stc</span><span class="p">,</span><span class="n">vhc</span><span class="p">)</span>
@@ -588,12 +585,12 @@ For southern latitudes the phase shift will be <span class="math notranslate noh
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.radiation.soil_heat_flux">
-<span class="sig-name descname"><span class="pre">soil_heat_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g0_bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.92</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-61.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_heat_flux" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">soil_heat_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g0_bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.92</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rn_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-61.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.radiation.soil_heat_flux" title="Link to this definition"></a></dt>
 <dd><p>Computes the soil heat flux</p>
 <div class="math notranslate nohighlight">
-\[G=s_f \cdot G_{0}\]</div>
+\[\begin{split}G=s_f \\cdot G_{0}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>g0_bs</strong> (<em>float</em>) – bare soil heat flux,
 <span class="math notranslate nohighlight">\(G_{0}\)</span>
@@ -624,17 +621,17 @@ For southern latitudes the phase shift will be <span class="math notranslate noh
 [wm-2]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>g0_24</strong> – daily soil heat flux,
 <span class="math notranslate nohighlight">\(G\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.radiation</span> <span class="k">as</span> <span class="nn">rad</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.radiation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rad</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rad</span><span class="o">.</span><span class="n">soil_heat_flux</span><span class="p">(</span><span class="n">g0_bs</span><span class="o">=</span><span class="mf">12.4</span><span class="p">,</span> <span class="n">sf_soil</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="go">4.960000000000001</span>
 </pre></div>

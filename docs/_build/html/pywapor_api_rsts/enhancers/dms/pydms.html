@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyDMS &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -112,16 +109,16 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.enhancers.dms.pyDMS">
-<span id="pydms"></span><h1>pyDMS<a class="headerlink" href="#module-pywapor.enhancers.dms.pyDMS" title="Permalink to this heading"></a></h1>
+<span id="pydms"></span><h1>pyDMS<a class="headerlink" href="#module-pywapor.enhancers.dms.pyDMS" title="Link to this heading"></a></h1>
 <p>&#64;author: Radoslaw Guzinski
 Copyright: (C) 2017, Radoslaw Guzinski</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decisionTreeRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decisionTreeRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="Link to this definition"></a></dt>
 <dd><p>Decision tree regressor with added linear (bayesian ridge) regression
 for all the data points falling within each decision tree leaf node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>linearRegressionExtrapolationRatio</strong> (<em>float</em><em> (</em><em>optional</em><em>, </em><em>default: 0.25</em><em>)</em>) – A limit on extrapolation allowed in the per-leaf linear regressions.
 The ratio is multiplied by the range of values present in each leaves’
@@ -132,16 +129,16 @@ value.</p></li>
 for possibilities.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.fit" title="Link to this definition"></a></dt>
 <dd><p>Build a decision tree regressor from the training set (X, y).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like</em><em> or </em><em>sparse matrix</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The training input samples. Internally, it will be converted to
 dtype=np.float32 and if a sparse matrix is provided to a sparse
@@ -156,7 +153,7 @@ ignored while searching for a split in each node.</p></li>
 for possibilities.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Self</p>
 </dd>
 </dl>
@@ -164,10 +161,10 @@ for possibilities.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.predict" title="Link to this definition"></a></dt>
 <dd><p>Predict class or regression value for X.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>array-like</em><em> or </em><em>sparse matrix</em><em> of </em><em>shape =</em><em> [</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – The input samples. Internally, it will be converted to
 dtype=np.float32 and if a sparse matrix is provided to a sparse
@@ -177,134 +174,11 @@ csr_matrix.</p></li>
 for possibilities.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>y</strong> – The predicted classes, or the predict values.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array of shape = [n_samples] or [n_samples, n_outputs]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_fit_request">
-<span class="sig-name descname"><span class="pre">set_fit_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitOpt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></a></span></span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_fit_request" title="Permalink to this definition"></a></dt>
-<dd><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method.</p>
-<p>Note that this method is only relevant if
-<code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code>).
-Please see <span class="xref std std-ref">User Guide</span> on how the routing
-mechanism works.</p>
-<p>The options for each parameter are:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">fit</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
-</ul>
-<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
-existing request. This allows you to change the request for some
-parameters and not others.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 1.3.</span></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method is only relevant if this estimator is used as a
-sub-estimator of a meta-estimator, e.g. used inside a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>. Otherwise it has no effect.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fitOpt</strong> (<em>str</em><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">fitOpt</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
-<li><p><strong>sample_weight</strong> (<em>str</em><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>self</strong> – The updated object.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_predict_request">
-<span class="sig-name descname"><span class="pre">set_predict_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictOpt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></a></span></span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_predict_request" title="Permalink to this definition"></a></dt>
-<dd><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">predict</span></code> method.</p>
-<p>Note that this method is only relevant if
-<code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code>).
-Please see <span class="xref std std-ref">User Guide</span> on how the routing
-mechanism works.</p>
-<p>The options for each parameter are:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">predict</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
-</ul>
-<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
-existing request. This allows you to change the request for some
-parameters and not others.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 1.3.</span></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method is only relevant if this estimator is used as a
-sub-estimator of a meta-estimator, e.g. used inside a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>. Otherwise it has no effect.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>predictOpt</strong> (<em>str</em><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">predictOpt</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>self</strong> – The updated object.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_score_request">
-<span class="sig-name descname"><span class="pre">set_score_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression" title="pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression"><span class="pre">DecisionTreeRegressorWithLinearLeafRegression</span></a></span></span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeRegressorWithLinearLeafRegression.set_score_request" title="Permalink to this definition"></a></dt>
-<dd><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">score</span></code> method.</p>
-<p>Note that this method is only relevant if
-<code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code>).
-Please see <span class="xref std std-ref">User Guide</span> on how the routing
-mechanism works.</p>
-<p>The options for each parameter are:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">score</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
-</ul>
-<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
-existing request. This allows you to change the request for some
-parameters and not others.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 1.3.</span></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method is only relevant if this estimator is used as a
-sub-estimator of a meta-estimator, e.g. used inside a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>. Otherwise it has no effect.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>sample_weight</strong> (<em>str</em><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>self</strong> – The updated object.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -313,22 +187,22 @@ sub-estimator of a meta-estimator, e.g. used inside a
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeSharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResGoodQualityFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvHomogeneityThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movingWindowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disaggregatingTemperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perLeafLinearRegression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baggingRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DecisionTreeSharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResGoodQualityFlags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cvHomogeneityThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movingWindowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disaggregatingTemperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perLeafLinearRegression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearRegressionExtrapolationRatio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baggingRegressorOpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener" title="Link to this definition"></a></dt>
 <dd><p>Decision tree based sharpening (disaggregation) of low-resolution
-images using high-resolution images. The implementation is mostly based on Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id1">1</a>, 2012.</p>
+images using high-resolution images. The implementation is mostly based on Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012.</p>
 <p>Decision tree based regressor is trained with high-resolution data resampled to
 low resolution and low-resolution data and then applied
 directly to high-resolution data to obtain high-resolution representation
 of the low-resolution data.</p>
 <p>The implementation includes selecting training data based on homogeneity
-statistics and using the homogeneity as weight factor (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id2">1</a>, 2012, section 2.2),
+statistics and using the homogeneity as weight factor (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.2),
 performing linear regression with samples located within each regression
-tree leaf node (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id3">1</a>, 2012, section 2.1), using an ensemble of regression trees
-(Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id4">1</a>, 2012, section 2.1), performing local (moving window) and global regression and
-combining them based on residuals (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id5">1</a>, 2012, section 2.3) and performing residual
-analysis and bias correction (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id6">1</a>, 2012, section 2.4)</p>
+tree leaf node (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.1), using an ensemble of regression trees
+(Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.1), performing local (moving window) and global regression and
+combining them based on residuals (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.3) and performing residual
+analysis and bias correction (Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.4)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>highResFiles</strong> (<em>list</em><em> of </em><em>strings</em>) – A list of file paths to high-resolution images to be used during the
 training of the sharpener.</p></li>
@@ -368,13 +242,13 @@ parameters will beoverwritten in the code.</p></li>
 for possibilities.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener">
-<span class="sig-name descname"><span class="pre">trainSharpener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">trainSharpener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.trainSharpener" title="Link to this definition"></a></dt>
 <dd><p>Train the sharpener using high- and low-resolution input files
 and settings specified in the constructor. Local (moving window) and
 global regression decision trees are trained with high-resolution data
@@ -384,10 +258,10 @@ data being below specified threshold and quality mask (if given) of
 low resolution data. The homogeneity statistics are also used as weight
 factors for the training samples (more homogenous - higher weight).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -395,7 +269,7 @@ factors for the training samples (more homogenous - higher weight).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener">
-<span class="sig-name descname"><span class="pre">applySharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">applySharpener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.applySharpener" title="Link to this definition"></a></dt>
 <dd><p>Apply the trained sharpener to a given high-resolution image to
 derive corresponding disaggregated low-resolution image. If local
 regressions were used during training then they will only be applied
@@ -403,7 +277,7 @@ where their moving window extent overlaps with the high resolution
 image passed to this function. Global regression will be applied to the
 whole high-resolution image wihtout geographic constraints.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>highResFilename</strong> (<em>string</em>) – Path to the high-resolution image file do be used during
 disaggregation.</p></li>
@@ -411,16 +285,16 @@ disaggregation.</p></li>
 high-resolution input file. If local regressions
 were trained and low-resolution filename is given then the local
 and global regressions will be combined based on residual values of
-the different regressions to the low-resolution image (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id7">1</a>, 2012,
+the different regressions to the low-resolution image (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012,
 section 2.3). If local regressions were trained and low-resolution
 filename is not given then only the local regressions will be used.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>outImage</strong> – The file object contains an in-memory, georeferenced disaggregator
 output.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>GDAL memory file object</p>
 </dd>
 </dl>
@@ -428,11 +302,11 @@ output.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis">
-<span class="sig-name descname"><span class="pre">residualAnalysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disaggregatedFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doCorrection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">residualAnalysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disaggregatedFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowResQualityFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doCorrection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.pyDMS.DecisionTreeSharpener.residualAnalysis" title="Link to this definition"></a></dt>
 <dd><p>Perform residual analysis and (optional) correction on the
-disaggregated file (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id8">1</a>, 2012, section 2.4).</p>
+disaggregated file (see Gao <em>et al.</em><a class="footnote-reference brackets" href="#footcite-gao2012" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, 2012, section 2.4).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>disaggregatedFile</strong> (<em>string</em><em> or </em><em>GDAL file object</em>) – If string, path to the disaggregated image file; if gdal file
 object, the disaggregated image.</p></li>
@@ -445,7 +319,7 @@ all values are considered to be of good quality.</p></li>
 performed or not.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>residualImage</strong> (<em>GDAL memory file object</em>) – The file object contains an in-memory, georeferenced residual image.</p></li>
 <li><p><strong>correctedImage</strong> (<em>GDAL memory file object</em>) – The file object contains an in-memory, georeferenced residual
@@ -460,11 +334,13 @@ False.</p></li>
 </dd></dl>
 
 <div class="docutils container" id="id9">
-<dl class="footnote brackets">
-<dt class="label" id="footcite-gao2012"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>,<a href="#id5">5</a>,<a href="#id6">6</a>,<a href="#id7">7</a>,<a href="#id8">8</a>)</span></dt>
-<dd><p>Feng Gao, William P Kustas, and Martha C Anderson. A data mining approach for sharpening thermal satellite imagery over land. <em>Remote Sensing</em>, 4(11):3287–3319, 2012.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-gao2012" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id3">3</a>,<a role="doc-backlink" href="#id4">4</a>,<a role="doc-backlink" href="#id5">5</a>,<a role="doc-backlink" href="#id6">6</a>,<a role="doc-backlink" href="#id7">7</a>,<a role="doc-backlink" href="#id8">8</a>)</span>
+<p>Feng Gao, William P Kustas, and Martha C Anderson. A data mining approach for sharpening thermal satellite imagery over land. <em>Remote Sensing</em>, 4(11):3287–3319, 2012.</p>
+</aside>
+</aside>
 </div>
 </section>
 

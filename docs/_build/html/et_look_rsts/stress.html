@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stress &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -108,31 +105,31 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.stress">
-<span id="stress"></span><h1>Stress<a class="headerlink" href="#module-pywapor.et_look_v2_v3.stress" title="Permalink to this heading"></a></h1>
+<span id="stress"></span><h1>Stress<a class="headerlink" href="#module-pywapor.et_look_v2_v3.stress" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.stress.stress_radiation">
-<span class="sig-name descname"><span class="pre">stress_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_radiation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stress_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_radiation" title="Link to this definition"></a></dt>
 <dd><p>Computes the stress for plants when there is not sufficient radiation.</p>
 <div class="math notranslate nohighlight">
 \[S_{r}=\frac{S^{\downarrow}}{\left(S^{\downarrow}+60\right)}
 \left(1+\frac{60}{500}\right)\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ra_24</strong> (<em>float</em>) – daily solar radiation,
 <span class="math notranslate nohighlight">\(S^{\downarrow}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>stress_rad</strong> – stress factor for radiation,
 <span class="math notranslate nohighlight">\(S_{r}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.stress</span> <span class="k">as</span> <span class="nn">stress</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.stress</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stress</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_radiation</span><span class="p">()</span>
 <span class="go">0.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_radiation</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
@@ -147,7 +144,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.stress.stress_moisture">
-<span class="sig-name descname"><span class="pre">stress_moisture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tenacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_moisture" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stress_moisture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tenacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_moisture" title="Link to this definition"></a></dt>
 <dd><p>Computes the stress for plants when there is not sufficient soil
 moisture in the root zone.</p>
 <div class="math notranslate nohighlight">
@@ -156,7 +153,7 @@ moisture in the root zone.</p>
 1.5 for moderately sensitive plants to 3 for insensitive
 (tenacious plants).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>se_root</strong> (<em>float</em>) – effective saturation root zone moisture
 <cite>S_{e,root}</cite>
@@ -166,17 +163,17 @@ moisture in the root zone.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>stress_moist</strong> – stress factor for root zone moisture,
 <span class="math notranslate nohighlight">\(S_{m}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.stress</span> <span class="k">as</span> <span class="nn">stress</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.stress</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stress</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_moisture</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="go">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_moisture</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tenacity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
@@ -189,7 +186,7 @@ moisture in the root zone.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.stress.stress_temperature">
-<span class="sig-name descname"><span class="pre">stress_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_temperature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stress_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_temperature" title="Link to this definition"></a></dt>
 <dd><p>Computes the stress for plants when it is too cold or hot</p>
 <div class="math notranslate nohighlight">
 \[f=\frac{T_{max}-T_{opt}}{T_{opt}-T_{min}}\]</div>
@@ -197,7 +194,7 @@ moisture in the root zone.</p>
 \[s_{T}=\frac{\left(T_{a}-T_{min}\right)\cdot\left(T_{max}-T_{a}\right)^{f}}
     {\left(T_{opt}-T_{min}\right)\cdot\left(T_{max}-T_{opt}\right)^{f}}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_air_24</strong> (<em>float</em>) – daily air temperature,
 <span class="math notranslate nohighlight">\(T_{a}\)</span>
@@ -213,17 +210,17 @@ moisture in the root zone.</p>
 [C]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>stress_temp</strong> – stress factor for air temperature,
 <span class="math notranslate nohighlight">\(S_{T}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.stress</span> <span class="k">as</span> <span class="nn">stress</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.stress</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stress</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_temperature</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 <span class="go">0.83999999999999997</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_temperature</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">t_opt</span> <span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -238,14 +235,14 @@ moisture in the root zone.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.stress.stress_vpd">
-<span class="sig-name descname"><span class="pre">stress_vpd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_vpd" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stress_vpd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.stress.stress_vpd" title="Link to this definition"></a></dt>
 <dd><p>Computes the stress for plants if the vpd increases too much. With
 lower slopes the stress increases faster. The slope of the curve
 is between -0.3 and -0.7.</p>
 <div class="math notranslate nohighlight">
 \[S_{v}=m \cdot \ln(0.1 \cdot \Delta_{e}+\frac{1}{2})+1\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vpd_24</strong> (<em>float</em>) – daily vapour pressure deficit,
 <span class="math notranslate nohighlight">\(\Delta_{e}\)</span>
@@ -255,17 +252,17 @@ is between -0.3 and -0.7.</p>
 [mbar-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>stress_vpd</strong> – stress factor for vapour pressure deficit,
 <span class="math notranslate nohighlight">\(S_{v}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.stress</span> <span class="k">as</span> <span class="nn">stress</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.stress</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stress</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_vpd</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 <span class="go">0.79205584583201638</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stress</span><span class="o">.</span><span class="n">stress_vpd</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">vpd_slope</span><span class="o">=-</span><span class="mf">0.7</span><span class="p">)</span>

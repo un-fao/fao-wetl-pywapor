@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leaf &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -107,12 +104,12 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.leaf">
-<span id="leaf"></span><h1>Leaf<a class="headerlink" href="#module-pywapor.et_look_v2_v3.leaf" title="Permalink to this heading"></a></h1>
+<span id="leaf"></span><h1>Leaf<a class="headerlink" href="#module-pywapor.et_look_v2_v3.leaf" title="Link to this heading"></a></h1>
 <p>The leaf module contains all functions related to estimating vegetation
 cover. These functions only work on an instantaneous basis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.leaf.vegetation_cover">
-<span class="sig-name descname"><span class="pre">vegetation_cover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndvi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nd_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nd_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_pow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.vegetation_cover" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">vegetation_cover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndvi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nd_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nd_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_pow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.vegetation_cover" title="Link to this definition"></a></dt>
 <dd><p>Computes vegetation cover based on NDVI.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}c_{veg} =
@@ -124,7 +121,7 @@ cover. These functions only work on an instantaneous basis.</p>
 1 &amp; I_{NDVI}\geq I_{NDVI,max}
 \end{array}\end{cases}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ndvi</strong> (<em>float</em>) – Normalized Difference Vegetation Index,
 <span class="math notranslate nohighlight">\(I_{NDVI}\)</span>
@@ -140,17 +137,17 @@ cover. These functions only work on an instantaneous basis.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vc</strong> – vegetation cover,
 <span class="math notranslate nohighlight">\(c_{veg}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ETLook</span> <span class="kn">import</span> <span class="n">leaf</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ETLook</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">vegetation_cover</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">nd_min</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">vegetation_cover</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
@@ -163,7 +160,7 @@ cover. These functions only work on an instantaneous basis.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.leaf.leaf_area_index">
-<span class="sig-name descname"><span class="pre">leaf_area_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9677324224821418</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lai_pow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.45</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.leaf_area_index" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">leaf_area_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9677324224821418</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lai_pow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.45</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.leaf_area_index" title="Link to this definition"></a></dt>
 <dd><p>Computes leaf area index based on vegetation cover. It is based on the
 Kustas formulation of LAI vs NDVI.</p>
 <div class="math notranslate nohighlight">
@@ -177,7 +174,7 @@ c_{veg,min}&lt;c_{veg}\leq c_{veg,max}\\
 c_{veg}&gt;c_{veg,max}
 \end{array}\end{cases}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vc</strong> (<em>float</em>) – vegetation cover,
 <span class="math notranslate nohighlight">\(c_{veg}\)</span>
@@ -193,17 +190,17 @@ c_{veg}&gt;c_{veg,max}
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>lai</strong> – leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ETLook</span> <span class="kn">import</span> <span class="n">leaf</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ETLook</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">leaf_area_index</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">leaf_area_index</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
@@ -216,7 +213,7 @@ c_{veg}&gt;c_{veg,max}
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.leaf.effective_leaf_area_index">
-<span class="sig-name descname"><span class="pre">effective_leaf_area_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.effective_leaf_area_index" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">effective_leaf_area_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.leaf.effective_leaf_area_index" title="Link to this definition"></a></dt>
 <dd><p>Computes effective leaf area index, this describes the leaf area which
 actively participates in transpiration. It is based on the actual leaf
 area index and an extinction function. So with a higher leaf area index the
@@ -225,22 +222,22 @@ index.</p>
 <div class="math notranslate nohighlight">
 \[I_{lai,eff}=\frac{I_{lai}}{0.3 \cdot I_{lai}+1.2}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lai</strong> (<em>float</em>) – Leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai}\)</span>
 [-]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>lai_eff</strong> – effective leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai,eff}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ETLook</span> <span class="kn">import</span> <span class="n">leaf</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ETLook</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">effective_leaf_area_index</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
 <span class="go">1.4285714285714288</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">leaf</span><span class="o">.</span><span class="n">effective_leaf_area_index</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>

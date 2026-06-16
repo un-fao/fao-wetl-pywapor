@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unstable &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -120,17 +117,17 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.unstable">
-<span id="unstable"></span><h1>Unstable<a class="headerlink" href="#module-pywapor.et_look_v2_v3.unstable" title="Permalink to this heading"></a></h1>
+<span id="unstable"></span><h1>Unstable<a class="headerlink" href="#module-pywapor.et_look_v2_v3.unstable" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_canopy_daily">
-<span class="sig-name descname"><span class="pre">initial_sensible_heat_flux_canopy_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_24_init</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_canopy_daily" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_sensible_heat_flux_canopy_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_24_init</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_canopy_daily" title="Link to this definition"></a></dt>
 <dd><p>Computes the initial sensible heat flux before the iteration which solves
 the stability corrections. The first estimation of transpiration is used
 to estimate the initial sensible heat flux.</p>
 <div class="math notranslate nohighlight">
 \[H_{canopy}=Q_{canopy}^{*}-T\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24_canopy</strong> (<em>float</em>) – daily net radiation for the canopy,
 <span class="math notranslate nohighlight">\(Q_{canopy}^{*}\)</span>
@@ -140,12 +137,12 @@ to estimate the initial sensible heat flux.</p>
 [W m-2]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>h_canopy_24_init</strong> – initial estimate of the sensible heat flux,
 <span class="math notranslate nohighlight">\(H^{canopy}\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -153,14 +150,14 @@ to estimate the initial sensible heat flux.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_soil_daily">
-<span class="sig-name descname"><span class="pre">initial_sensible_heat_flux_soil_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_soil_daily" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_sensible_heat_flux_soil_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_sensible_heat_flux_soil_daily" title="Link to this definition"></a></dt>
 <dd><p>Computes the initial sensible heat flux before the iteration which solves
 the stability corrections. The first estimation of transpiration is used
 to estimate the initial sensible heat flux.</p>
 <div class="math notranslate nohighlight">
 \[H_{soil}=Q_{soil}^{*}-G_{0}-E\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24_soil</strong> (<em>float</em>) – daily net radiation for the soil,
 <span class="math notranslate nohighlight">\(Q_{canopy}^{*}\)</span>
@@ -173,12 +170,12 @@ to estimate the initial sensible heat flux.</p>
 [W m-2]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>h_soil_24_init</strong> – initial estimate of the sensible heat flux,
 <span class="math notranslate nohighlight">\(H_{canopy}\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -186,12 +183,12 @@ to estimate the initial sensible heat flux.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.initial_friction_velocity_daily">
-<span class="sig-name descname"><span class="pre">initial_friction_velocity_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_daily" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_friction_velocity_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_daily" title="Link to this definition"></a></dt>
 <dd><p>Computes the initial friction velocity without using stability corrections.</p>
 <div class="math notranslate nohighlight">
 \[u_{*}=\frac{k \cdot u_{b}}{ln\left(\frac{z_{b}-d}{z_{0,m}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b_24</strong> (<em>float</em>) – daily wind speed at blending heigt,
 <span class="math notranslate nohighlight">\(u_{b}\)</span>
@@ -207,12 +204,12 @@ to estimate the initial sensible heat flux.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star_24_init</strong> – initial estimate of the daily friction velocity,
 <span class="math notranslate nohighlight">\(u_{*}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -220,12 +217,12 @@ to estimate the initial sensible heat flux.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.initial_friction_velocity_soil_daily">
-<span class="sig-name descname"><span class="pre">initial_friction_velocity_soil_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_soil_daily" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_friction_velocity_soil_daily</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.initial_friction_velocity_soil_daily" title="Link to this definition"></a></dt>
 <dd><p>Computes the initial firction velocity without using stability corrections.</p>
 <div class="math notranslate nohighlight">
 \[u_{*}=\frac{k \cdot u_{b}}{ln\left(\frac{z_{b}-d}{z_{0,m}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b_24</strong> (<em>float</em>) – daily wind speed at blending heigt,
 <span class="math notranslate nohighlight">\(u_{b}\)</span>
@@ -238,12 +235,12 @@ to estimate the initial sensible heat flux.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star_24_soil_init</strong> – initial estimate of the daily friction velocity for soil,
 <span class="math notranslate nohighlight">\(u_{*}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -251,14 +248,14 @@ to estimate the initial sensible heat flux.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.monin_obukhov_length">
-<span class="sig-name descname"><span class="pre">monin_obukhov_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.monin_obukhov_length" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">monin_obukhov_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.monin_obukhov_length" title="Link to this definition"></a></dt>
 <dd><p>Computes the Monin-Obukhov length. The Monin-Obukhov length is used to
 describe the effects of buoyancy on turbulent flows. The Monin-Obukhov
 length is usually negative during daytime.</p>
 <div class="math notranslate nohighlight">
 \[L=\frac{-\rho c_{p}u_{*}^{3}T_{a}}{kgH_{canopy}}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_flux</strong> (<em>float</em>) – sensible heat flux,
 <span class="math notranslate nohighlight">\(H\)</span>
@@ -274,12 +271,12 @@ length is usually negative during daytime.</p>
 [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>monin</strong> – monin obukhov length,
 <span class="math notranslate nohighlight">\(L\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -287,14 +284,14 @@ length is usually negative during daytime.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.stability_parameter">
-<span class="sig-name descname"><span class="pre">stability_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_parameter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stability_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_parameter" title="Link to this definition"></a></dt>
 <dd><p>Computes the stability parameter introduced by Monin and Obukhov. This
 parameter includes effects of both shear stress and buoyancy on turbulence.
 It is applicable to blending height.</p>
 <div class="math notranslate nohighlight">
 \[x_{b}=1-16\left(\frac{z_{b}-d}{L}\right)^{0.25}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>monin</strong> (<em>float</em>) – monin obukhov length,
 <span class="math notranslate nohighlight">\(L\)</span>
@@ -307,12 +304,12 @@ It is applicable to blending height.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>x_b</strong> – stability parameter used in stability correction,
 <span class="math notranslate nohighlight">\(x_{b}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -320,24 +317,24 @@ It is applicable to blending height.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.stability_factor">
-<span class="sig-name descname"><span class="pre">stability_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_factor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stability_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_factor" title="Link to this definition"></a></dt>
 <dd><p>Computes the stability correction for heat at blending height.</p>
 <div class="math notranslate nohighlight">
 \[\psi_{h,b}=2 \cdot \ln\left(\frac{1+x_{b}}{2}\right)+
 \ln\left(\frac{1+x_{b}^{2}}{2}\right)-
 2 \cdot \arctan\left(x_{b}\right)+0.5 \cdot \pi\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x_b</strong> (<em>float</em>) – stability parameter used in stability correction,
 <span class="math notranslate nohighlight">\(x_{b}\)</span>
 [-]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>sf</strong> – stability correction for heat,
 <span class="math notranslate nohighlight">\(\psi_{h,b}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -345,14 +342,14 @@ It is applicable to blending height.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.stability_parameter_obs">
-<span class="sig-name descname"><span class="pre">stability_parameter_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_parameter_obs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stability_parameter_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_parameter_obs" title="Link to this definition"></a></dt>
 <dd><p>Computes the stability parameter introduced by Monin and Obukhov. This
 parameter includes effects of both shear stress and buoyancy on turbulence.
 It is applicable to observation height.</p>
 <div class="math notranslate nohighlight">
 \[x_{obs}=1-16\left(\frac{z_{obs}}{L}\right)^{0.25}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>monin</strong> (<em>float</em>) – monin obukhov length,
 <span class="math notranslate nohighlight">\(L\)</span>
@@ -362,12 +359,12 @@ It is applicable to observation height.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>x_b_obs</strong> – stability parameter used in stability correction for observation height,
 <span class="math notranslate nohighlight">\(x_{obs}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -375,22 +372,22 @@ It is applicable to observation height.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.stability_correction_heat_obs">
-<span class="sig-name descname"><span class="pre">stability_correction_heat_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_b_obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_correction_heat_obs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stability_correction_heat_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_b_obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.stability_correction_heat_obs" title="Link to this definition"></a></dt>
 <dd><p>Computes the stability correction for heat at observation height.</p>
 <div class="math notranslate nohighlight">
 \[\psi_{h,obs}=2 \cdot \ln\left(\frac{1+x_{obs}^{2}}{2}\right)\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x_b_obs</strong> (<em>float</em>) – stability parameter used in stability correction for observation height,
 <span class="math notranslate nohighlight">\(x_{obs}\)</span>
 [-]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>sf_obs</strong> – stability correction for heat for observation height,
 <span class="math notranslate nohighlight">\(\psi_{h,obs}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -398,12 +395,12 @@ It is applicable to observation height.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.friction_velocity">
-<span class="sig-name descname"><span class="pre">friction_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.friction_velocity" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">friction_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.friction_velocity" title="Link to this definition"></a></dt>
 <dd><p>Computes the friction velocity.</p>
 <div class="math notranslate nohighlight">
 \[u_{*}=\frac{k \cdot u_{b}}{ln\left(\frac{z_{b}-d}{z_{0,m}}\right)-\psi_{h,b}}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b</strong> (<em>float</em>) – windspeed at blending height,
 <span class="math notranslate nohighlight">\(u_{b}\)</span>
@@ -422,12 +419,12 @@ It is applicable to observation height.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star</strong> – friction velocity,
 <span class="math notranslate nohighlight">\(u_{*}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -435,7 +432,7 @@ It is applicable to observation height.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.ra_canopy">
-<span class="sig-name descname"><span class="pre">ra_canopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_canopy_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.ra_canopy" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ra_canopy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_canopy_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.ra_canopy" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for canopy using an iterative
 approach. The iteration is needed to compute the frication velocity at
 blending height Iteration stops either after five iterations or
@@ -456,7 +453,7 @@ heigth the aerodynamical resistance.</p>
 r_{a,canopy}&amp;=\frac{\ln\left(\frac{z_{obs}-d}
 {0.1 \cdot z_{0,m}}\right)-\psi_{h,obs}}{k \cdot u_{*}}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_canopy_init</strong> (<em>float</em>) – initial estimate of the sensible heat flux,
 <span class="math notranslate nohighlight">\(H^{canopy}\)</span>
@@ -490,12 +487,12 @@ r_{a,canopy}&amp;=\frac{\ln\left(\frac{z_{obs}-d}
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ra_canopy</strong> – aerodynamical resistance for canopy,
 <span class="math notranslate nohighlight">\(r_{a,canopy}\)</span>
 [s m-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -503,7 +500,7 @@ r_{a,canopy}&amp;=\frac{\ln\left(\frac{z_{obs}-d}
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.transpiration">
-<span class="sig-name descname"><span class="pre">transpiration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_canopy_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.transpiration" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">transpiration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_canopy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_canopy_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.transpiration" title="Link to this definition"></a></dt>
 <dd><p>Computes the transpiration using an iterative approach. The iteration is
 needed to compute the aerodynamical resistance.Iteration stops either after
 five iterations orif the difference between two subsequent estimations
@@ -515,7 +512,7 @@ iterations use the guess with stability corrections.</p>
    frac{\Delta_{e}}{r_{a,canopy}}}{\Delta+
    \gamma\left(1+\frac{r_{canopy}}{r_{a,canopy}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24_canopy</strong> (<em>float</em>) – net radiation for the canopy,
 <span class="math notranslate nohighlight">\(Q^{*}_{canopy}\)</span>
@@ -564,12 +561,12 @@ iterations use the guess with stability corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_24</strong> – daily transpiration energy equivalent,
 <span class="math notranslate nohighlight">\(T_{24}\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -577,7 +574,7 @@ iterations use the guess with stability corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.ra_soil">
-<span class="sig-name descname"><span class="pre">ra_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_soil_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.ra_soil" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ra_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_soil_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.ra_soil" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for canopy using an iterative
 approach. The iteration is needed to compute the friction velocity at
 blending height Iteration stops either after five iterations or
@@ -599,7 +596,7 @@ heigth the aerodynamical resistance.</p>
 r_{a,soil} &amp;= \frac{\ln\left(\frac{z_{obs}-d}
 {0.1z_{0,soil}}\right)-\psi_{h,obs}}{ku_{*}}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_soil_24_init</strong> (<em>float</em>) – initial estimate of the sensible heat flux for soil,
 <span class="math notranslate nohighlight">\(H^{soil}\)</span>
@@ -630,12 +627,12 @@ r_{a,soil} &amp;= \frac{\ln\left(\frac{z_{obs}-d}
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ra_soil</strong> – aerodynamical resistance for soil,
 <span class="math notranslate nohighlight">\(r_{a,soil}\)</span>
 [s m-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -643,7 +640,7 @@ r_{a,soil} &amp;= \frac{\ln\left(\frac{z_{obs}-d}
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.evaporation">
-<span class="sig-name descname"><span class="pre">evaporation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_soil_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_soil_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.evaporation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaporation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g0_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_soil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_soil_24_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_24_soil_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_b_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.evaporation" title="Link to this definition"></a></dt>
 <dd><p>Computes the evaporation using an iterative approach. The iteration is
 needed to compute the aerodynamic resistance.Iteration stops either after
 five iterations or if the difference between two subsequent estimations
@@ -655,7 +652,7 @@ iterations use the guess with stability corrections.</p>
   \rho c_{p}\frac{\Delta_{e}}{r_{a,soil}}}
   {\Delta+\gamma\left(1+\frac{r_{soil}}{r_{a,soil}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24_soil</strong> (<em>float</em>) – net radiation for the soil,
 <span class="math notranslate nohighlight">\(Q^{*}_{canopy}\)</span>
@@ -704,12 +701,12 @@ iterations use the guess with stability corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>e_24</strong> – daily evaporation energy equivalent,
 <span class="math notranslate nohighlight">\(E_{24}\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -717,7 +714,7 @@ iterations use the guess with stability corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.transpiration_mm">
-<span class="sig-name descname"><span class="pre">transpiration_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.transpiration_mm" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">transpiration_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.transpiration_mm" title="Link to this definition"></a></dt>
 <dd><p>Computes the canopy transpiration based on the Penman Monteith equation
 adapted for canopy.</p>
 <div class="math notranslate nohighlight">
@@ -727,7 +724,7 @@ adapted for canopy.</p>
 <li><p><span class="math notranslate nohighlight">\(d_{sec}\)</span> seconds in the day = 86400 [s]</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_24</strong> (<em>float</em>) – daily transpiration energy equivalent,
 <span class="math notranslate nohighlight">\(E^{0}\)</span>
@@ -737,12 +734,12 @@ adapted for canopy.</p>
 [J/kg]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_24_mm</strong> – daily transpiration in mm,
 <span class="math notranslate nohighlight">\(T\)</span>
 [mm d-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -750,7 +747,7 @@ adapted for canopy.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.unstable.evaporation_mm">
-<span class="sig-name descname"><span class="pre">evaporation_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.evaporation_mm" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaporation_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.unstable.evaporation_mm" title="Link to this definition"></a></dt>
 <dd><p>Computes the soil evaporation based on the Penman Monteith equation
 adapted for soils.</p>
 <div class="math notranslate nohighlight">
@@ -760,7 +757,7 @@ adapted for soils.</p>
 <li><p><span class="math notranslate nohighlight">\(d_{sec}\)</span> seconds in the day = 86400 [s]</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e_24</strong> (<em>float</em>) – daily evaporation energy equivalent,
 <span class="math notranslate nohighlight">\(E^{0}\)</span>
@@ -770,12 +767,12 @@ adapted for soils.</p>
 [J/kg]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>e_24_mm</strong> – daily evaporation in mm,
 <span class="math notranslate nohighlight">\(E\)</span>
 [mm d-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>

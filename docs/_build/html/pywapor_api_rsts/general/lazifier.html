@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>lazifier &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -108,17 +105,17 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.general.lazifier">
-<span id="lazifier"></span><h1>lazifier<a class="headerlink" href="#module-pywapor.general.lazifier" title="Permalink to this heading"></a></h1>
+<span id="lazifier"></span><h1>lazifier<a class="headerlink" href="#module-pywapor.general.lazifier" title="Link to this heading"></a></h1>
 <p>Functions to automatically decorate all the functions inside the et_look_v2 and
 et_look_dev submodules so that et_look can be run when not all inputs variables
 are available. This allows to run only parts of et_look, e.g. when only <cite>et_ref_24_mm</cite>
 as output is required, pre_et_look doesn’t need to download and process all variables.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.lazifier.decorate_mod">
-<span class="sig-name descname"><span class="pre">decorate_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decorator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.decorate_mod" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">decorate_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decorator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.decorate_mod" title="Link to this definition"></a></dt>
 <dd><p>Apply a decorator to all the functions inside a module.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<em>module</em>) – Module to decorate.</p></li>
 <li><p><strong>decorator</strong> (<em>function</em>) – Function to decorate with.</p></li>
@@ -129,11 +126,11 @@ as output is required, pre_et_look doesn’t need to download and process all va
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.lazifier.decorate_submods">
-<span class="sig-name descname"><span class="pre">decorate_submods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decorator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.decorate_submods" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">decorate_submods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decorator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.decorate_submods" title="Link to this definition"></a></dt>
 <dd><p>Apply a decorator to all the functions inside all the submodules of a
 module.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>module</strong> (<em>module</em>) – Module of which the functions inside its submodules to decorate.</p></li>
 <li><p><strong>decorator</strong> (<em>function</em>) – Function to decorate with.</p></li>
@@ -144,10 +141,10 @@ module.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.lazifier.etlook_decorator">
-<span class="sig-name descname"><span class="pre">etlook_decorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.etlook_decorator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">etlook_decorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.lazifier.etlook_decorator" title="Link to this definition"></a></dt>
 <dd><p>Checks if the DataArrays contain data or are None.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>func</strong> (<em>function</em>) – Function for which to check the inputs.</p>
 </dd>
 </dl>

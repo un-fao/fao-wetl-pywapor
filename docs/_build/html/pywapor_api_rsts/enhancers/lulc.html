@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>lulc &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -118,15 +115,15 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.enhancers.lulc">
-<span id="lulc"></span><h1>lulc<a class="headerlink" href="#module-pywapor.enhancers.lulc" title="Permalink to this heading"></a></h1>
+<span id="lulc"></span><h1>lulc<a class="headerlink" href="#module-pywapor.enhancers.lulc" title="Link to this heading"></a></h1>
 <p>Functions that convert different landuse classifications into the ETLook variables
 <cite>land_mask</cite>, <cite>lue_max</cite>, <cite>rs_min</cite> and <cite>z_obst_max</cite>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.lulc_to_x">
-<span class="sig-name descname"><span class="pre">lulc_to_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convertor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.lulc_to_x" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">lulc_to_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convertor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.lulc_to_x" title="Link to this definition"></a></dt>
 <dd><p>Convert values in a classified map to other values based on a dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Dataset containing <cite>var</cite>.</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – Variable name.</p></li>
@@ -135,10 +132,10 @@
 <li><p><strong>out_var</strong> (<em>str</em><em>, </em><em>optional</em>) – New variable name in case <cite>var</cite> should not be overwritten, by default None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dataset with the replaced values.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -146,14 +143,14 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.wapor_to_land_mask">
-<span class="sig-name descname"><span class="pre">wapor_to_land_mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_land_mask" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wapor_to_land_mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_land_mask" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from WaPOR-lulc to the ETlook <cite>land_mask</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -161,14 +158,14 @@ from WaPOR-lulc to the ETlook <cite>land_mask</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.wapor_to_lue_max">
-<span class="sig-name descname"><span class="pre">wapor_to_lue_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_lue_max" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wapor_to_lue_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_lue_max" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from WaPOR-lulc to the ETlook <cite>lue_max</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -176,14 +173,14 @@ from WaPOR-lulc to the ETlook <cite>lue_max</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.wapor_to_rs_min">
-<span class="sig-name descname"><span class="pre">wapor_to_rs_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_rs_min" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wapor_to_rs_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_rs_min" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from WaPOR-lulc to the ETlook <cite>rs_min</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -191,14 +188,14 @@ from WaPOR-lulc to the ETlook <cite>rs_min</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.wapor_to_z_obst_max">
-<span class="sig-name descname"><span class="pre">wapor_to_z_obst_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_z_obst_max" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wapor_to_z_obst_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.wapor_to_z_obst_max" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from WaPOR-lulc to the ETlook <cite>z_obst_max</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -206,14 +203,14 @@ from WaPOR-lulc to the ETlook <cite>z_obst_max</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.globcover_to_land_mask">
-<span class="sig-name descname"><span class="pre">globcover_to_land_mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_land_mask" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">globcover_to_land_mask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_land_mask" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from GLOBCOVER-lulc to the ETlook <cite>land_mask</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -221,14 +218,14 @@ from GLOBCOVER-lulc to the ETlook <cite>land_mask</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.globcover_to_lue_max">
-<span class="sig-name descname"><span class="pre">globcover_to_lue_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_lue_max" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">globcover_to_lue_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_lue_max" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from GLOBCOVER-lulc to the ETlook <cite>lue_max</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -236,14 +233,14 @@ from GLOBCOVER-lulc to the ETlook <cite>lue_max</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.globcover_to_rs_min">
-<span class="sig-name descname"><span class="pre">globcover_to_rs_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_rs_min" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">globcover_to_rs_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_rs_min" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from GLOBCOVER-lulc to the ETlook <cite>rs_min</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>
@@ -251,14 +248,14 @@ from GLOBCOVER-lulc to the ETlook <cite>rs_min</cite>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.lulc.globcover_to_z_obst_max">
-<span class="sig-name descname"><span class="pre">globcover_to_z_obst_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_z_obst_max" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">globcover_to_z_obst_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.lulc.globcover_to_z_obst_max" title="Link to this definition"></a></dt>
 <dd><p>Generate a converter dictionary to be used by <cite>lulc.lulc_to_x</cite> to convert
 from GLOBCOVER-lulc to the ETlook <cite>z_obst_max</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Describes the conversions to be made.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
 </dd>
 </dl>

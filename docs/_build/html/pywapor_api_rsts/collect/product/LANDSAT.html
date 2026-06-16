@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TERRA &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -118,7 +115,7 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.collect.product.LANDSAT">
-<span id="terra"></span><h1>TERRA<a class="headerlink" href="#module-pywapor.collect.product.LANDSAT" title="Permalink to this heading"></a></h1>
+<span id="terra"></span><h1>TERRA<a class="headerlink" href="#module-pywapor.collect.product.LANDSAT" title="Link to this heading"></a></h1>
 <p>LXSS_LLLL_PPPRRR_YYYYMMDD_yyyymmdd_CX_TX
 (e.g., LC08_L2SP_039037_20150728_20200318_02_T1)
 L Landsat
@@ -137,19 +134,19 @@ CX Collection number (“02”)
 TX Collection category ( “T1” = Tier 1; “T2” = Tier 2)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.collect.product.LANDSAT.calc_r0">
-<span class="sig-name descname"><span class="pre">calc_r0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.calc_r0" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">calc_r0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.calc_r0" title="Link to this definition"></a></dt>
 <dd><p>Calculate the Albedo.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Output data.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -157,20 +154,20 @@ TX Collection category ( “T1” = Tier 1; “T2” = Tier 2)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.collect.product.LANDSAT.calc_normalized_difference">
-<span class="sig-name descname"><span class="pre">calc_normalized_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nir',</span> <span class="pre">'red']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.calc_normalized_difference" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">calc_normalized_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nir',</span> <span class="pre">'red']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.calc_normalized_difference" title="Link to this definition"></a></dt>
 <dd><p>Calculate the normalized difference of two bands.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input data.</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – Name of the variable in which to store the normalized difference.</p></li>
 <li><p><strong>bands</strong> (<em>list</em><em>, </em><em>optional</em>) – The two bands to use to calculate the norm. difference, by default [“nir”, “red”].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Output data.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -178,16 +175,16 @@ TX Collection category ( “T1” = Tier 1; “T2” = Tier 2)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.collect.product.LANDSAT.espa_api">
-<span class="sig-name descname"><span class="pre">espa_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uauth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.espa_api" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">espa_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uauth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.espa_api" title="Link to this definition"></a></dt>
 <dd><p>Suggested simple way to interact with the ESPA JSON REST API</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.collect.product.LANDSAT.download">
-<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timelim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_search_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'eo:cloud_cover':</span> <span class="pre">{'gte':</span> <span class="pre">0,</span> <span class="pre">'lt':</span> <span class="pre">30}}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_attempts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.download" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timelim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_search_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'eo:cloud_cover':</span> <span class="pre">{'gte':</span> <span class="pre">0,</span> <span class="pre">'lt':</span> <span class="pre">30}}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_attempts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.product.LANDSAT.download" title="Link to this definition"></a></dt>
 <dd><p>Order, Download and preprocess Landsat scenes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>folder</strong> (<em>str</em>) – Path to folder in which to store results.</p></li>
 <li><p><strong>latlim</strong> (<em>list</em>) – Latitude limits of area of interest.</p></li>
@@ -202,13 +199,13 @@ TX Collection category ( “T1” = Tier 1; “T2” = Tier 2)</p>
 <li><p><strong>wait_time</strong> (<em>int</em><em>, </em><em>optional</em>) – Wait time in seconds between retries, by default 300.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dataset with the requested variables.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – Raised when not all found scenes could be downloaded within the max_attempts.</p>
 </dd>
 </dl>

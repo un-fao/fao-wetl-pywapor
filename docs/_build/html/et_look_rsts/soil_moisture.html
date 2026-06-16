@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soil Moisture &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -135,15 +132,15 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.soil_moisture">
-<span id="soil-moisture"></span><h1>Soil Moisture<a class="headerlink" href="#module-pywapor.et_look_v2_v3.soil_moisture" title="Permalink to this heading"></a></h1>
+<span id="soil-moisture"></span><h1>Soil Moisture<a class="headerlink" href="#module-pywapor.et_look_v2_v3.soil_moisture" title="Link to this heading"></a></h1>
 <p>The soil_moisture module contains all functions related to soil moisture data components,
-as outlined by Yang <em>et al.</em><a class="footnote-reference brackets" href="#footcite-yang2015estimation" id="id1">1</a>.</p>
+as outlined by Yang <em>et al.</em><a class="footnote-reference brackets" href="#footcite-yang2015estimation" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst">
-<span class="sig-name descname"><span class="pre">wet_bulb_temperature_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_dew_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wet_bulb_temperature_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_dew_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the instantaneous wet bulb temperature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_air_i</strong> (<em>float</em>) – instantaneous air temperature,
 <span class="math notranslate nohighlight">\(T_{a}\)</span>
@@ -153,12 +150,12 @@ as outlined by Yang <em>et al.</em><a class="footnote-reference brackets" href="
 [C]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_wet_i</strong> – instantaneous wet bulb temperature,
 <span class="math notranslate nohighlight">\(Tw_{a}\)</span>
 [C]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -166,11 +163,11 @@ as outlined by Yang <em>et al.</em><a class="footnote-reference brackets" href="
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst_new">
-<span class="sig-name descname"><span class="pre">wet_bulb_temperature_inst_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qv_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_air_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst_new" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wet_bulb_temperature_inst_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_air_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qv_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_air_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wet_bulb_temperature_inst_new" title="Link to this definition"></a></dt>
 <dd><p>Computes the instantaneous wet bulb temperature based on Stull, Roland. “Wet-bulb temperature from relative
 humidity and air temperature.” Journal of applied meteorology and climatology 50.11 (2011): 2267-2269.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_air_i</strong> (<em>float</em>) – instantaneous air temperature,
 <span class="math notranslate nohighlight">\(T_{a}\)</span>
@@ -183,12 +180,12 @@ humidity and air temperature.” Journal of applied meteorology and climatology 
 [mbar]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_wet_i</strong> – instantaneous wet bulb temperature,
 <span class="math notranslate nohighlight">\(Tw_{a}\)</span>
 [C]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -196,20 +193,20 @@ humidity and air temperature.” Journal of applied meteorology and climatology 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_inst">
-<span class="sig-name descname"><span class="pre">dew_point_temperature_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dew_point_temperature_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the instantaneous dew point temperature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vp_i</strong> (<em>float</em>) – instantaneous vapour pressure,
 <span class="math notranslate nohighlight">\(e_{a}\)</span>
 [mbar]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_dew_i</strong> – instantaneous dew point temperature,
 <span class="math notranslate nohighlight">\(Td_{a}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -217,20 +214,20 @@ humidity and air temperature.” Journal of applied meteorology and climatology 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_coarse_inst">
-<span class="sig-name descname"><span class="pre">dew_point_temperature_coarse_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_coarse_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dew_point_temperature_coarse_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.dew_point_temperature_coarse_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the instantaneous dew point temperature.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vp_i</strong> (<em>float</em>) – instantaneous vapour pressure,
 <span class="math notranslate nohighlight">\(e_{a}\)</span>
 [mbar]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_dew_coarse_i</strong> – instantaneous dew point temperature,
 <span class="math notranslate nohighlight">\(Td_{a}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -238,8 +235,8 @@ humidity and air temperature.” Journal of applied meteorology and climatology 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.psi_m">
-<span class="sig-name descname"><span class="pre">psi_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.psi_m" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the stability correction for momentum based on Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1999aspects" id="id2">2</a>.</p>
+<span class="sig-name descname"><span class="pre">psi_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.psi_m" title="Link to this definition"></a></dt>
+<dd><p>Computes the stability correction for momentum based on Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1999aspects" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\Psi_{M}(y) = &amp; \ln(a+y)-3by^{\frac{1}{3}} + \\
 &amp; \frac{ba^{\frac{1}{3}}}{2}\ln[\frac{(1+x)^{2}}{(1-x+x^{2})}] + \\
@@ -271,9 +268,9 @@ and <a class="reference internal" href="#pywapor.et_look_v2_v3.soil_moisture.aer
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.psi_h">
-<span class="sig-name descname"><span class="pre">psi_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.psi_h" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">psi_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.psi_h" title="Link to this definition"></a></dt>
 <dd><p>Computes the stability correction for momentum based on
-Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1999aspects" id="id3">2</a>.</p>
+Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1999aspects" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\Psi_{H}(y)=[\frac{(1-d)}{n}]\ln{\frac{(c+y^n)}{c}}\]</div>
 <p>where the following constants are used</p>
@@ -298,13 +295,13 @@ and <a class="reference internal" href="#pywapor.et_look_v2_v3.soil_moisture.aer
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst">
-<span class="sig-name descname"><span class="pre">initial_friction_velocity_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_friction_velocity_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the initial instantaneous friction velocity without stability
 corrections.</p>
 <div class="math notranslate nohighlight">
 \[u_{*}=\frac{k \cdot u_{b}}{\ln\left(\frac{z_{b}-d}{z_{0,m}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b_i</strong> (<em>float</em>) – instantaneous wind speed at blending height,
 <span class="math notranslate nohighlight">\(u_{b}\)</span>
@@ -320,12 +317,12 @@ corrections.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star_i_init</strong> – initial estimate of the instantaneous friction velocity,
 <span class="math notranslate nohighlight">\(u_{*,i}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -333,8 +330,8 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.atmospheric_emissivity_inst">
-<span class="sig-name descname"><span class="pre">atmospheric_emissivity_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.atmospheric_emissivity_inst" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the atmospheric emissivity according to Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1975derivable" id="id4">3</a>.</p>
+<span class="sig-name descname"><span class="pre">atmospheric_emissivity_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vp_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.atmospheric_emissivity_inst" title="Link to this definition"></a></dt>
+<dd><p>Computes the atmospheric emissivity according to Brutsaert<a class="footnote-reference brackets" href="#footcite-brutsaert1975derivable" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\varepsilon_{a}=a\left(\frac{e_{a}}{T_{a}}\right)^{b}\]</div>
 <p>where the following constants are used</p>
@@ -343,7 +340,7 @@ corrections.</p>
 <li><p><span class="math notranslate nohighlight">\(b\)</span> = 1/7</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vp_i</strong> (<em>float</em>) – instantaneous vapour pressure,
 <span class="math notranslate nohighlight">\(e_{a}\)</span>
@@ -353,12 +350,12 @@ corrections.</p>
 [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>emiss_atm_i</strong> – instantaneous atmospheric emissivity,
 <span class="math notranslate nohighlight">\(\varepsilon_{a}\)</span>
 [-]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -366,12 +363,12 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.net_radiation_bare">
-<span class="sig-name descname"><span class="pre">net_radiation_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.38</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.net_radiation_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.38</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.net_radiation_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation for the bare soil with zero evaporation.</p>
 <div class="math notranslate nohighlight">
 \[Q_{bare}^{*}=\left(1-\alpha_{0,bare}\right)S_{d}+\varepsilon_{s} \cdot \varepsilon_{a} \cdot \sigma \cdot T_{a}^{4}-\varepsilon_{s} \cdot \sigma \cdot T_{s}^{4}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ra_hor_clear_i</strong> (<em>float</em>) – Total clear-sky irradiance on a horizontal surface,
 <span class="math notranslate nohighlight">\(S_{d}\)</span>
@@ -390,12 +387,12 @@ corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_bare</strong> – net radiation bare soil,
 <span class="math notranslate nohighlight">\(Q^*_{bare}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -403,12 +400,12 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.net_radiation_full">
-<span class="sig-name descname"><span class="pre">net_radiation_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.18</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.net_radiation_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">net_radiation_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.18</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.net_radiation_full" title="Link to this definition"></a></dt>
 <dd><p>Computes the net radiation at full canopy with zero evaporation.</p>
 <div class="math notranslate nohighlight">
 \[Q_{full}^{*}=\left(1-\alpha_{0,full}\right) \cdot S_{d}+\varepsilon_{c} \cdot \varepsilon_{a} \cdot \sigma \cdot T_{a}^{4}-\varepsilon_{c} \cdot \sigma \cdot T_{s}^{4}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ra_hor_clear_i</strong> (<em>float</em>) – Total clear-sky irradiance on a horizontal surface,
 <span class="math notranslate nohighlight">\(ra_hor_clear_i\)</span>
@@ -427,12 +424,12 @@ corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rn_full</strong> – net radiation full vegetation,
 <span class="math notranslate nohighlight">\(Q^*_{full}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -440,12 +437,12 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_bare">
-<span class="sig-name descname"><span class="pre">sensible_heat_flux_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_h_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.65</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sensible_heat_flux_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_h_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.65</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the bare soil sensible heat flux.</p>
 <div class="math notranslate nohighlight">
 \[H_{bare} = H_{f, bare} \cdot Q^*_{bare}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_bare</strong> (<em>float</em>) – net radiation bare soil,
 <span class="math notranslate nohighlight">\(Q^*_{bare}\)</span>
@@ -455,12 +452,12 @@ corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>h_bare</strong> – sensible heat flux bare soil,
 <span class="math notranslate nohighlight">\(H_{bare}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -468,12 +465,12 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_full">
-<span class="sig-name descname"><span class="pre">sensible_heat_flux_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_h_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sensible_heat_flux_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction_h_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.sensible_heat_flux_full" title="Link to this definition"></a></dt>
 <dd><p>Computes the full canopy sensible heat flux.</p>
 <div class="math notranslate nohighlight">
 \[H_{full} = H_{f, full} \cdot Q^*_{full}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_full</strong> (<em>float</em>) – net radiation full vegetation,
 <span class="math notranslate nohighlight">\(Q^*_{full}\)</span>
@@ -483,12 +480,12 @@ corrections.</p>
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>h_full</strong> – sensible heat flux full vegetation,
 <span class="math notranslate nohighlight">\(H_{full}\)</span>
 [Wm-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -496,14 +493,14 @@ corrections.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_bare">
-<span class="sig-name descname"><span class="pre">wind_speed_blending_height_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wind_speed_blending_height_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the wind speed at blending height <span class="math notranslate nohighlight">\(u_{b}\)</span> [m/s] using the
 logarithmic wind profile.</p>
 <div class="math notranslate nohighlight">
 \[u_{b}=\frac{u_{obs} \cdot \ln\left(\frac{z_{b}}{z_{0,m}}\right)}
 {\ln\left(\frac{z_{obs}}{z_{0,m}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_i</strong> (<em>float</em>) – instantaneous wind speed at observation height,
 <span class="math notranslate nohighlight">\(u_{obs}\)</span>
@@ -519,12 +516,12 @@ logarithmic wind profile.</p>
 m</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_b_i_bare</strong> – instantaneous wind speed at blending height for bare soil,
 <span class="math notranslate nohighlight">\(u_{b,i,bare}\)</span>
 [m/s]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -532,14 +529,14 @@ m</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_full_inst">
-<span class="sig-name descname"><span class="pre">wind_speed_blending_height_full_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_full_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wind_speed_blending_height_full_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_blending_height_full_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the wind speed at blending height <span class="math notranslate nohighlight">\(u_{b}\)</span> [m/s] using the
 logarithmic wind profile.</p>
 <div class="math notranslate nohighlight">
 \[u_{b}=\frac{u_{obs} \cdot \ln\left(\frac{z_{b}}{z_{0,m}}\right)}
 {\ln\left(\frac{z_{obs}}{z_{0,m}}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_i</strong> (<em>float</em>) – instantaneous wind speed at observation height,
 <span class="math notranslate nohighlight">\(u_{obs}\)</span>
@@ -555,12 +552,12 @@ logarithmic wind profile.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_b_i_full</strong> – instantaneous wind speed at blending height for full vegetation,
 <span class="math notranslate nohighlight">\(u_{b,i,full}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -568,10 +565,10 @@ logarithmic wind profile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.friction_velocity_full_inst">
-<span class="sig-name descname"><span class="pre">friction_velocity_full_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.667</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_full_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">friction_velocity_full_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.667</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_full_inst" title="Link to this definition"></a></dt>
 <dd><p>Like <a class="reference internal" href="#pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst" title="pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst"><code class="xref py py-func docutils literal notranslate"><span class="pre">initial_friction_velocity_inst()</span></code></a> but with full vegetation parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b_i_full</strong> (<em>float</em>) – instantaneous wind speed blending height for full vegetation,
 <span class="math notranslate nohighlight">\(u_{b,d}\)</span>
@@ -587,12 +584,12 @@ logarithmic wind profile.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star_i_full</strong> – instantaneous friction velocity vegetation,
 <span class="math notranslate nohighlight">\(u_{f}^{*}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -600,10 +597,10 @@ logarithmic wind profile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.friction_velocity_bare_inst">
-<span class="sig-name descname"><span class="pre">friction_velocity_bare_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_bare_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">friction_velocity_bare_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_b_i_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.friction_velocity_bare_inst" title="Link to this definition"></a></dt>
 <dd><p>Like <a class="reference internal" href="#pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst" title="pywapor.et_look_v2_v3.soil_moisture.initial_friction_velocity_inst"><code class="xref py py-func docutils literal notranslate"><span class="pre">initial_friction_velocity_inst()</span></code></a> but with bare soil parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_b_i_bare</strong> (<em>float</em>) – instantaneous wind speed blending height bare soil,
 <span class="math notranslate nohighlight">\(u_{b,d}\)</span>
@@ -619,12 +616,12 @@ logarithmic wind profile.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_star_i_bare</strong> – instantaneous friction velocity bare soil,
 <span class="math notranslate nohighlight">\(u_{b}^{*}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -632,10 +629,10 @@ logarithmic wind profile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_bare">
-<span class="sig-name descname"><span class="pre">monin_obukhov_length_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_i_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">monin_obukhov_length_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_i_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_bare" title="Link to this definition"></a></dt>
 <dd><p>Like <code class="xref py py-func docutils literal notranslate"><span class="pre">unstable.monin_obukhov_length()</span></code> but with bare soil parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_bare</strong> (<em>float</em>) – sensible heat flux for dry bare soil,
 <span class="math notranslate nohighlight">\(H_{b,d}\)</span>
@@ -651,12 +648,12 @@ logarithmic wind profile.</p>
 [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>L_bare</strong> – monin obukhov length dry vegetation,
 <span class="math notranslate nohighlight">\(L_{b,d}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -664,10 +661,10 @@ logarithmic wind profile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_full">
-<span class="sig-name descname"><span class="pre">monin_obukhov_length_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_i_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">monin_obukhov_length_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_star_i_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.monin_obukhov_length_full" title="Link to this definition"></a></dt>
 <dd><p>Like <code class="xref py py-func docutils literal notranslate"><span class="pre">unstable.monin_obukhov_length()</span></code> but with full canopy parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_full</strong> (<em>float</em>) – sensible heat flux for dry full vegetation,
 <span class="math notranslate nohighlight">\(H_{f,d}\)</span>
@@ -683,12 +680,12 @@ logarithmic wind profile.</p>
 [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>L_full</strong> – monin obukhov length dry vegetation,
 <span class="math notranslate nohighlight">\(L_{f,d}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -696,7 +693,7 @@ logarithmic wind profile.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_full">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.667</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.667</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_full" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for a full canopy, Eq A1 from Sanchez.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}z_{1} &amp;= \frac{z_{obs}-d}{z_{0,m}} \\
@@ -706,7 +703,7 @@ z_{4} &amp;= \frac{z_{obs}-d}{\frac{z_{0,m}}{7}} \\
 z_{5} &amp;= \frac{\frac{z_{0,m}}{7}}{L} \\
 r_{a,c} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})+\phi_{m}(-z_{3})) \cdot (\ln(z_{4})-\phi_{h}(-z_{2})+\phi_{h}(-z_{5}))}{k^{2} \cdot u}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_i</strong> (<em>float</em>) – instantaneous wind speed at observation height,
 <span class="math notranslate nohighlight">\(u_{obs}\)</span>
@@ -725,12 +722,12 @@ r_{a,c} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})+\phi_{m}(-z_{3})) \cdot (\ln(z
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rac</strong> – aerodynamical resistance canopy,
 <span class="math notranslate nohighlight">\(r_{a,c}\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -738,14 +735,14 @@ r_{a,c} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})+\phi_{m}(-z_{3})) \cdot (\ln(z
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_bare">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for a dry bare soil.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}z_{1} &amp;= \frac{z_{obs}-d}{z_{0,b,m}} \\
 z_{2} &amp;= \frac{z_{obs}-d}{L_{b}} \\
 r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z_{2}))}{k^{2} \cdot u} \\\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_i</strong> (<em>float</em>) – instantaneous wind speed at observation height,
 <span class="math notranslate nohighlight">\(u_{obs}\)</span>
@@ -764,12 +761,12 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>raa</strong> – aerodynamical resistance dry surface,
 <span class="math notranslate nohighlight">\(r_{a,a}\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -777,13 +774,13 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.wind_speed_soil_inst">
-<span class="sig-name descname"><span class="pre">wind_speed_soil_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_soil_inst" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wind_speed_soil_inst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.wind_speed_soil_inst" title="Link to this definition"></a></dt>
 <dd><p>Computes the instantaneous wind speed at soil surface.</p>
 <div class="math notranslate nohighlight">
 \[u_{i,s}=u_{obs} \cdot \frac{\ln\left(\frac{z_{obs}}{z_{0}}\right)}
       {\ln\left(\frac{z_{obs}}{z_{0,s}}\right)-\psi_{m}\left(\frac{-z_{0}}{L}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_i</strong> (<em>float</em>) – wind speed at observation height,
 <span class="math notranslate nohighlight">\(u_{obs}\)</span>
@@ -796,12 +793,12 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>u_i_soil</strong> – instantaneous wind speed just above soil surface,
 <span class="math notranslate nohighlight">\(u_{i,s}\)</span>
 [ms-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -809,14 +806,14 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_full">
-<span class="sig-name descname"><span class="pre">maximum_temperature_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.18</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">maximum_temperature_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.18</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_full" title="Link to this definition"></a></dt>
 <dd><p>Computes the maximum temperature under fully vegetated conditions.</p>
 <div class="math notranslate nohighlight">
 \[T_{c,max}=\frac{\left(1-\alpha_{c}\right) S_{d}+\varepsilon_{c}\varepsilon_{a}\sigma
           T_{a}^{4}-\varepsilon_{c}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma
           T_{a}^{3}+\rho C_{p}/r_{a,c}}+T_{a}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ra_hor_clear_i</strong> (<em>float</em>) – Total clear-sky irradiance on a horizontal surface,
 <span class="math notranslate nohighlight">\(ra_hor_clear_i\)</span>
@@ -838,12 +835,12 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_max_full</strong> – maximum temperature at full vegetation cover,
 <span class="math notranslate nohighlight">\(T_{c,max}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -851,14 +848,14 @@ r_{a,a} &amp;= \frac{(\ln(z_{1})-\phi_{m}(-z_{2})) \cdot (\ln(z_{1})-\phi_{h}(-z
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_bare">
-<span class="sig-name descname"><span class="pre">maximum_temperature_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.38</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">maximum_temperature_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_hor_clear_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emiss_atm_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.38</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the maximum temperature under dry bare soil conditions.</p>
 <div class="math notranslate nohighlight">
 \[T_{s,max}=\frac{\left(1-\alpha_{s}\right)S_{d}+\varepsilon_{s}\varepsilon_{a}\sigma
 T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 \rho C_{p}/\left[\left(r_{a,a}+r_{a,s}\right)\left(1-G/R_{n,s}\right)\right]}+T_{a}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ra_hor_clear_i</strong> (<em>float</em>) – Total clear-sky irradiance on a horizontal surface,
 <span class="math notranslate nohighlight">\(ra_hor_clear_i\)</span>
@@ -883,12 +880,12 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>t_max_bare</strong> – maximum temperature at bare soil,
 <span class="math notranslate nohighlight">\(T_{c,max}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -896,12 +893,12 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.maximum_temperature">
-<span class="sig-name descname"><span class="pre">maximum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_max_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">maximum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_max_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_max_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.maximum_temperature" title="Link to this definition"></a></dt>
 <dd><p>Computes the maximum temperature at dry conditions.</p>
 <div class="math notranslate nohighlight">
 \[T_{0,max} = c_{veg} \cdot (T_{c,max}-T_{s,max})+T_{s,max}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_max_bare</strong> (<em>float</em>) – maximum temperature at bare soil,
 <span class="math notranslate nohighlight">\(T_{s,max}\)</span>
@@ -914,12 +911,12 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>lst_max</strong> – maximum temperature at dry conditions,
 <span class="math notranslate nohighlight">\(T_{0,max}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -927,12 +924,12 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.minimum_temperature">
-<span class="sig-name descname"><span class="pre">minimum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_wet_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.minimum_temperature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">minimum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_wet_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.minimum_temperature" title="Link to this definition"></a></dt>
 <dd><p>Computes the maximum temperature at dry conditions.</p>
 <div class="math notranslate nohighlight">
 \[T_{0,min} = c_{veg} \cdot (T_{a,i}-T_{w})+T_{w}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t_wet_k_i</strong> (<em>float</em>) – minimum temperature at bare soil,
 <span class="math notranslate nohighlight">\(T_{s,max}\)</span>
@@ -945,12 +942,12 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>lst_min</strong> – minimum temperature at wet conditions,
 <span class="math notranslate nohighlight">\(T_{0,min}\)</span>
 [K]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -958,14 +955,14 @@ T_{a}^{4}-\varepsilon_{s}\sigma T_{a}^{4}}{4\varepsilon_{s}\sigma T_{a}^{3}+
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.soil_moisture_from_maximum_temperature">
-<span class="sig-name descname"><span class="pre">soil_moisture_from_maximum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_min</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.soil_moisture_from_maximum_temperature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">soil_moisture_from_maximum_temperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_min</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.soil_moisture_from_maximum_temperature" title="Link to this definition"></a></dt>
 <dd><p>Computes the relative root zone soil moisture based on estimates of
 maximum temperature and wet bulb temperature and measured land
 surface temperature.</p>
 <div class="math notranslate nohighlight">
 \[\Theta = \frac{T_{0}-T_{0,min}}{T_{0,max}-T_{0,min}}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lst</strong> (<em>float</em>) – land surface temperature,
 <span class="math notranslate nohighlight">\(T_{0}\)</span>
@@ -978,12 +975,12 @@ surface temperature.</p>
 [K]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>se_root</strong> – relative root zone soil moisture (based on LST),
 <span class="math notranslate nohighlight">\(\Theta\)</span>
 [%]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -991,23 +988,23 @@ surface temperature.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_soil">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_soil" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_forced_convection_soil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_i_soil</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_forced_convection_soil" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance of the soil</p>
 <p>Eq A7 from Sanchez.</p>
 <div class="math notranslate nohighlight">
 \[r_{a,s}=\frac{1}{\left(0.0025T_{dif}^{\frac{1}{3}}+0.012u_{i,s}\right)}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>u_i_soil</strong> (<em>float</em>) – instantaneous wind speed just above soil surface
 <span class="math notranslate nohighlight">\(u_{i,s}\)</span>
 [m s-1]</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ras_forced</strong> – forced aerodynamical resistance
 <span class="math notranslate nohighlight">\(r_{a,s}\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1015,12 +1012,12 @@ surface temperature.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_bare">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_free_convection_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_free_convection_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_bare</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_bare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_bare" title="Link to this definition"></a></dt>
 <dd><p>Calculates the aerodynamic resistance in the case of free convection for bare soil.</p>
 <p>Based on equation 15 from:
 <a class="reference external" href="https://journals.ametsoc.org/view/journals/apme/31/9/1520-0450_1992_031_1096_emlst_2_0_co_2.xml">https://journals.ametsoc.org/view/journals/apme/31/9/1520-0450_1992_031_1096_emlst_2_0_co_2.xml</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_bare</strong> (<em>float</em>) – sensible heat flux bare soil
 <span class="math notranslate nohighlight">\(H_{bare}\)</span>
@@ -1036,12 +1033,12 @@ surface temperature.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rah_bare_free</strong> – aerodynamic resistance soil
 <span class="math notranslate nohighlight">\(r_{a,a}\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1049,12 +1046,12 @@ surface temperature.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_full">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_free_convection_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_free_convection_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_full</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_air_k_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0m_full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_free_convection_full" title="Link to this definition"></a></dt>
 <dd><p>Calculates the aerodynamic resistance in the case of free convection for the canopy.</p>
 <p>Based on equation 15 from:
 <a class="reference external" href="https://journals.ametsoc.org/view/journals/apme/31/9/1520-0450_1992_031_1096_emlst_2_0_co_2.xml">https://journals.ametsoc.org/view/journals/apme/31/9/1520-0450_1992_031_1096_emlst_2_0_co_2.xml</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>h_full</strong> (<em>float</em>) – sensible heat flux full canopy
 <span class="math notranslate nohighlight">\(H_{full}\)</span>
@@ -1070,12 +1067,12 @@ surface temperature.</p>
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rah_full_free</strong> – aerodynamic resistance canopy
 <span class="math notranslate nohighlight">\(r_{a,c}\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1083,11 +1080,11 @@ surface temperature.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_bare">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raa_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rah_bare_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_bare" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_bare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raa_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rah_bare_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_bare" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for a dry bare soil.</p>
 <p>This function takes the minimum of forced and free convection</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>raa_forced</strong> (<em>float</em>) – forced aerodynamical resistance dry surface
 <span class="math notranslate nohighlight">\(r_{a,a}\)</span>
@@ -1100,12 +1097,12 @@ surface temperature.</p>
 [sm-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rah_bare</strong> – aerodynamical resistance bare soil
 <span class="math notranslate nohighlight">\(r_{a,h} bare\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1113,11 +1110,11 @@ surface temperature.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_full">
-<span class="sig-name descname"><span class="pre">aerodynamical_resistance_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rac_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rah_full_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_full" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aerodynamical_resistance_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rac_forced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rah_full_free</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.soil_moisture.aerodynamical_resistance_full" title="Link to this definition"></a></dt>
 <dd><p>Computes the aerodynamical resistance for a full canopy.</p>
 <p>This function takes the minimum of forced and free convection</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rac_forced</strong> (<em>float</em>) – forced aerodynamical resistance canopy
 <span class="math notranslate nohighlight">\(r_{a,c}\)</span>
@@ -1127,29 +1124,33 @@ surface temperature.</p>
 [sm-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rah_full</strong> – aerodynamical resistance canopy
 <span class="math notranslate nohighlight">\(r_{a,h} canopy\)</span>
 [sm-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
 
 <div class="docutils container" id="id5">
-<dl class="footnote brackets">
-<dt class="label" id="footcite-yang2015estimation"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Yuting Yang, Huade Guan, Di Long, Bing Liu, Guanghua Qin, Jun Qin, and Okke Batelaan. Estimation of surface soil moisture from thermal infrared remote sensing using an improved trapezoid method. <em>Remote Sensing</em>, 7(7):8250–8270, 2015. URL: <a class="reference external" href="https://doi.org/10.3390/rs70708250">https://doi.org/10.3390/rs70708250</a>.</p>
-</dd>
-<dt class="label" id="footcite-brutsaert1999aspects"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
-<dd><p>Wilfried Brutsaert. Aspects of bulk atmospheric boundary layer similarity under free-convective conditions. <em>Reviews of geophysics</em>, 37(4):439–451, 1999. URL: <a class="reference external" href="https://doi.org/10.1029/1999RG900013">https://doi.org/10.1029/1999RG900013</a>.</p>
-</dd>
-<dt class="label" id="footcite-brutsaert1975derivable"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
-<dd><p>Wilfried Brutsaert. On a derivable formula for long-wave radiation from clear skies. <em>Water resources research</em>, 11(5):742–744, 1975. URL: <a class="reference external" href="https://doi.org/10.1029/WR011i005p00742">https://doi.org/10.1029/WR011i005p00742</a>.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-yang2015estimation" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Yuting Yang, Huade Guan, Di Long, Bing Liu, Guanghua Qin, Jun Qin, and Okke Batelaan. Estimation of surface soil moisture from thermal infrared remote sensing using an improved trapezoid method. <em>Remote Sensing</em>, 7(7):8250–8270, 2015. URL: <a class="reference external" href="https://doi.org/10.3390/rs70708250">https://doi.org/10.3390/rs70708250</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-brutsaert1999aspects" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Wilfried Brutsaert. Aspects of bulk atmospheric boundary layer similarity under free-convective conditions. <em>Reviews of geophysics</em>, 37(4):439–451, 1999. URL: <a class="reference external" href="https://doi.org/10.1029/1999RG900013">https://doi.org/10.1029/1999RG900013</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-brutsaert1975derivable" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>Wilfried Brutsaert. On a derivable formula for long-wave radiation from clear skies. <em>Water resources research</em>, 11(5):742–744, 1975. URL: <a class="reference external" href="https://doi.org/10.1029/WR011i005p00742">https://doi.org/10.1029/WR011i005p00742</a>.</p>
+</aside>
+</aside>
 </div>
 </section>
 

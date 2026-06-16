@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>thermal_sharpener &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -112,23 +109,23 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.enhancers.dms.thermal_sharpener">
-<span id="thermal-sharpener"></span><h1>thermal_sharpener<a class="headerlink" href="#module-pywapor.enhancers.dms.thermal_sharpener" title="Permalink to this heading"></a></h1>
+<span id="thermal-sharpener"></span><h1>thermal_sharpener<a class="headerlink" href="#module-pywapor.enhancers.dms.thermal_sharpener" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.highres_inputs">
-<span class="sig-name descname"><span class="pre">highres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_hr_input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_hr_input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.highres_inputs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">highres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_hr_input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_hr_input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.highres_inputs" title="Link to this definition"></a></dt>
 <dd><p>Create VRT files with all highres inputs per datetime.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>workdir</strong> (<em>str</em>) – Folder in which to store the VRT files.</p></li>
 <li><p><strong>temporal_hr_input_data</strong> (<em>list</em>) – Paths to the input highres data.</p></li>
 <li><p><strong>static_hr_input_data</strong> (<em>list</em>) – Paths to static highres data.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Paths to VRT files.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -136,19 +133,19 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.lowres_inputs">
-<span class="sig-name descname"><span class="pre">lowres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_lr_input_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.lowres_inputs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">lowres_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal_lr_input_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.lowres_inputs" title="Link to this definition"></a></dt>
 <dd><p>Create VRT files with all lowres inputs per datetime.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>workdir</strong> (<em>str</em>) – Folder in which to store the VRT files.</p></li>
 <li><p><strong>temporal_hr_input_data</strong> (<em>list</em>) – Paths to the input lowres data.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Paths to VRT files.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -156,17 +153,17 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.preprocess">
-<span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.preprocess" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.preprocess" title="Link to this definition"></a></dt>
 <dd><p>Adds a time dimension to <cite>ds</cite>. Used internally by <cite>sharpen</cite> when calling <cite>xr.open_mfdataset</cite> to create
 a stacking dimension.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input dataset.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dataset with added time dimension.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -174,10 +171,10 @@ a stacking dimension.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.plot_sharpening">
-<span class="sig-name descname"><span class="pre">plot_sharpening</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.plot_sharpening" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_sharpening</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hr_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.plot_sharpening" title="Link to this definition"></a></dt>
 <dd><p>Create a plot of a sharpened image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lr_fn</strong> (<em>str</em>) – Path to lowres file.</p></li>
 <li><p><strong>hr_fn</strong> (<em>str</em>) – Path to highres file.</p></li>
@@ -190,10 +187,10 @@ a stacking dimension.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.sharpen">
-<span class="sig-name descname"><span class="pre">sharpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_plots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nmdi',</span> <span class="pre">'bsi',</span> <span class="pre">'mndwi',</span> <span class="pre">'vari_red_edge',</span> <span class="pre">'psri',</span> <span class="pre">'nir',</span> <span class="pre">'green']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.sharpen" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sharpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_plots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['nmdi',</span> <span class="pre">'bsi',</span> <span class="pre">'mndwi',</span> <span class="pre">'vari_red_edge',</span> <span class="pre">'psri',</span> <span class="pre">'nir',</span> <span class="pre">'green']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.sharpen" title="Link to this definition"></a></dt>
 <dd><p>Thermal sharpen datasets.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dss</strong> (<em>dict</em>) – Keys are variable names, values are xr.Datasets which contain the lowres and highres input data.</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – Variable name of the lowres input data (usually <cite>lst</cite>).</p></li>
@@ -202,10 +199,10 @@ a stacking dimension.</p>
 <li><p><strong>vars_for_sharpening</strong> (<em>list</em><em>, </em><em>optional</em>) – Variables to use as sharpening features, by default [‘nmdi’, ‘bsi’, ‘mndwi’, ‘cos_solar_zangle’, ‘vari_red_edge’, ‘psri’, ‘nir’, ‘green’, ‘z’, ‘aspect’, ‘slope’].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Keys are variable names, values are (sharpened) datasets.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -213,20 +210,20 @@ a stacking dimension.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle">
-<span class="sig-name descname"><span class="pre">get_cos_solar_zangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_cos_solar_zangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.enhancers.dms.thermal_sharpener.get_cos_solar_zangle" title="Link to this definition"></a></dt>
 <dd><p>Calculate the cosine solar zenith angle.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dss</strong> (<em>dict</em>) – Keys are variables, values are datasets.</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – Variable from which the time is used to calculate <cite>cos_solar_zangle</cite> at.</p></li>
 <li><p><strong>folder</strong> (<em>str</em>) – Path to folder to store files.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Keys are variables, values are datasets.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>

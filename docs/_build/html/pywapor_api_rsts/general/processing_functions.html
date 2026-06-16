@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>processing_functions &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -112,13 +109,13 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.general.processing_functions">
-<span id="processing-functions"></span><h1>processing_functions<a class="headerlink" href="#module-pywapor.general.processing_functions" title="Permalink to this heading"></a></h1>
+<span id="processing-functions"></span><h1>processing_functions<a class="headerlink" href="#module-pywapor.general.processing_functions" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.log_example_ds">
-<span class="sig-name descname"><span class="pre">log_example_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">example_ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.log_example_ds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">log_example_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">example_ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.log_example_ds" title="Link to this definition"></a></dt>
 <dd><p>Writes some metadata about a <cite>example_ds</cite> to the logger.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>example_ds</strong> (<em>xr.Dataset</em>) – Dataset for which to log information.</p>
 </dd>
 </dl>
@@ -126,16 +123,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.adjust_timelim_dtype">
-<span class="sig-name descname"><span class="pre">adjust_timelim_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timelim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.adjust_timelim_dtype" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">adjust_timelim_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timelim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.adjust_timelim_dtype" title="Link to this definition"></a></dt>
 <dd><p>Convert different time formats to <cite>datetime.datetime</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>timelim</strong> (<em>list</em>) – List defining a period.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List defining a period using <cite>datetime.datetime</cite> objects.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
@@ -143,10 +140,10 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.remove_ds">
-<span class="sig-name descname"><span class="pre">remove_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.remove_ds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.remove_ds" title="Link to this definition"></a></dt>
 <dd><p>Delete a dataset-file from disk, assuring it’s closed properly before doing so.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ds</strong> (<em>xr.Dataset</em><em> | </em><em>str</em>) – Either a <cite>xr.Dataset</cite> (in which case its <cite>source</cite> as defined in the <cite>encoding</cite> attribute will be used)
 or a <cite>str</cite> in which case it must be a path to a file.</p>
 </dd>
@@ -155,10 +152,10 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.process_ds">
-<span class="sig-name descname"><span class="pre">process_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.process_ds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">process_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.process_ds" title="Link to this definition"></a></dt>
 <dd><p>Apply some rioxarray related transformations to a dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Dataset to be processed.</p></li>
 <li><p><strong>coords</strong> (<em>dict</em>) – Dictionary describing the names of the spatial coordinates.</p></li>
@@ -166,10 +163,10 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 <li><p><strong>crs</strong> (<em>rasterio.CRS.crs</em><em>, </em><em>optional</em>) – Coordinate reference system to assign (no reprojection is done), by default None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dataset with some attributes corrected.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -177,10 +174,10 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.make_example_ds">
-<span class="sig-name descname"><span class="pre">make_example_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_ds_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.make_example_ds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">make_example_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">example_ds_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.make_example_ds" title="Link to this definition"></a></dt>
 <dd><p>Make an dataset suitable to use as an example for matching with other datasets.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Input dataset.</p></li>
 <li><p><strong>folder</strong> (<em>str</em>) – Path to folder in which to save the <cite>example_ds</cite>.</p></li>
@@ -188,10 +185,10 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 <li><p><strong>bb</strong> (<em>list</em><em>, </em><em>optional</em>) – Boundingbox of the <cite>example_ds</cite> ([xmin, ymin, xmax, ymax]), by default None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Example dataset.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -199,20 +196,20 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.open_ds">
-<span class="sig-name descname"><span class="pre">open_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decode_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.open_ds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">open_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decode_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.open_ds" title="Link to this definition"></a></dt>
 <dd><p>Open a file using xarray.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fp</strong> (<em>str</em>) – Path to file.</p></li>
 <li><p><strong>decode_coords</strong> (<em>str</em><em>, </em><em>optional</em>) – Whether or not to decode coordinates, by default “all”.</p></li>
 <li><p><strong>chunks</strong> (<em>str</em><em> | </em><em>dict</em><em>, </em><em>optional</em>) – Chunks to use, by default “auto”.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Opened file.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>xr.Dataset</p>
 </dd>
 </dl>
@@ -220,20 +217,20 @@ or a <cite>str</cite> in which case it must be a path to a file.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.general.processing_functions.transform_bb">
-<span class="sig-name descname"><span class="pre">transform_bb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.transform_bb" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">transform_bb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_crs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.general.processing_functions.transform_bb" title="Link to this definition"></a></dt>
 <dd><p>Transforms coordinates from one CRS to another.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>src_crs</strong> (<em>rasterio.CRS.crs</em>) – Source CRS.</p></li>
 <li><p><strong>dst_crs</strong> (<em>rasterio.CRS.crs</em>) – Target CRS.</p></li>
 <li><p><strong>bb</strong> (<em>list</em>) – Coordinates to be transformed.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Transformed coordinates.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>

@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opendap &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -108,138 +105,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pywapor.collect.protocol.opendap">
-<span id="opendap"></span><h1>opendap<a class="headerlink" href="#module-pywapor.collect.protocol.opendap" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.make_opendap_url">
-<span class="sig-name descname"><span class="pre">make_opendap_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.make_opendap_url" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>base_url</strong> (<em>str</em>) – URL to OPeNDAP database</p></li>
-<li><p><strong>order</strong> (<em>dict</em>) – Keys are OPeNDAP variables, values are dictionaries specifying
-the indices to download for a dimension. Give an empty dictionary
-to not do any slicing.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>URL to download a subset.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-<p class="rubric">Example</p>
-<p>base_url = “<a class="reference external" href="https://ladsweb.modaps.eosdis.nasa.gov/opendap/RemoteResources/laads/allData/5200/VNP02IMG/2023/060/VNP02IMG.A2023060.1106.002.2023061191604.nc">https://ladsweb.modaps.eosdis.nasa.gov/opendap/RemoteResources/laads/allData/5200/VNP02IMG/2023/060/VNP02IMG.A2023060.1106.002.2023061191604.nc</a>”
-order = {</p>
-<blockquote>
-<div><dl class="simple">
-<dt>‘/observation_data/I05_quality_flags’: {</dt><dd><p>‘number_of_lines’: [1610, 1711],
-‘number_of_pixels’: [2920, 3013]},</p>
-</dd>
-<dt>‘/observation_data/I05’: {</dt><dd><p>‘number_of_lines’: [1610, 1711],
-‘number_of_pixels’: [2920, 3013]},</p>
-</dd>
-</dl>
-<p>‘/observation_data/I05_brightness_temperature_lut’: {}
-}</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.download">
-<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">un_pw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source_crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_tiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedelta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.download" title="Permalink to this definition"></a></dt>
-<dd><p>Download data from a OPENDaP server.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fp</strong> (<em>str</em>) – Path to file in which to download.</p></li>
-<li><p><strong>product_name</strong> (<em>str</em>) – Name of product.</p></li>
-<li><p><strong>coords</strong> (<em>dict</em>) – Coordinate names and boundaries.</p></li>
-<li><p><strong>variables</strong> (<em>dict</em>) – Keys are variable names, values are additional settings.</p></li>
-<li><p><strong>post_processors</strong> (<em>dict</em>) – Processors to apply to specific variables.</p></li>
-<li><p><strong>url_func</strong> (<em>function</em>) – Function that takes <cite>product_name</cite> as input and return a url.</p></li>
-<li><p><strong>un_pw</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Username and password to use, by default None.</p></li>
-<li><p><strong>tiles</strong> (<em>list</em><em>, </em><em>optional</em>) – Tiles to download, by default None.</p></li>
-<li><p><strong>data_source_crs</strong> (<em>rasterio.CRS.crs</em><em>, </em><em>optional</em>) – CRS of datasource, by default None.</p></li>
-<li><p><strong>parallel</strong> (<em>bool</em><em>, </em><em>optional</em>) – Download files in parallel (currently not implemented), by default False.</p></li>
-<li><p><strong>spatial_tiles</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the tiles are spatial or temporal, by default True.</p></li>
-<li><p><strong>request_dims</strong> (<em>bool</em><em>, </em><em>optional</em>) – Include dimension settings in the OPENDaP request, by default True.</p></li>
-<li><p><strong>timedelta</strong> (<em>datetime.datetime.timedelta</em><em>, </em><em>optional</em>) – Shift the time coordinates by tdelta, by default None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dataset with downloaded data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.setup_session">
-<span class="sig-name descname"><span class="pre">setup_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'username'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'password'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.setup_session" title="Permalink to this definition"></a></dt>
-<dd><p>A general function to set-up requests session with cookies
-using beautifulsoup and by calling the right url.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.raise_if_form_exists">
-<span class="sig-name descname"><span class="pre">raise_if_form_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.raise_if_form_exists" title="Permalink to this definition"></a></dt>
-<dd><p>This function raises a UserWarning if the link has forms</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.download_xarray">
-<span class="sig-name descname"><span class="pre">download_xarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_processors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source_crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timedelta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.download_xarray" title="Permalink to this definition"></a></dt>
-<dd><p>Download a OPENDaP dataset using xarray directly.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> (<em>str</em>) – URL to dataset.</p></li>
-<li><p><strong>fp</strong> (<em>str</em>) – Path to file to download into.</p></li>
-<li><p><strong>coords</strong> (<em>dict</em>) – Coordinates to request.</p></li>
-<li><p><strong>variables</strong> (<em>dict</em>) – Variables to request.</p></li>
-<li><p><strong>post_processors</strong> (<em>dict</em>) – Additional functions to apply to variables.</p></li>
-<li><p><strong>data_source_crs</strong> (<em>rasterio.CRS.crs</em><em>, </em><em>optional</em>) – CRS of the data source, by default None.</p></li>
-<li><p><strong>timedelta</strong> (<em>datetime.datetime.timedelta</em><em>, </em><em>optional</em>) – Shift the time coordinates by tdelta, by default None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Downloaded dataset.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xr.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.protocol.opendap.create_selection">
-<span class="sig-name descname"><span class="pre">create_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_crs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CRS.from_epsg(4326)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.protocol.opendap.create_selection" title="Permalink to this definition"></a></dt>
-<dd><p>Create a dictionary that can be given to <cite>xr.Dataset.sel</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords</strong> (<em>dict</em>) – Dictionary describing the different dimensions over which to select. Possible keys
-are “x” for latitude, “y” for longitude and “t” for time, but other selections
-keys are also allowed (e.g. so select a band). Values are tuples with the first
-value the respective dimension names in the <cite>ds</cite> and the second value the selector.</p></li>
-<li><p><strong>target_crs</strong> (<em>rasterio.crs.CRS</em><em>, </em><em>optional</em>) – crs of the dataset on which the selection will be applied, by default None.</p></li>
-<li><p><strong>source_crs</strong> (<em>rasterio.crs.CRS</em><em>, </em><em>optional</em>) – crs of the <cite>x</cite> and <cite>y</cite> limits in <cite>coords</cite>, by default <cite>epsg:4326</cite>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dimension names with slices to apply to each dimension.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="opendap">
+<h1>opendap<a class="headerlink" href="#opendap" title="Link to this heading"></a></h1>
 </section>
 
 

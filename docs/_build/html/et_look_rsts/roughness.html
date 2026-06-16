@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roughness &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -107,11 +104,11 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.roughness">
-<span id="roughness"></span><h1>Roughness<a class="headerlink" href="#module-pywapor.et_look_v2_v3.roughness" title="Permalink to this heading"></a></h1>
+<span id="roughness"></span><h1>Roughness<a class="headerlink" href="#module-pywapor.et_look_v2_v3.roughness" title="Link to this heading"></a></h1>
 <p>The roughness module contains all functions related to surface roughness.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.roughness.roughness_length">
-<span class="sig-name descname"><span class="pre">roughness_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_oro</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.roughness_length" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">roughness_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_oro</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.roughness_length" title="Link to this definition"></a></dt>
 <dd><p>Computes the surface roughness length. The roughness length is related to
 the roughness characteristics. For the logarithmic wind-profile the
 surface roughness length is the height at which the wind speed is zero.
@@ -132,7 +129,7 @@ z_{0,m} &amp; l=1\\
 \frac{1}{7} \cdot z_{obst,max}+z_{oro} &amp; l=3
 \end{array}\end{cases}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lai</strong> (<em>float</em>) – leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai}\)</span>
@@ -151,17 +148,17 @@ z_{0,m} &amp; l=1\\
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>z0m</strong> – roughness length,
 <span class="math notranslate nohighlight">\(z_{0,m}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.roughness</span> <span class="k">as</span> <span class="nn">roughness</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.roughness</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">roughness</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">roughness</span><span class="o">.</span><span class="n">roughness_length</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="go">0.34179999999999999</span>
 </pre></div>
@@ -170,7 +167,7 @@ z_{0,m} &amp; l=1\\
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.roughness.obstacle_height">
-<span class="sig-name descname"><span class="pre">obstacle_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndvi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_obs_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_obs_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.obstacle_height" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">obstacle_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndvi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_obs_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndvi_obs_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_fr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.obstacle_height" title="Link to this definition"></a></dt>
 <dd><p>Computes the obstacle height. The ndvi is used to limit the obstacle
 height.</p>
 <div class="math notranslate nohighlight">
@@ -184,7 +181,7 @@ I_{ndvi}&gt;I_{ndvi,obs,min}\&amp;I_{ndvi}&lt;I_{ndvi,obs,max}\\
 z_{obst,max} &amp; I_{ndvi}\geq I_{ndvi,obs,max}
 \end{array}\end{cases}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ndvi</strong> (<em>float</em>) – normalized difference vegetation index,
 <span class="math notranslate nohighlight">\(I_{ndvi}\)</span>
@@ -203,17 +200,17 @@ z_{obst,max} &amp; I_{ndvi}\geq I_{ndvi,obs,max}
 [m]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>z_obst</strong> – obstacle height,
 <span class="math notranslate nohighlight">\(z_{obst}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.roughness</span> <span class="k">as</span> <span class="nn">roughness</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.roughness</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">roughness</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">roughness</span><span class="o">.</span><span class="n">obstacle_height</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="go">0.95</span>
 </pre></div>
@@ -222,7 +219,7 @@ z_{obst,max} &amp; I_{ndvi}\geq I_{ndvi,obs,max}
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.roughness.displacement_height">
-<span class="sig-name descname"><span class="pre">displacement_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.displacement_height" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">displacement_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_obst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.roughness.displacement_height" title="Link to this definition"></a></dt>
 <dd><p>Computes the displacement height. The lai is used to limit the displacement
 height. It is defined differently for different types of landuse.</p>
 <p>Land use is classified as follows:</p>
@@ -242,7 +239,7 @@ z_{obst}\left(1-\frac{1-\exp\left(-\sqrt{c_{1} \cdot I_{lai}}\right)}
 \frac{2}{3} \cdot z_{obst} &amp; l=3
 \end{array}\end{cases}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lai</strong> (<em>float</em>) – leaf area index,
 <span class="math notranslate nohighlight">\(I_{lai}\)</span>
@@ -258,17 +255,17 @@ z_{obst}\left(1-\frac{1-\exp\left(-\sqrt{c_{1} \cdot I_{lai}}\right)}
 [-]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>disp</strong> – displacement height,
 <span class="math notranslate nohighlight">\({disp}\)</span>
 [m]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ETLook.roughness</span> <span class="k">as</span> <span class="nn">roughness</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ETLook.roughness</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">roughness</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">roughness</span><span class="o">.</span><span class="n">displacement_height</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="go">0.51779495</span>
 </pre></div>

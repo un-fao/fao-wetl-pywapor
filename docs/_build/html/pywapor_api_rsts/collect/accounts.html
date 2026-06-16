@@ -1,29 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>accounts &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -61,18 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../enhancers.html">pywapor.enhancers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general.html">pywapor.general</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../collect.html">pywapor.collect</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">accounts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.create_key"><code class="docutils literal notranslate"><span class="pre">create_key()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.terra_account"><code class="docutils literal notranslate"><span class="pre">terra_account()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.nasa_account"><code class="docutils literal notranslate"><span class="pre">nasa_account()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.viirs_account"><code class="docutils literal notranslate"><span class="pre">viirs_account()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.earthexplorer_account"><code class="docutils literal notranslate"><span class="pre">earthexplorer_account()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.copernicus_data_space_account"><code class="docutils literal notranslate"><span class="pre">copernicus_data_space_account()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pywapor.collect.accounts.ecmwf_account"><code class="docutils literal notranslate"><span class="pre">ecmwf_account()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">accounts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="downloader.html">downloader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="product.html">product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="protocol.html">protocol</a></li>
@@ -111,151 +97,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pywapor.collect.accounts">
-<span id="accounts"></span><h1>accounts<a class="headerlink" href="#module-pywapor.collect.accounts" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.setup" title="Permalink to this definition"></a></dt>
-<dd><p>Asks, saves and tests a username/password combination for <cite>account</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>account</strong> (<em>{&quot;NASA&quot;</em><em> | </em><em>&quot;TERRA&quot;</em><em> | </em><em>&quot;ECMWF&quot;</em><em> | </em><em>&quot;COPERNICUS_DATA_SPACE&quot;</em><em> | </em><em>&quot;EARTHEXPLORER&quot;</em><em> | </em><em>&quot;VIIRSL1&quot;}</em>) – Which un/pw combination to store.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.get" title="Permalink to this definition"></a></dt>
-<dd><p>Loads a required username/password.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>account</strong> (<em>{&quot;NASA&quot;</em><em> | </em><em>&quot;TERRA&quot;</em><em> | </em><em>&quot;ECMWF&quot;</em><em> | </em><em>&quot;COPERNICUS_DATA_SPACE&quot;</em><em> | </em><em>&quot;EARTHEXPLORER&quot;</em><em> | </em><em>&quot;VIIRSL1}</em>) – Which un/pw combination to load.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.create_key">
-<span class="sig-name descname"><span class="pre">create_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.create_key" title="Permalink to this definition"></a></dt>
-<dd><p>Generates a key file.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.terra_account">
-<span class="sig-name descname"><span class="pre">terra_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.terra_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored TERA username/password combination
-is correct. Accounts can be created on <a class="reference external" href="https://viewer.terrascope.be">https://viewer.terrascope.be</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em><em>, </em><em>optional</em>) – (“username”, “password”) to check, if <cite>None</cite> will try to load the
-password from the keychain, by default None.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the password works, otherwise False.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.nasa_account">
-<span class="sig-name descname"><span class="pre">nasa_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.nasa_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored NASA username/password combination is
-correct. Accounts can be created on <a class="reference external" href="https://urs.earthdata.nasa.gov/users/new">https://urs.earthdata.nasa.gov/users/new</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em><em>, </em><em>optional</em>) – (“username”, “password”) to check, if <cite>None</cite> will try to load the
-password from the keychain, by default None.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the password works, otherwise False.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.viirs_account">
-<span class="sig-name descname"><span class="pre">viirs_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.viirs_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored VIIRSL1 token is
-correct. Accounts can be created on <a class="reference external" href="https://ladsweb.modaps.eosdis.nasa.gov/">https://ladsweb.modaps.eosdis.nasa.gov/</a>.
-Then in the top right, press “Login” and “generate token”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em><em>, </em><em>optional</em>) – (“”, “token”) to check, if <cite>None</cite> will try to load the
-password from the keychain, by default None.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the password works, otherwise False.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.earthexplorer_account">
-<span class="sig-name descname"><span class="pre">earthexplorer_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.earthexplorer_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored WAPOR token is
-correct. Accounts can be created on <a class="reference external" href="https://wapor.apps.fao.org/home/WAPOR_2/1">https://wapor.apps.fao.org/home/WAPOR_2/1</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em><em>, </em><em>optional</em>) – (“”, “token”) to check, if <cite>None</cite> will try to load the
-password from the keychain, by default None.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the password works, otherwise False.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.copernicus_data_space_account">
-<span class="sig-name descname"><span class="pre">copernicus_data_space_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.copernicus_data_space_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored COPERNICUS_DATA_SPACE account is
-correct. Accounts can be created on <a class="reference external" href="https://dataspace.copernicus.eu">https://dataspace.copernicus.eu</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em>) – (“username”, “password”) to check.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>First item is <cite>True</cite> if the password works, otherwise <cite>False</cite>,
-seconds item is a error message.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pywapor.collect.accounts.ecmwf_account">
-<span class="sig-name descname"><span class="pre">ecmwf_account</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_pw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.collect.accounts.ecmwf_account" title="Permalink to this definition"></a></dt>
-<dd><p>Check if the given or stored ECMWF key is
-correct. Accounts can be created on <a class="reference external" href="https://cds.climate.copernicus.eu/#!/home">https://cds.climate.copernicus.eu/#!/home</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user_pw</strong> (<em>tuple</em>) – (“username”, “password”) to check.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>First item is <cite>True</cite> if the password works, otherwise <cite>False</cite>,
-seconds item is a error message.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="accounts">
+<h1>accounts<a class="headerlink" href="#accounts" title="Link to this heading"></a></h1>
 </section>
 
 

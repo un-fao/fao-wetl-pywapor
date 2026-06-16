@@ -1,31 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evapotranspiration &mdash; pyWaPOR  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3a06f1f5" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -63,7 +60,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.evapotranspiration.interception_mm"><code class="docutils literal notranslate"><span class="pre">interception_mm()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference"><code class="docutils literal notranslate"><span class="pre">et_reference()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference_mm"><code class="docutils literal notranslate"><span class="pre">et_reference_mm()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.evapotranspiration.et_actual_mm"><code class="docutils literal notranslate"><span class="pre">et_actual_mm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pywapor.et_look_v2_v3.evapotranspiration.eti_actual_mm"><code class="docutils literal notranslate"><span class="pre">eti_actual_mm()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="leaf.html">Leaf</a></li>
@@ -108,18 +105,18 @@
            <div itemprop="articleBody">
              
   <section id="module-pywapor.et_look_v2_v3.evapotranspiration">
-<span id="evapotranspiration"></span><h1>Evapotranspiration<a class="headerlink" href="#module-pywapor.et_look_v2_v3.evapotranspiration" title="Permalink to this heading"></a></h1>
+<span id="evapotranspiration"></span><h1>Evapotranspiration<a class="headerlink" href="#module-pywapor.et_look_v2_v3.evapotranspiration" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.evapotranspiration.interception_mm">
-<span class="sig-name descname"><span class="pre">interception_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.interception_mm" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">interception_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lai</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.interception_mm" title="Link to this definition"></a></dt>
 <dd><p>Computes the daily interception. The daily interception of a vegetated area
-is calculated according to Braden<a class="footnote-reference brackets" href="#footcite-braden1985energiehaushalts" id="id1">1</a>
-and Hoyningen-Huene<a class="footnote-reference brackets" href="#footcite-hoyningen1983interception" id="id2">2</a>.</p>
+is calculated according to Braden<a class="footnote-reference brackets" href="#footcite-braden1985energiehaushalts" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+and Hoyningen-Huene<a class="footnote-reference brackets" href="#footcite-hoyningen1983interception" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[I^*=I_{max} \cdot I_{lai} \cdot \left(1-\frac{1}{1+\frac{c_{veg} \cdot P}
 {I_{max} \cdot I_{lai}}}\right)\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>P_24</strong> (<em>float</em>) – daily rainfall,
 <span class="math notranslate nohighlight">\(P\)</span>
@@ -135,12 +132,12 @@ and Hoyningen-Huene<a class="footnote-reference brackets" href="#footcite-hoynin
 [mm day <span class="math notranslate nohighlight">\(^{-1}\)</span>]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>int_mm</strong> – interception,
 <span class="math notranslate nohighlight">\(I^*\)</span>
 [mm day <span class="math notranslate nohighlight">\(^{-1}\)</span>]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -148,7 +145,7 @@ and Hoyningen-Huene<a class="footnote-reference brackets" href="#footcite-hoynin
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.evapotranspiration.et_reference">
-<span class="sig-name descname"><span class="pre">et_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_grass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">et_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rn_24_grass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ad_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psy_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vpd_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssvp_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference" title="Link to this definition"></a></dt>
 <dd><p>Computes the reference evapotranspiration.</p>
 <p>The reference evapotranspiration <span class="math notranslate nohighlight">\(ET_{ref}\)</span> is an important concept
 in irrigation science. The reference evapotranspiration can be inferred
@@ -167,7 +164,7 @@ as follows, with taking the default value for the grass surface resistance
 {\Delta+\gamma \cdot \left(1+\frac{r_{grass}}{r_{a,grass}}\right)}\]</div>
 <p>The soil heat flux is assumed to be zero or close to zero on a daily basis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rn_24_grass</strong> (<em>float</em>) – net radiation for reference grass surface,
 <span class="math notranslate nohighlight">\(Q^{*}_{grass}\)</span>
@@ -189,12 +186,12 @@ as follows, with taking the default value for the grass surface resistance
 [mbar K-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>et_ref_24</strong> – reference evapotranspiration (well watered grass) energy equivalent,
 <span class="math notranslate nohighlight">\(ET_{ref}\)</span>
 [W m-2]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -202,7 +199,7 @@ as follows, with taking the default value for the grass surface resistance
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pywapor.et_look_v2_v3.evapotranspiration.et_reference_mm">
-<span class="sig-name descname"><span class="pre">et_reference_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et_ref_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference_mm" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">et_reference_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et_ref_24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lh_24</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.et_reference_mm" title="Link to this definition"></a></dt>
 <dd><p>Computes the reference evapotranspiration.</p>
 <div class="math notranslate nohighlight">
 \[ET_{ref}=ET_{ref} \cdot d_{sec} \cdot \lambda_{24}\]</div>
@@ -211,7 +208,7 @@ as follows, with taking the default value for the grass surface resistance
 <li><p><span class="math notranslate nohighlight">\(d_{sec}\)</span> seconds in the day = 86400 [s]</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>et_ref_24</strong> (<em>float</em>) – daily reference evapotranspiration energy equivalent,
 <span class="math notranslate nohighlight">\(ET_{ref}\)</span>
@@ -221,26 +218,26 @@ as follows, with taking the default value for the grass surface resistance
 [J/kg]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>et_ref_24_mm</strong> – reference evapotranspiration (well watered grass),
 <span class="math notranslate nohighlight">\(ET_{ref}\)</span>
 [mm d-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.evapotranspiration.et_actual_mm">
-<span class="sig-name descname"><span class="pre">et_actual_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_24_mm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_24_mm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.et_actual_mm" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pywapor.et_look_v2_v3.evapotranspiration.eti_actual_mm">
+<span class="sig-name descname"><span class="pre">eti_actual_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_24_mm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_24_mm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_mm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pywapor.et_look_v2_v3.evapotranspiration.eti_actual_mm" title="Link to this definition"></a></dt>
 <dd><p>Computes the actual evapotranspiration based on the separate calculations
 of evaporation and transpiration.</p>
 <div class="math notranslate nohighlight">
 \[ET = E + T\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>e_24_mm</strong> (<em>float</em>) – daily evaporation in mm,
 <span class="math notranslate nohighlight">\(E\)</span>
@@ -248,28 +245,33 @@ of evaporation and transpiration.</p>
 <li><p><strong>t_24_mm</strong> (<em>float</em>) – daily transpiration in mm,
 <span class="math notranslate nohighlight">\(T\)</span>
 [mm d-1]</p></li>
+<li><p><strong>int_mm</strong> (<em>float</em>) – daily interception in mm
+<span class="math notranslate nohighlight">\(I\)</span>
+[mm d-1]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>et_24_mm</strong> – daily evapotranspiration in mm,
-<span class="math notranslate nohighlight">\(ET\)</span>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>aeti_24_mm</strong> – daily evapotranspiration and interception in mm,
+<span class="math notranslate nohighlight">\(AETI\)</span>
 [mm d-1]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
 
 <div class="docutils container" id="id3">
-<dl class="footnote brackets">
-<dt class="label" id="footcite-braden1985energiehaushalts"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>H Braden. Ein energiehaushalts-und verdunstungsmodell for wasser und stoffhaushaltsuntersuchungen landwirtschaftlich genutzer einzugsgebiete. <em>Mittelungen Deutsche Bodenkundliche Geselschaft</em>, 42(S):294–299, 1985.</p>
-</dd>
-<dt class="label" id="footcite-hoyningen1983interception"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>JV Hoyningen-Huene. Interception of precipitation in agricultural crops. <em>Verlag Paul Parey, Hamburg, Berlin, Germany, DVWK-Schrift</em>, 1983.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-braden1985energiehaushalts" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>H Braden. Ein energiehaushalts-und verdunstungsmodell for wasser und stoffhaushaltsuntersuchungen landwirtschaftlich genutzer einzugsgebiete. <em>Mittelungen Deutsche Bodenkundliche Geselschaft</em>, 42(S):294–299, 1985.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-hoyningen1983interception" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>JV Hoyningen-Huene. Interception of precipitation in agricultural crops. <em>Verlag Paul Parey, Hamburg, Berlin, Germany, DVWK-Schrift</em>, 1983.</p>
+</aside>
+</aside>
 </div>
 </section>
 
