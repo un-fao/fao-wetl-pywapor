@@ -35,7 +35,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinxcontrib.bibtex',
     # 'sphinx.ext.mathjax',
-    'm2r2',
+    'sphinx_mdinclude',
 ]
 
 # mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"
