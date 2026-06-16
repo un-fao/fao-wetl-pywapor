@@ -76,6 +76,13 @@ def collect_sources(folder, sources, latlim, lonlim, timelim, landsat_order_only
                 if "FILE:" in source:
                     search_path = source.replace("FILE:", "").format(folder = folder, sep = os.sep)
                     fhs = glob.glob(search_path)
+                    if len(fhs) == 0 and search_path.endswith(".from_file"):
+                        # The `.from_file` suffix is deprecated, files no longer
+                        # carry it (e.g. `se_root_out*.nc` instead of
+                        # `se_root_out*.nc.from_file`), so retry without it.
+                        log.warning(f"--> The `.from_file` suffix in `FILE:` sources is deprecated, please remove it from your config (`{search_path}`).")
+                        search_path = search_path[:-len(".from_file")]
+                        fhs = glob.glob(search_path)
                     nfhs = len(fhs)
                     if nfhs == 1:
                         fp = fhs[0]
