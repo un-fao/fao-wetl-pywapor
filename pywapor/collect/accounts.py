@@ -349,7 +349,7 @@ def viirs_account(user_pw):
     _, token = user_pw
 
     headers = {'Authorization': 'Bearer ' + token}
-    test_url = "https://ladsweb.modaps.eosdis.nasa.gov/archive/allData/5110/CLDMSK_L2_VIIRS_SNPP/2023/060/CLDMSK_L2_VIIRS_SNPP.A2023060.0006.001.2023233192108.nc"
+    test_url = "https://ladsweb.modaps.eosdis.nasa.gov/archive/README"
     response = requests.Session().get(test_url, headers=headers, stream = True)
     for data in response.iter_content(chunk_size=1024):
         succes = b'DOCTYPE' not in data
