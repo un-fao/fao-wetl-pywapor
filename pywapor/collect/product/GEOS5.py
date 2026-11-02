@@ -187,10 +187,7 @@ def default_post_processors(product_name, req_vars):
 def most_recent(product_name, *args):
     url = f"https://opendap.nccs.nasa.gov/dods/GEOS-5/fp/0.25_deg/assim/{product_name}"
 
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", category=xr.SerializationWarning)
-        x = xr.open_dataset(url)
-
+    x = opendap.open_remote_dataset_with_retry(url)
     return pd.to_datetime(x["time"][-1].values).to_pydatetime()
 
 
