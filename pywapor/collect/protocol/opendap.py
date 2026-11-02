@@ -22,20 +22,16 @@ from pywapor.collect.protocol.crawler import download_url, download_urls
 from pywapor.general.processing_functions import save_ds, process_ds, remove_ds
 
 
+# OPENDAP NOTE: NASA remote endpoints occasionally fail with short-lived netCDF I/O errors.
+# Retrying a few times avoids aborting an entire collection run because of a transient outage.
 def open_remote_dataset_with_retry(url, decode_coords="all", retries=3, backoff_seconds=5, **kwargs):
-    """Open a remote OPeNDAP dataset with exponential backoff.
-
-    NASA OPeNDAP endpoints can occasionally return transient network or netCDF I/O
-    failures. Retrying a few times keeps short-lived outages from aborting a
-    collection run.
-    """
     last_error = None
     for attempt in range(1, retries + 1):
         try:
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", category=xr.SerializationWarning)
             return xr.open_dataset(url, decode_coords=decode_coords, **kwargs)
-        except Exception as err:  # pragma: no cover - handled by retry path
+        except Exception as err:
             last_error = err
             if attempt >= retries:
                 raise
