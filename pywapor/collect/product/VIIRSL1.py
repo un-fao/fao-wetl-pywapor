@@ -527,7 +527,7 @@ def download(
         f"--> {len(all_proj_files)} scenes already downloaded, {len(all_urls)} remaining."
     ).add()
 
-    dl_method = "opendap"
+    dl_method = "get_request"
     if dl_method == "get_request":
         token = accounts.get("VIIRSL1")[1]
 
