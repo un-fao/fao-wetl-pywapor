@@ -248,7 +248,7 @@ def create_stac_summary(bb, timelim, cachedir=None, limit=1000):
 
     params["collections"] = ["VNP03IMG.v2"]
     results03 = search_stac(params, cachedir=cachedir, extra_filters={})
-    params["collections"] = ["CLDMSK_L2_VIIRS_SNPP.v1"]
+    params["collections"] = ["CLDMSK_L2_VIIRS_SNPP.v2"]
     resultsqa = search_stac(params, cachedir=cachedir, extra_filters={})
     params["collections"] = ["VNP02IMG.v2"]
     results02 = search_stac(params, cachedir=cachedir)
@@ -368,7 +368,11 @@ def combine_unprojected_data(nc02_file, ncqa_file, lut_file, unproj_fn):
         ds_ = xr.open_dataset(nc02_file, mask_and_scale=False, group="observation_data")
         ds1 = ds_[["I05", "I05_quality_flags"]]
         ds2 = ds_[["I05_brightness_temperature_lut"]]
-        ds3 = xr.open_dataset(ncqa_file, chunks="auto", group="geophysical_data")
+        # NOTE CLDMSK v2 subsets from OPeNDAP have duplicate (full-size) dimensions in the
+        # `geophysical_data` group which breaks netCDF readers, so read the raw HDF5 dataset.
+        cm = gdal.Open(f'HDF5:"{ncqa_file}"://geophysical_data/Integer_Cloud_Mask').ReadAsArray()
+        cm = xr.DataArray(cm, dims=["number_of_lines", "number_of_pixels"])
+        ds3 = cm.where(cm != -1).to_dataset(name="Integer_Cloud_Mask")
     else:
         ds1 = xr.open_dataset(nc02_file, mask_and_scale=False)
         ds2 = xr.open_dataset(lut_file, mask_and_scale=False)
@@ -649,7 +653,7 @@ def download(
             )
             ncqa_url = posixpath.join(
                 base_url,
-                "5110",
+                "5200",
                 nc_cloud_parts[-2],
                 year_doy[:4],
                 year_doy[4:],
@@ -738,7 +742,7 @@ def download(
             )
             base_cloud = posixpath.join(
                 base_url,
-                "5110",
+                "5200",
                 nc_cloud_parts[-2],
                 year_doy[:4],
                 year_doy[4:],

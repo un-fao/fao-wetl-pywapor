@@ -91,7 +91,7 @@ def most_recent(product_name, *args):
     nothing_found = True
     while nothing_found and year > 1900:
         year = year - 1
-        url = f"https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/cogs/{product_name.lower()}/{year}"
+        url = f"https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/cogs/{product_name.lower()}/{year}"
         r = requests.get(url)
         soup = BeautifulSoup(r.content, features="xml")
         x = soup.findAll(lambda tag: tag.name == "a" and ".cog" in tag.text)
@@ -208,7 +208,7 @@ def download(
 
     dates = pd.date_range(timelim[0], timelim[1], freq="D")
     urls = [
-        f"/vsicurl/https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_daily/cogs/p05/{x.year}/chirps-v2.0.{x.year}.{x.month:>02}.{x.day:>02}.cog"
+        f"/vsicurl/https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/cogs/p05/{x.year}/chirps-v2.0.{x.year}.{x.month:>02}.{x.day:>02}.cog"
         for x in dates
     ]
     temp_fn = fn.replace(".nc", "_temp.nc")
@@ -216,6 +216,8 @@ def download(
 
     gdal_config_options = {
         "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
+        "GDAL_HTTP_MAX_RETRY": "10", # NOTE CHIRPS server rate-limits (HTTP 429).
+        "GDAL_HTTP_RETRY_DELAY": "2",
     }
     try:
         for k, v in gdal_config_options.items():
