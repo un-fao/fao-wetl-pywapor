@@ -86,6 +86,9 @@ echo "sha256: $SHA256"
 
 cd "$FEEDSTOCK_DIR"
 
+# Refresh stat info first: diff-index trusts cached mtimes, and iCloud Drive
+# touches file metadata, which otherwise causes false "uncommitted changes".
+git update-index -q --refresh >/dev/null || true
 if ! git diff-index --quiet HEAD --; then
   echo "error: feedstock working tree has uncommitted changes" >&2
   git status --short >&2

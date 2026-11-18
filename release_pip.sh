@@ -20,6 +20,7 @@ if [[ ! -f "$PYPROJECT" ]]; then
 fi
 
 # Refuse to release with a dirty tree.
+git update-index -q --refresh >/dev/null || true
 if ! git diff-index --quiet HEAD --; then
   echo "error: working tree has uncommitted changes; commit or stash first" >&2
   git status --short >&2
