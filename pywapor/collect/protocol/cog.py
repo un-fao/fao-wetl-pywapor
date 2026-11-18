@@ -129,6 +129,11 @@ def cog_dl(urls, out_fn, overview = "NONE", warp_kwargs = {}, vrt_options = {"se
         **vrt_options
     )
     vrt = gdal.BuildVRT(vrt_fn, urls, options = vrt_options_)
+    if vrt is None:
+        raise RuntimeError(
+            f"Unable to build `.vrt` from {len(urls)} url(s), the remote files might "
+            f"have moved or the server is unreachable (first url: `{urls[0] if urls else None}`)."
+        )
     vrt.FlushCache()
 
     ## Download the data.

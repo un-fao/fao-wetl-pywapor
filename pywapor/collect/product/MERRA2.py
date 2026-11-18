@@ -1,16 +1,16 @@
 import copy
 import datetime
-import fnmatch
+import functools
 import os
+import re
 from functools import partial
-from urllib.error import HTTPError
 
 import numpy as np
 import pandas as pd
 
 import pywapor.collect.accounts as accounts
+import pywapor.collect.protocol.cmr as cmr
 import pywapor.collect.protocol.opendap as opendap
-from pywapor.collect.protocol.crawler import find_paths
 from pywapor.collect.protocol.projections import get_crss
 from pywapor.enhancers.pressure import pa_to_kpa
 from pywapor.enhancers.temperature import kelvin_to_celsius
@@ -138,6 +138,50 @@ def fn_func(product_name, tile):
     return fn
 
 
+# NOTE GES DISC retired its on-premises OPeNDAP server (goldsmr4.gesdisc.eosdis.nasa.gov/opendap,
+# returns HTTP 410 since late 2026), data is now served through Earthdata Cloud OPeNDAP. Granule
+# URLs are looked up through CMR, which also takes care of the irregular stream number
+# (e.g. `MERRA2_400`, `MERRA2_401`) in the filenames.
+_GRANULE_DATE_RE = re.compile(r"\.(\d{8})\.nc4$")
+
+
+def _short_name_version(product_name):
+    short_name, version = product_name.split(".", 1)
+    return short_name, version
+
+
+def _granule_date(granule_ur):
+    m = _GRANULE_DATE_RE.search(granule_ur)
+    if m is None:
+        return None
+    return datetime.datetime.strptime(m.group(1), "%Y%m%d").date()
+
+
+@functools.lru_cache(maxsize=128)
+def _monthly_granule_urls(product_name, year, month):
+    """Returns a dictionary with the cloud OPeNDAP URL for each available date
+    in the given month."""
+    short_name, version = _short_name_version(product_name)
+    start = datetime.date(year, month, 1)
+    end = (pd.Timestamp(start) + pd.offsets.MonthEnd()).date()
+    granules = cmr.search_granules(
+        short_name,
+        version,
+        latlim=[-90, 90],
+        lonlim=[-180, 180],
+        timelim=[start.isoformat(), f"{end.isoformat()}T23:59:59Z"],
+    )
+    urls = dict()
+    # Sort so that a reprocessed granule (higher stream number, e.g. `MERRA2_401`)
+    # takes precedence over the original one for the same date.
+    for granule in sorted(granules, key=lambda x: x["granule_ur"]):
+        date = _granule_date(granule["granule_ur"])
+        if date is None or granule["url"] is None:
+            continue
+        urls[date] = granule["url"]
+    return urls
+
+
 def url_func(product_name, tile):
     """Returns a url at which to collect MERRA2 data.
 
@@ -153,59 +197,34 @@ def url_func(product_name, tile):
     str
         The url.
     """
+    date = pd.Timestamp(tile).date()
+    urls = _monthly_granule_urls(product_name, date.year, date.month)
+    if date not in urls:
+        raise ValueError(
+            f"No `{product_name}` granule found in CMR for {date.isoformat()}."
+        )
 
-    def _filter(tag):
-        tag_value = tag["href"]
-        if tag_value.endswith(".dmr.html"):
-            tag_value = tag_value[:-9]
-        elif tag_value.endswith(".html"):
-            tag_value = tag_value[:-5]
-        return tag_value
-
-    # Find the existing tiles for the given year and month, this is necessary
-    # because the version number (`\d{3}`) in the filenames is irregular.
-    regex = r"MERRA2_\d{3}\..*\.\d{8}\.nc4\.dmr\.html"
-    url = f"https://goldsmr4.gesdisc.eosdis.nasa.gov/opendap/MERRA2/{product_name}/{tile.year}/{tile.month:02d}/contents.html"
-    tile_names = find_paths(url, regex, filter=_filter)
-
-    # Find which of the existing tiles matches with the date.
-    fn_pattern = f"MERRA2_*.*.{tile.strftime('%Y%m%d')}.nc4"
-    fn = fnmatch.filter(tile_names, fn_pattern)[0]
-
-    # Create the final url.
-    url = f"https://goldsmr4.gesdisc.eosdis.nasa.gov/opendap/MERRA2/{product_name}/{tile.year}/{tile.month:02d}/{fn}.nc4?"
+    # NOTE The `.nc4?` suffix requests a (DAP2 constrained) netCDF4 subset.
+    url = f"{urls[date]}.nc4?"
     return url
 
 
 def most_recent(product_name, *args):
-    today = pd.Timestamp.today().date()
-    month_year = today + pd.offsets.MonthBegin()
-
-    def _filter(tag):
-        tag_value = tag["href"]
-        if tag_value.endswith(".dmr.html"):
-            tag_value = tag_value[:-9]
-        elif tag_value.endswith(".html"):
-            tag_value = tag_value[:-5]
-        return tag_value
-
-    regex = r"MERRA2_\d{3}\..*\.\d{8}\.nc4\.dmr\.html"
-
-    found = False
-    iter = 0
-    while not found and iter < 1000:
-        url = f"https://goldsmr4.gesdisc.eosdis.nasa.gov/opendap/MERRA2/{product_name}/{month_year.year}/{month_year.month:02d}/contents.html"
-        try:
-            tile_names = find_paths(url, regex, filter=_filter)
-        except HTTPError:
-            tile_names = []
-        if len(tile_names) == 0:
-            month_year -= pd.offsets.MonthBegin()
-        else:
-            found = True
-        iter += 1
-
-    x = datetime.datetime.strptime(sorted(tile_names)[-1].split(".")[-2], "%Y%m%d")
+    short_name, version = _short_name_version(product_name)
+    today = datetime.date.today() + datetime.timedelta(days=1)
+    granules = cmr.search_granules(
+        short_name,
+        version,
+        latlim=[-90, 90],
+        lonlim=[-180, 180],
+        timelim=["1980-01-01", today.isoformat()],
+        sort_key="-start_date",
+        max_items=1,
+    )
+    if len(granules) == 0:
+        raise ValueError(f"No `{product_name}` granules found in CMR.")
+    date = _granule_date(granules[0]["granule_ur"])
+    x = datetime.datetime(date.year, date.month, date.day)
     return x
 
 

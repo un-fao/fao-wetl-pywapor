@@ -1216,6 +1216,8 @@ class Project:
             "SRTM": "NASA",
             "MERRA2": "NASA",
             "VIIRS": "NASA",
+            "VIIRSL1": "NASA",
+            "LSASAF": "LSASAF",
             "TERRA": "TERRA",
             "ERA5": "CDS",
             "LANDSAT": "EARTHEXPLORER",

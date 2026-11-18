@@ -137,7 +137,9 @@ def is_corrupt_or_empty(fh, group = None):
                 corrupt = True
         else:
             corrupt = False
-    except OSError:
+    except (OSError, RuntimeError, ValueError):
+        # NOTE `gdal.Info` raises a RuntimeError (instead of OSError) for truncated
+        # files, e.g. left behind by an interrupted OPeNDAP download.
         corrupt = True
     else:
         ds.close()

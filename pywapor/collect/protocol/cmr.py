@@ -51,6 +51,8 @@ def search_granules(
     timelim,
     page_size=2000,
     session=None,
+    sort_key=None,
+    max_items=None,
 ):
     """Search CMR for granules and return a list of dicts.
 
@@ -71,6 +73,10 @@ def search_granules(
         [min, max] in EPSG:4326.
     timelim : list of (date | datetime | str)
         [start, end]. `str` should be ISO 8601.
+    sort_key : str, optional
+        CMR sort key, e.g. "-start_date" for newest first.
+    max_items : int, optional
+        Stop paging once this many granules have been collected.
     """
     def _iso(t):
         if isinstance(t, str):
@@ -89,8 +95,10 @@ def search_granules(
         "version": version,
         "temporal": f"{_iso(timelim[0])},{_iso(timelim[1])}",
         "bounding_box": f"{lonlim[0]},{latlim[0]},{lonlim[1]},{latlim[1]}",
-        "page_size": page_size,
+        "page_size": page_size if max_items is None else min(page_size, max_items),
     }
+    if sort_key is not None:
+        params["sort_key"] = sort_key
 
     sess = session or requests.Session()
     items_out = []
@@ -117,6 +125,8 @@ def search_granules(
                     temporal.get("EndingDateTime"),
                 ),
             })
+        if max_items is not None and len(items_out) >= max_items:
+            return items_out[:max_items]
         search_after = r.headers.get("CMR-Search-After")
         if not search_after or not data.get("items"):
             break
