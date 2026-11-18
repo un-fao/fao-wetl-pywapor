@@ -7,15 +7,13 @@ name = "pywapor"
 version = "3.7.5"
 description = "Python implementation of the WaPOR algorithm for evaporation, transpiration and biomass production maps."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = { text = "Apache-2.0" }
 authors = [
     { name = "FAO", email = "bert.coerver@fao.org" },
 ]
 classifiers = [
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
@@ -23,7 +21,7 @@ dependencies = [
     "netcdf4",
     "gdal>=3,<4.0",
     "xarray",
-    "numpy<2",
+    "numpy",
     "pandas<3",
     "requests",
     "matplotlib",

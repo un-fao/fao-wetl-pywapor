@@ -14,7 +14,7 @@ from numba import njit, jit
 
 def target_pixel_value(input_image_window, target_image_window, pixel, similarity_threshold,
                        geographic_distance, required_pixels):
-    target_pixel_value = np.empty(input_image_window.shape[2]) + np.NaN
+    target_pixel_value = np.empty(input_image_window.shape[2]) + np.nan
 
     if (np.sum(np.isfinite(input_image_window)) < required_pixels or
         np.sum(np.isfinite(target_image_window)) < required_pixels):
@@ -24,7 +24,7 @@ def target_pixel_value(input_image_window, target_image_window, pixel, similarit
     if np.isnan(target_pixel[0]):
         return target_pixel_value
     input_image_window = input_image_window.copy()
-    input_image_window[pixel[0], pixel[1], :] = np.NaN
+    input_image_window[pixel[0], pixel[1], :] = np.nan
 
     # Eq 1
     rmsd = np.sqrt(np.nanmean((input_image_window - target_pixel)**2, axis=2))
@@ -82,14 +82,14 @@ def histogram_matching(input_image_window, target_image_window, pixel):
 
     target_pixel = input_image_window[pixel[0], pixel[1], :]
     if np.isnan(target_pixel[0]):
-        return np.empty(input_image_window.shape[2]) + np.NaN
+        return np.empty(input_image_window.shape[2]) + np.nan
 
     common_pixels = np.where(np.logical_and(np.isfinite(input_image_window[:, :, 0]),
                                             np.isfinite(target_image_window[:, :, 0])))
     target_common_pixels = target_image_window[common_pixels]
     input_common_pixels = input_image_window[common_pixels]
     if target_common_pixels.size == 0:
-        return np.empty(input_image_window.shape[2]) + np.NaN
+        return np.empty(input_image_window.shape[2]) + np.nan
 
     # Eq 13
     gain = nb_std_axis_0(target_common_pixels) / nb_std_axis_0(input_common_pixels)
