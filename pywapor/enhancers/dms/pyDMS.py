@@ -309,7 +309,7 @@ class DecisionTreeSharpener(object):
                 quality_LR = gdal.Open(self.lowResQualityFiles[fileNum])
                 subsetQuality_LR = utils.reprojectSubsetLowResScene(scene_HR, quality_LR)
                 subsetQualityMask = subsetQuality_LR.GetRasterBand(1).ReadAsArray()
-                qualityPix = np.in1d(subsetQualityMask.ravel(),
+                qualityPix = np.isin(subsetQualityMask.ravel(),
                                      self.lowResGoodQualityFlags).reshape(subsetQualityMask.shape)
                 quality_LR = None
             else:
@@ -701,7 +701,7 @@ class DecisionTreeSharpener(object):
                                                                 originalSceneQuality,
                                                                 resampleAlg=gdal.GRA_NearestNeighbour)
             goodPixMask_LR = subsetQuality_LR.GetRasterBand(1).ReadAsArray()
-            goodPixMask_LR = np.in1d(goodPixMask_LR.ravel(),
+            goodPixMask_LR = np.isin(goodPixMask_LR.ravel(),
                                      self.lowResGoodQualityFlags).reshape(goodPixMask_LR.shape)
             data_LR[~goodPixMask_LR] = np.nan
         elif originalSceneQuality == True:

@@ -425,14 +425,14 @@ def determine_dtype(da, nodata, precision = None):
         info = np.iinfo
         if isinstance(precision, type(None)):
             precision = 0
-    low = np.min([nodata, np.int0(np.floor(da.min().values * 10**precision))]) > [info(x).min for x in dtypes]
-    high = np.max([nodata, np.int0(np.ceil(da.max().values * 10**precision))]) < [info(x).max for x in dtypes]
+    low = np.min([nodata, np.int64(np.floor(da.min().values * 10**precision))]) > [info(x).min for x in dtypes]
+    high = np.max([nodata, np.int64(np.ceil(da.max().values * 10**precision))]) < [info(x).max for x in dtypes]
     check = np.all([low, high], axis = 0)
     if True in check:
         dtype = dtypes[np.argmax(check)]
     else:
         dtype = dtypes[-1]
-        log.warning(f"--> Data for `{da.name}` with range [{np.int0(np.floor(da.min().values))}, {np.int0(np.ceil(da.max().values))}] doesnt fit inside dtype {dtype} with range [{np.iinfo(dtype).min}, {np.iinfo(dtype).max}] with a {precision} decimal precision.")
+        log.warning(f"--> Data for `{da.name}` with range [{np.int64(np.floor(da.min().values))}, {np.int64(np.ceil(da.max().values))}] doesnt fit inside dtype {dtype} with range [{np.iinfo(dtype).min}, {np.iinfo(dtype).max}] with a {precision} decimal precision.")
     return np.dtype(dtype).name
 
 def create_wkt(latlim, lonlim):
